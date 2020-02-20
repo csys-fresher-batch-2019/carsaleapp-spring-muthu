@@ -18,7 +18,7 @@ import com.chainsys.carsale.util.DbException;
 /**
  * Servlet implementation class ViewAllCar
  */
-@WebServlet("/ ViewAllCar")
+@WebServlet("/ViewAllCar")
 public class ViewAllCar extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     
