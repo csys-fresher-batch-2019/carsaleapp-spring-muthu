@@ -10,7 +10,6 @@ public class CarController {
 
 	@GetMapping
 	public void list() {
-		
-		
+
 	}
 }

@@ -10,7 +10,8 @@ public class CarOrder {
 	private int sellerId;
 	private String testDrive;
 	private String status;
-private int userId;
+	private int userId;
+
 	public String getCity() {
 		return city;
 	}

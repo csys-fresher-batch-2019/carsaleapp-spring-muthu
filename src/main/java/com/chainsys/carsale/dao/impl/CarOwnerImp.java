@@ -132,7 +132,7 @@ public class CarOwnerImp implements CarOwnerDAO {
 					CarOwner c = new CarOwner();
 					CarDetail cd = new CarDetail();
 					c.setownerName(rs.getString(seller_name));
-					c.setownerId(rs.getInt(seller_id));
+					c.setOwnerId(rs.getInt(seller_id));
 					cd.setCarAvailableCity(rs.getString(car_available_city));
 					cd.setCarBrand(rs.getString(car_brand));
 					cd.setCarName(rs.getString(car_name));
@@ -161,7 +161,7 @@ public class CarOwnerImp implements CarOwnerDAO {
 		CarDetail cardetail = carOwner.getCarDetail();
 		try (Connection con = ConnectionUtil.getConnection();) {
 
-			if (carOwner.getownerId() != 0) {
+			if (carOwner.getOwnerId() != 0) {
 				/*
 				 * sql = "update car_detail cd set cd.price="+cardetail.getPrice()+"where car_id
 				 * = "+cardetail.getCarId()+" and ( car_seller_id = "+carOwner.getownerId()+" or
@@ -172,7 +172,7 @@ public class CarOwnerImp implements CarOwnerDAO {
 				try (PreparedStatement ps = con.prepareStatement(sql);) {
 					ps.setFloat(1, cardetail.getPrice());
 					ps.setInt(2, cardetail.getCarId());
-					ps.setInt(3, carOwner.getownerId());
+					ps.setInt(3, carOwner.getOwnerId());
 					int rs = ps.executeUpdate();
 					System.out.println(rs + "Updated successFully");
 				}
