@@ -34,7 +34,6 @@ public class SearchByBrandServlet extends HttpServlet {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		doGet(request, response);
-	}
+		}
 
 }
