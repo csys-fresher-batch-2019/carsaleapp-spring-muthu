@@ -1,5 +1,4 @@
 language: java
-jdk: oraclejdk8
 deploy:
   provider: cloudfoundry
   username: varunkrishna9825@gmail.com
