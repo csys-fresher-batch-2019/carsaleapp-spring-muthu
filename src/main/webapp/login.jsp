@@ -355,8 +355,8 @@ align-content:center;
 </style>
 <script src="js/jquery-3.4.1.min.js"></script>
 <script>
-function validateUser(userId){
-	var check="CarOwnerValidateServlet?phoneNo="+userId;
+function validateUser(phoneNo){
+	var check="CarOwnerValidateServlet?phoneNo="+phoneNo;
 	$.getJSON(check,function(data){
 		console.log('ajax' +  data);
 	var result=parseInt(data);
