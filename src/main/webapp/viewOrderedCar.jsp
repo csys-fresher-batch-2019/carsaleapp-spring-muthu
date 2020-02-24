@@ -10,7 +10,7 @@
     <%@page import="java.util.List" %>
     <jsp:include page="header.jsp"></jsp:include>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
+<title>Buysell</title>
 </head>
 <body>
 <h2>Car Details</h2>

@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
+<title>BuySell</title>
 </head>
 <body>
 <input type="number"  name="phoneNo" maxlength="10"/>
