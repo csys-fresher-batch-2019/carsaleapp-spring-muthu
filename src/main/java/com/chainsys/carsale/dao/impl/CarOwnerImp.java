@@ -133,6 +133,7 @@ public class CarOwnerImp implements CarOwnerDAO {
 					CarDetail cd = new CarDetail();
 					c.setownerName(rs.getString(seller_name));
 					c.setOwnerId(rs.getInt(seller_id));
+					cd.setCarId(rs.getInt(car_id));
 					cd.setCarAvailableCity(rs.getString(car_available_city));
 					cd.setCarBrand(rs.getString(car_brand));
 					cd.setCarName(rs.getString(car_name));
