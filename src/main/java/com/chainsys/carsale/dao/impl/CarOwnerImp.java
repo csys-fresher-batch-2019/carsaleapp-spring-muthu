@@ -49,7 +49,7 @@ public class CarOwnerImp implements CarOwnerDAO {
 		try (Connection con = ConnectionUtil.getConnection(); PreparedStatement ps = con.prepareStatement(sqll);) {
 
 			ps.setLong(1, mobileNo);
-			ps.setLong(2,mobileNo);
+			ps.setLong(2, mobileNo);
 			try (ResultSet rs = ps.executeQuery();) {
 				if (rs.next()) {
 					exists = true;
@@ -124,8 +124,8 @@ public class CarOwnerImp implements CarOwnerDAO {
 			 * String sql="select seller_id from car_seller where
 			 * seller_contact_no="+mobileno+""; Statement st=con.createStatement();
 			 */
-			ps.setLong(1,mobileNo);
-			ps.setLong(2,mobileNo);
+			ps.setLong(1, mobileNo);
+			ps.setLong(2, mobileNo);
 
 			try (ResultSet rs = ps.executeQuery();) {
 				while (rs.next()) {
@@ -145,13 +145,12 @@ public class CarOwnerImp implements CarOwnerDAO {
 					al.add(c);
 				}
 
-			} 
-		}catch (SQLException e) {
-				log.error(e);
-				throw new DbException("unable to view Car");
 			}
+		} catch (SQLException e) {
+			log.error(e);
+			throw new DbException("unable to view Car");
+		}
 
-		
 		return al;
 	}
 

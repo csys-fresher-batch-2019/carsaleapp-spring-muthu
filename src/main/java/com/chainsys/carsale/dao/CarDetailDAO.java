@@ -18,9 +18,9 @@ public interface CarDetailDAO {
 
 	public List<CarDetail> getCarDetail(String carName, String carBrand, String fuleType) throws DbException;
 
-	//public int verifyUser(int sellerIdd, String password) throws DbException;
+	// public int verifyUser(int sellerIdd, String password) throws DbException;
 
-	//public int getSellerId(Long mobileNo, String password) throws DbException;
+	// public int getSellerId(Long mobileNo, String password) throws DbException;
 
 	public List<CarDetail> getCarDetailAbovePrice(float max) throws DbException;
 
@@ -31,8 +31,9 @@ public interface CarDetailDAO {
 	public List<CarDetail> getCarDetailAboveDrivenKm(float from, float to) throws DbException;
 
 	public List<CarDetail> getCarDetailUseFuelType(String fuelType) throws DbException;
-     public List<CarDetail> getCarDetailUseCarId(int carId) throws DbException;
-    public List<CarDetail> viewAllCar() throws DbException;
-    
-}
 
+	public List<CarDetail> getCarDetailUseCarId(int carId) throws DbException;
+
+	public List<CarDetail> viewAllCar() throws DbException;
+
+}
