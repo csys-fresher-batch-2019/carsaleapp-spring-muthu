@@ -180,7 +180,7 @@ public class CarOrderImp implements CarOrderDAO {
 					cc.setDeliveredDate(rs.getDate(delivered_date));
 					cc.setBuyerName(rs.getString(buyer_name));
 					cc.setAddress1(rs.getString(address1));
-					cc.setAddress1(rs.getString(address1));
+					cc.setAddress2(rs.getString(address2));
 					cc.setOrderId(rs.getInt(order_id));
 					cc.setBuyerState(rs.getString(buyerState));
 					cc.setCity(rs.getString(city));
