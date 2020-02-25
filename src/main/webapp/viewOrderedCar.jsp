@@ -17,7 +17,7 @@
 <title>Buysell</title>
 </head>
 <body>
-<h2>Car Details</h2>
+<h2>Buyer Details</h2>
 <%
 	Integer sellerId=(Integer)session.getAttribute("login_seller_id"); 
 CarOrderImp odi=new CarOrderImp();
