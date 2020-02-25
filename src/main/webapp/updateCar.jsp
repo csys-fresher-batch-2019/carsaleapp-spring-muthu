@@ -76,6 +76,7 @@ function priceUpdate(carId,sellerId){
 						<th>AvailableCity</th>
 						<th>CarBrand</th>
 						<th>CarName</th>
+						<th>CarId</th>
 						<th>DrivenKm</th>
 						<th>Price(Rs)</th>
 						<th>Reg Year</th>
@@ -94,6 +95,7 @@ function priceUpdate(carId,sellerId){
 					<td><%=co.getCarDetail().getCarAvailableCity()%></td>
 					<td><%=co.getCarDetail().getCarBrand()%></td>
 					<td><%=co.getCarDetail().getCarName()%></td>
+					<td><%=co.getCarDetail().getCarId()%></td>
 					<td><%=co.getCarDetail().getDrivenKm()%></td>
 					<td><input type="number" value="<%=co.getCarDetail().getPrice()%>" name="price" id="price_<%=co.getCarDetail().getCarId()%>" disabled /></td>
 					<td><%=co.getCarDetail().getRegYear()%></td>
