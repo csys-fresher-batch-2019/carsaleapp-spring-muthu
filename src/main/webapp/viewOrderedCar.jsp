@@ -9,6 +9,10 @@
     <%@page import="com.chainsys.carsale.model.CarOrder" %>
     <%@page import="java.util.List" %>
     <jsp:include page="header.jsp"></jsp:include>
+    <script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Buysell</title>
 </head>
@@ -21,7 +25,7 @@ List<CarOrder> car=(List<CarOrder>)request.getAttribute("orderedlist");
 String msg="no records";
 %>
 <% if(car!=null &&  !car.isEmpty()){ %>
-	<table>
+	<table class="table table-bordered">
 	<thead>
 	<tr>
 	<th>BuyerName</th>

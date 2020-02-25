@@ -174,7 +174,7 @@ public class CarOwnerImp implements CarOwnerDAO {
 					ps.setInt(2, cardetail.getCarId());
 					ps.setInt(3, carOwner.getOwnerId());
 					int rs = ps.executeUpdate();
-					System.out.println(rs + "Updated successFully");
+					log.info(rs + "Updated successFully");
 				}
 			} else if (carOwner.getContactNo() != 0) {
 				sql = "update car_detail cd set cd.price=? where car_id =? and car_seller_id in ( select seller_id from car_seller where seller_contact_no =?)";
@@ -183,10 +183,10 @@ public class CarOwnerImp implements CarOwnerDAO {
 					ps.setInt(2, cardetail.getCarId());
 					ps.setLong(3, carOwner.getContactNo());
 					int rs = ps.executeUpdate();
-					System.out.println(rs + "Updated successFully");
+					log.info(rs + "Updated successFully");
 				}
 			} else {
-				System.out.println("Failed to Upadate");
+				log.info("Failed to Upadate");
 			}
 		} catch (SQLException e) {
 			log.error(e);
