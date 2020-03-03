@@ -103,7 +103,6 @@ function priceUpdate(carId,sellerId){
 					<td><%=co.getCarDetail().getVehicleIdNo()%></td>
 					<td><button id="bidd" value="yes" onclick="enableTxt(<%=co.getCarDetail().getCarId()%>)" class="btn btn-danger">edit</button></td>
 					<td><button id="bid" value="yes" onclick="priceUpdate(<%=co.getCarDetail().getCarId()%>,<%=co.getOwnerId()%>)" class="btn btn-danger">update</button></td>
-					<!-- <td><a href="UpdateCarPrice?price=" class="btn btn-danger">update</a></td></tr>-->
 					
 				<%
 					}

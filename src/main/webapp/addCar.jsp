@@ -18,6 +18,10 @@ color: black;
   color: #ed6c0d;
   cursor: pointer !important;
 }
+.right
+{
+float:right
+}
 </style>
 <body>
 
@@ -102,7 +106,7 @@ function validateCarNo(regNo)
 <tr><td>Price</td><td>: <input type="number" name="price" id="price"placeholder="Ex:100000"  min=300000 pattern="^[0-9]" title="Give valid price"required/></td></tr>
 <tr><td>Are You owner</td><td><input type="radio" name="isowner" value=1 required>Yes<input type="radio" name="isowner"value=0>No<br></td></tr>
 <tr><td>Car Image Source</td><td>: <input type="text" name="image" placeholder="image.jpg"/></td></tr> 
-<tr><td></td><td align="right"><button type="submit" onclick="myfunction()" class="btn btn-default login-buton btn-disabled">add</button></td></tr>
+<tr><td></td><td class="right"><button type="submit" onclick="myfunction()" class="btn btn-default login-buton btn-disabled">add</button></td></tr>
 </tbody>
 </table>
 </Form>

@@ -352,6 +352,10 @@ align-content:center;
         }
     }
     #text {display:none;color:red}
+.center
+{
+float:center
+}
 </style>
 <script src="js/jquery-3.4.1.min.js"></script>
 <script>
@@ -393,7 +397,7 @@ function capsOn(){
 
 </script>
 <body>
-<div class="login" align="center">
+<div class="login center">
 <div class="modal-dialog login-pop">
 <div class="modal-content">
 <div class="modal-login">
