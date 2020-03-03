@@ -60,7 +60,7 @@ public class TestCarDetails {
 					if(exists==false)
 					{
 						log.getInput("Enter the seller name");
-					coo.setownerName(sc.next());
+					coo.setOwnerName(sc.next());
 					log.getInput("Enter the password");
 					coo.setPassword(sc.next());
 					log.getInput("Enter the Street name");
@@ -270,7 +270,7 @@ public class TestCarDetails {
 			for(CarDetail ss:al)
 			{
 				//log.getInput(ss.toString());
-				log.info(ss.getCarOwner().getownerName()+"  "+ss.getCarOwner().getContactNo()+"  "+ss.getCarBrand()+"   "+ss.getCarName()+"  "+ss.getCarId()+"   "+ss.getDrivenKm()+"   "+ss.getFuelType()+"   "+ss.getRegState()+""+ss.getRegYear()+"  "+ss.getTrType()+"  "+ss.getStatus()+"  "+ss.getRegistrationNo());
+				log.info(ss.getCarOwner().getOwnerName()+"  "+ss.getCarOwner().getContactNo()+"  "+ss.getCarBrand()+"   "+ss.getCarName()+"  "+ss.getCarId()+"   "+ss.getDrivenKm()+"   "+ss.getFuelType()+"   "+ss.getRegState()+""+ss.getRegYear()+"  "+ss.getTrType()+"  "+ss.getStatus()+"  "+ss.getRegistrationNo());
 			}
 		break;
 		}
@@ -281,7 +281,7 @@ public class TestCarDetails {
 			List<CarDetail>al=co.getCarDetail(cd.getCarBrand());
 			for(CarDetail cdl:al)
 			{
-			log.info(cdl.getCarId()+" "+cdl.getCarName()+"   "+cdl.getCarBrand()+"   "+cdl.getTrType()+"    "+cdl.getFuelType()+"   "+cdl.getRegState()+"   "+cdl.getRegYear()+"   "+cdl.getDrivenKm()+"   "+cdl.getPrice()+"    "+cdl.getStatus()+"   "+cdl.getRegistrationNo()+"    "+cdl.getCarOwner().getownerName()+"   "+cdl.getImageSrc());
+			log.info(cdl.getCarId()+" "+cdl.getCarName()+"   "+cdl.getCarBrand()+"   "+cdl.getTrType()+"    "+cdl.getFuelType()+"   "+cdl.getRegState()+"   "+cdl.getRegYear()+"   "+cdl.getDrivenKm()+"   "+cdl.getPrice()+"    "+cdl.getStatus()+"   "+cdl.getRegistrationNo()+"    "+cdl.getCarOwner().getOwnerName()+"   "+cdl.getImageSrc());
 			}	
 		break;
 		}
@@ -384,7 +384,7 @@ public class TestCarDetails {
 			List<CarDetail>al=co.getCarDetailUseCarId(cd.getCarId());
 			for(CarDetail cdl:al)
 			{
-			log.info(cdl.getCarOwnerId()+"   "+cdl.getCarId()+" "+cdl.getCarName()+"   "+cdl.getCarBrand()+"   "+cdl.getTrType()+"    "+cdl.getFuelType()+"   "+cdl.getRegState()+"   "+cdl.getRegYear()+"   "+cdl.getDrivenKm()+"   "+cdl.getPrice()+"    "+cdl.getStatus()+"   "+cdl.getRegistrationNo()+"    "+cdl.getCarOwner().getownerName()+"   "+cdl.getImageSrc()+"   "+cdl.getCarOwner().getContactNo());
+			log.info(cdl.getCarOwnerId()+"   "+cdl.getCarId()+" "+cdl.getCarName()+"   "+cdl.getCarBrand()+"   "+cdl.getTrType()+"    "+cdl.getFuelType()+"   "+cdl.getRegState()+"   "+cdl.getRegYear()+"   "+cdl.getDrivenKm()+"   "+cdl.getPrice()+"    "+cdl.getStatus()+"   "+cdl.getRegistrationNo()+"    "+cdl.getCarOwner().getOwnerName()+"   "+cdl.getImageSrc()+"   "+cdl.getCarOwner().getContactNo());
 			}
 			break;
 		}

@@ -14,27 +14,27 @@ import com.chainsys.carsale.util.DbException;
 public class RegisterServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    		 CarOwner coo=new CarOwner();
+    		 CarOwner cor=new CarOwner();
     		long phNo=Long.parseLong(request.getParameter("contactNo"));
-    		coo.setContactNo(phNo);
+    		cor.setContactNo(phNo);
     		String sname=request.getParameter("sname");
-    		coo.setownerName(sname);
+    		cor.setOwnerName(sname);
     		String  streetName=request.getParameter("address1");
-    		coo.setAddress1(streetName);
+    		cor.setAddress1(streetName);
     		String  doorName=request.getParameter("doorno");
-    		coo.setAddress2(doorName);
+    		cor.setAddress2(doorName);
     		String  city=request.getParameter("city");
-    		coo.setCity(city);
+    		cor.setCity(city);
             String state=request.getParameter("state");
-            coo.setState(state);
+            cor.setState(state);
             int pincode=Integer.parseInt(request.getParameter("pincode"));
-    		coo.setPincode(pincode);
+    		cor.setPincode(pincode);
             String pass=request.getParameter("npass");
-    	   coo.setPassword(pass);
+    	   cor.setPassword(pass);
            	
 				CarOwnerImp coii=new CarOwnerImp();
 				try {
-				   coii.addCarOwner(coo);
+				   coii.addCarOwner(cor);
 					RequestDispatcher  dispatcher=request.getRequestDispatcher("login.jsp");
 					dispatcher.forward(request, response);
 			

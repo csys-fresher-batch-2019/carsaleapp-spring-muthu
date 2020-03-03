@@ -36,7 +36,7 @@ public class TestCarOwner {
 				long mobileno = sc.nextLong();
 				List<CarOwner> al = obj.viewYourCar(mobileno);
 				for (CarOwner co : al) {
-					log.info(co.getownerName() + "   " + co.getCarDetail().getCarBrand() + "    "
+					log.info(co.getOwnerName() + "   " + co.getCarDetail().getCarBrand() + "    "
 							+ co.getCarDetail().getCarName() + "   " + co.getOwnerId() + "   "
 							+ co.getCarDetail().getRegYear() + "   " + co.getCarDetail().getVehicleIdNo() + "   "
 							+ co.getCarDetail().getRegistrationNo() + "  " + co.getCarDetail().getDrivenKm() + " "
