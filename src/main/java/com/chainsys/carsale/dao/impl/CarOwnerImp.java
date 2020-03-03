@@ -68,7 +68,7 @@ public class CarOwnerImp implements CarOwnerDAO {
 
 		try (Connection con = ConnectionUtil.getConnection(); PreparedStatement pst = con.prepareStatement(sql);) {
 
-			pst.setString(1, carOwner.getownerName());
+			pst.setString(1, carOwner.getOwnerName());
 			pst.setLong(2, carOwner.getContactNo());
 			pst.setString(3, carOwner.getPassword());
 			pst.setString(4, carOwner.getAddress1());
@@ -131,7 +131,7 @@ public class CarOwnerImp implements CarOwnerDAO {
 				while (rs.next()) {
 					CarOwner c = new CarOwner();
 					CarDetail cd = new CarDetail();
-					c.setownerName(rs.getString(seller_name));
+					c.setOwnerName(rs.getString(seller_name));
 					c.setOwnerId(rs.getInt(seller_id));
 					cd.setCarId(rs.getInt(car_id));
 					cd.setCarAvailableCity(rs.getString(car_available_city));

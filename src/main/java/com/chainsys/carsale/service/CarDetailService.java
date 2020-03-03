@@ -3,11 +3,13 @@ package com.chainsys.carsale.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
 import com.chainsys.carsale.dao.CarDetailDAO;
 import com.chainsys.carsale.dao.impl.CarDetailImp;
 import com.chainsys.carsale.model.CarDetail;
 import com.chainsys.carsale.util.DbException;
-
+@Service
 public class CarDetailService {
 
 	private CarDetailDAO carDetailDAO = new CarDetailImp();

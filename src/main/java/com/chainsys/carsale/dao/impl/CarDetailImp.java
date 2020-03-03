@@ -173,8 +173,10 @@ public class CarDetailImp implements CarDetailDAO {
 					c.setStatus(rs.getString(statuss));
 					c.setRegistrationNo(rs.getString(registration_no));
 					c.setImageSrc(rs.getString(image));
+					
 					CarOwner carowner = new CarOwner();
-					carowner.setownerName(rs.getString(seller_name));
+					carowner.setOwnerName(rs.getString(seller_name));
+					//set car owner detail in car detail
 					c.setCarOwner(carowner);
 					ar.add(c);
 				}
@@ -253,7 +255,7 @@ public class CarDetailImp implements CarDetailDAO {
 					cd.setPrice(rss.getInt(price));
 
 					CarOwner carowner = new CarOwner();
-					carowner.setownerName(rss.getString(seller_name));
+					carowner.setOwnerName(rss.getString(seller_name));
 					carowner.setOwnerId(rss.getInt(seller_id));// instread of carowner.ownerid =
 
 					carowner.setContactNo(rss.getLong(seller_contact_no));
@@ -297,7 +299,7 @@ public class CarDetailImp implements CarDetailDAO {
 					c.setCarId(rs.getInt(car_id));
 					c.setCarAvailableCity(rs.getString(car_available_city));
 					c.setRegistrationNo(rs.getString(registration_no));
-					co.setownerName(rs.getString(seller_name));
+					co.setOwnerName(rs.getString(seller_name));
 					co.setContactNo(rs.getLong(seller_contact_no));
 					co.setOwnerId(rs.getInt(seller_id));
 					c.setCarOwner(co);
@@ -491,8 +493,8 @@ public class CarDetailImp implements CarDetailDAO {
 					c.setRegistrationNo(rs.getString(registration_no));
 					c.setImageSrc(rs.getString(image));
 					CarOwner carowner = new CarOwner();
-					carowner.setownerName(rs.getString(seller_name));
-					carowner.setContactNo(rs.getLong("seller_contact_no"));
+					carowner.setOwnerName(rs.getString(seller_name));
+					carowner.setContactNo(rs.getLong(seller_contact_no));
 					c.setCarOwner(carowner);
 					ar.add(c);
 				}

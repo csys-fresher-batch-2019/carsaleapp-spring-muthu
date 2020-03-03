@@ -99,12 +99,5 @@ public class CarOwner {
 		this.password = password;
 	}
 
-	public void setownerName(String ownerName) {
-		this.ownerName = ownerName;
-	}
-
-	public String getownerName() {
-		return ownerName;
-	}
-
+	
 }
