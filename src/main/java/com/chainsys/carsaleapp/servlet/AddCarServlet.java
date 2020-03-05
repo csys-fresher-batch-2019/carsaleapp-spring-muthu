@@ -1,4 +1,4 @@
-package com.chainsys.carsale.servlet;
+package com.chainsys.carsaleapp.servlet;
 import java.io.IOException;
 import java.io.PrintWriter;
 
@@ -10,19 +10,22 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.chainsys.carsale.dao.impl.CarDetailImp;
-import com.chainsys.carsale.model.CarDetail;
-import com.chainsys.carsale.util.DbException;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.chainsys.carsaleapp.dao.impl.CarDetailImp;
+import com.chainsys.carsaleapp.model.CarDetail;
+import com.chainsys.carsaleapp.service.CarDetailService;
+import com.chainsys.carsaleapp.util.DbException;
 @WebServlet("/AddCarServlet")
 public class AddCarServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	
+	@Autowired
+	CarDetailService cdi;
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		 PrintWriter out=response.getWriter();
 		HttpSession session = request.getSession();
 		int sellerId = (Integer) session.getAttribute("login_seller_id");
-		CarDetailImp ci = new CarDetailImp();
 		CarDetail carDetail = new CarDetail();
 		int price = Integer.parseInt(request.getParameter("price"));
 		carDetail.setPrice(price);
@@ -52,12 +55,12 @@ public class AddCarServlet extends HttpServlet {
 		carDetail.setCarOwnerId(sellerId);
         carDetail.setImageSrc(imageSrc);		
 			try {
-				ci.addCarDetail(carDetail);
+				cdi.addCarDetail(carDetail);
 				System.out.println("Add success");
 				RequestDispatcher dispatcher=request.getRequestDispatcher("LoginIndex.jsp");
 				dispatcher.forward(request, response);
 				
-			  } catch (DbException e) {
+			  } catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 				RequestDispatcher dispatcher=request.getRequestDispatcher("addCar.jsp");
