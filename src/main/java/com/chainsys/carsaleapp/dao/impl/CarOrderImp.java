@@ -1,4 +1,4 @@
-package com.chainsys.carsale.dao.impl;
+package com.chainsys.carsaleapp.dao.impl;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -8,12 +8,16 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.chainsys.carsale.dao.CarOrderDAO;
-import com.chainsys.carsale.logger.Logger;
-import com.chainsys.carsale.model.CarOrder;
-import com.chainsys.carsale.util.ConnectionUtil;
-import com.chainsys.carsale.util.DbException;
+import javax.sql.DataSource;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+
+import com.chainsys.carsaleapp.dao.CarOrderDAO;
+import com.chainsys.carsaleapp.logger.Logger;
+import com.chainsys.carsaleapp.model.CarOrder;
+import com.chainsys.carsaleapp.util.DbException;
+@Repository
 public class CarOrderImp implements CarOrderDAO {
 	private static final Logger log = Logger.getInstance();
 	static final String seller_id = "seller_id";
@@ -31,11 +35,12 @@ public class CarOrderImp implements CarOrderDAO {
 	private static final String orderDate = "ordered_date";
 	private static final String testDrive = "test_drive";
 	private static final String statuss = "status";
-
+@Autowired
+private DataSource dataSource;
 	public void orderCar(CarOrder carOrder) throws DbException {
 		String check = " select car_id  from car_detail where car_id = ?";
 
-		try (Connection con = ConnectionUtil.getConnection(); PreparedStatement ps = con.prepareStatement(check);) {
+		try (Connection con = dataSource.getConnection(); PreparedStatement ps = con.prepareStatement(check);) {
 
 			ps.setInt(1, carOrder.getCarId());
 			try (ResultSet rs = ps.executeQuery();) {
@@ -85,7 +90,7 @@ public class CarOrderImp implements CarOrderDAO {
 		List<CarOrder> lt = new ArrayList<CarOrder>();
 		String sql = "select buyer_name ,order_id,car_id,delivered_date from car_order where order_id=?";
 
-		try (Connection con = ConnectionUtil.getConnection(); PreparedStatement pst = con.prepareStatement(sql);) {
+		try (Connection con = dataSource.getConnection(); PreparedStatement pst = con.prepareStatement(sql);) {
 			pst.setInt(1, orderId);
 			try (ResultSet rs = pst.executeQuery();) {
 
@@ -112,7 +117,7 @@ public class CarOrderImp implements CarOrderDAO {
 		String sql = "select c.car_name ,d.delivered_date,d.buyer_name from car_order d,car_detail c where order_id=?  and c.car_id=d.car_id ";
 
 		List<CarOrder> ts = new ArrayList<CarOrder>();
-		try (Connection con = ConnectionUtil.getConnection(); PreparedStatement pst = con.prepareStatement(sql);) {
+		try (Connection con = dataSource.getConnection(); PreparedStatement pst = con.prepareStatement(sql);) {
 			// LocalDate ld=LocalDate.parse(deliver);
 			// Date da=Date.valueOf(ld);
 			// pst.setDate(1,da);
@@ -145,7 +150,7 @@ public class CarOrderImp implements CarOrderDAO {
 	public List<CarOrder> getOrderedCar(int userId) throws DbException {
 		String sql = "select * from car_order where user_id=?";
 		List<CarOrder> ts = new ArrayList<CarOrder>();
-		try (Connection con = ConnectionUtil.getConnection(); PreparedStatement pst = con.prepareStatement(sql);) {
+		try (Connection con = dataSource.getConnection(); PreparedStatement pst = con.prepareStatement(sql);) {
 			pst.setInt(1, userId);
 			try (ResultSet rs = pst.executeQuery();) {
 				while (rs.next()) {
@@ -171,7 +176,7 @@ public class CarOrderImp implements CarOrderDAO {
 	public List<CarOrder> getOrderedUserCar(int sellerId) throws DbException {
 		String sql = "select * from car_order where seller_id=?";
 		List<CarOrder> ts = new ArrayList<CarOrder>();
-		try (Connection con = ConnectionUtil.getConnection(); PreparedStatement pst = con.prepareStatement(sql);) {
+		try (Connection con = dataSource.getConnection(); PreparedStatement pst = con.prepareStatement(sql);) {
 			pst.setInt(1, sellerId);
 			try (ResultSet rs = pst.executeQuery();) {
 				while (rs.next()) {
@@ -206,7 +211,7 @@ public class CarOrderImp implements CarOrderDAO {
 	/*
 	 * public void updateCarStatus(int carId) throws DbException { // TODO
 	 * Auto-generated method stub CarDetail c=new CarDetail(); Connection
-	 * con=ConnectionUtil.getConnection(); String
+	 * con=dataSource.getConnection(); String
 	 * sql="update car_detail  set status='not available' where car_id=(select car_id from car_order where car_order.car_id=cardetail.?"
 	 * ; PreparedStatement pst=con.prepareStatement(sql); pst.setInt(1,c.carId); int
 	 * row=pst.executeUpdate(); System.out.println(row); }

@@ -1,4 +1,4 @@
-package com.chainsys.carsale.model;
+package com.chainsys.carsaleapp.model;
 
 import java.sql.Date;
 

@@ -3,7 +3,7 @@
      <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
     
     <%@page import="java.util.List" %>
-     <%@page import="com.chainsys.carsale.model.CarDetail" %>
+     <%@page import="com.chainsys.carsaleapp.model.CarDetail" %>
      <jsp:include page="header.jsp"></jsp:include>
 <!DOCTYPE html>
 <html>

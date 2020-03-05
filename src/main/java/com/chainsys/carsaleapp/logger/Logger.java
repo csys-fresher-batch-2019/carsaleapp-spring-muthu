@@ -1,4 +1,4 @@
-package com.chainsys.carsale.logger;
+package com.chainsys.carsaleapp.logger;
 
 public class Logger {
 	public static Logger getInstance() {

@@ -1,11 +1,11 @@
-package com.chainsys.carsale.dao;
+package com.chainsys.carsaleapp.dao;
 
 import java.util.List;
 
 import org.springframework.stereotype.Repository;
 
-import com.chainsys.carsale.model.CarOrder;
-import com.chainsys.carsale.util.DbException;
+import com.chainsys.carsaleapp.model.CarOrder;
+import com.chainsys.carsaleapp.util.DbException;
 @Repository
 public interface CarOrderDAO {
 	public void orderCar(CarOrder carOrder) throws DbException;
@@ -17,4 +17,6 @@ public interface CarOrderDAO {
 	public void updateCarStatus(int carId) throws DbException;
 
 	public List<CarOrder> getOrderedCar(int userId) throws DbException;
+	public List<CarOrder> getOrderedUserCar(int sellerId) throws DbException ;
+		
 }

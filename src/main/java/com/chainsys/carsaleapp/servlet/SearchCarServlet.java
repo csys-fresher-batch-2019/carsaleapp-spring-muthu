@@ -1,4 +1,4 @@
-package com.chainsys.carsale.servlet;
+package com.chainsys.carsaleapp.servlet;
 
 import java.io.IOException;
 import java.util.List;
@@ -10,9 +10,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.chainsys.carsale.dao.impl.CarDetailImp;
-import com.chainsys.carsale.model.CarDetail;
-import com.chainsys.carsale.util.DbException;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.chainsys.carsaleapp.dao.impl.CarDetailImp;
+import com.chainsys.carsaleapp.model.CarDetail;
+import com.chainsys.carsaleapp.service.CarDetailService;
+import com.chainsys.carsaleapp.util.DbException;
 
 /**
  * Servlet implementation class SearchCarServlet
@@ -20,7 +23,8 @@ import com.chainsys.carsale.util.DbException;
 @WebServlet("/SearchCarServlet")
 public class SearchCarServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-    
+   @Autowired
+   CarDetailService cao;
    	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
  String carId=request.getParameter("carId");
@@ -29,7 +33,7 @@ public class SearchCarServlet extends HttpServlet {
     
     CarDetail cd=new CarDetail();
         cd.setCarId(car);
-        CarDetailImp cao=new CarDetailImp();
+        
        try {
 		List<CarDetail> lcd=cao.getCarDetailUseCarId(car);
 		System.out.println(lcd.size());
@@ -37,7 +41,7 @@ public class SearchCarServlet extends HttpServlet {
 		 RequestDispatcher dispatcher=request.getRequestDispatcher("viewFullDetail.jsp");
 			dispatcher.forward(request, response);
 		    
-	} catch (DbException e) {
+	} catch (Exception e) {
 		// TODO Auto-generated catch block
 		e.printStackTrace();
 	}

@@ -1,4 +1,4 @@
-package com.chainsys.carsale.servlet;
+package com.chainsys.carsaleapp.servlet;
 
 import java.io.IOException;
 import java.util.List;
@@ -10,13 +10,17 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.chainsys.carsale.dao.impl.CarDetailImp;
-import com.chainsys.carsale.model.CarDetail;
-import com.chainsys.carsale.util.DbException;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.chainsys.carsaleapp.dao.impl.CarDetailImp;
+import com.chainsys.carsaleapp.model.CarDetail;
+import com.chainsys.carsaleapp.service.CarDetailService;
+import com.chainsys.carsaleapp.util.DbException;
 @WebServlet("/SearchByCarPriceServlet")
 public class SearchByCarPriceServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-   
+   @Autowired
+   CarDetailService co;
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     String price=request.getParameter("price");
     //String price=(String) request.getAttribut("price");
@@ -24,7 +28,7 @@ public class SearchByCarPriceServlet extends HttpServlet {
     float pric=Float.parseFloat(price);
     CarDetail cd=new CarDetail();
     cd.setPrice((int)pric);
-    CarDetailImp co=new CarDetailImp();
+    
     if(pric <=490000)
     	    {
     	try {
@@ -33,26 +37,28 @@ public class SearchByCarPriceServlet extends HttpServlet {
 			System.out.println(price);
 			RequestDispatcher dispatcher=request.getRequestDispatcher("SearchByPrice.jsp");
 			dispatcher.forward(request, response);
-		} catch (DbException e) {
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
     }
     else
     {
-    	try {
-			List<CarDetail> ar=co.getCarDetailAbovePrice(pric);
-			request.setAttribute("carList",ar);
-			RequestDispatcher dispatcher=request.getRequestDispatcher("SearchByPrice.jsp");
-			dispatcher.forward(request, response);
-			System.out.println(price);
-		} catch (DbException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+    	
+			List<CarDetail> ar;
+			try {
+				ar = co.getCarDetailAbovePrice(pric);
+				request.setAttribute("carList",ar);
+				RequestDispatcher dispatcher=request.getRequestDispatcher("SearchByPrice.jsp");
+				dispatcher.forward(request, response);
+				System.out.println(price);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		
     }
 	}
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	}
-
+	
 }

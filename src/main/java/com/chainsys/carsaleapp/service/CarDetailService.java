@@ -1,18 +1,19 @@
-package com.chainsys.carsale.service;
+package com.chainsys.carsaleapp.service;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.chainsys.carsale.dao.CarDetailDAO;
-import com.chainsys.carsale.dao.impl.CarDetailImp;
-import com.chainsys.carsale.model.CarDetail;
-import com.chainsys.carsale.util.DbException;
+import com.chainsys.carsaleapp.dao.CarDetailDAO;
+import com.chainsys.carsaleapp.dao.impl.CarDetailImp;
+import com.chainsys.carsaleapp.model.CarDetail;
+import com.chainsys.carsaleapp.util.DbException;
 @Service
 public class CarDetailService {
-
-	private CarDetailDAO carDetailDAO = new CarDetailImp();
+@Autowired
+CarDetailDAO carDetailDAO;
 
 	public void addCarDetail(CarDetail carDetail) throws ServiceException {
 		try {
@@ -138,5 +139,35 @@ public class CarDetailService {
 		}
 		return ls;
 	}
+	public int getSellerId(Long mobileNo, String password) throws ServiceException
+	{
+		int id;
+		try
+		{
+			id=carDetailDAO.getSellerId(mobileNo, password);
+		}catch (DbException e) {
+			e.printStackTrace();
+			throw new ServiceException(e);
+		}
+		return id;
+		
+	}
+	public boolean isCarAlreadyRegistered(String regNo) throws ServiceException {
+		
+			boolean exists=false;
+	
+			
+			try
+			{
+				exists=carDetailDAO.isCarAlreadyRegistered(regNo);
+			}catch (Exception e) {
+				e.printStackTrace();
+				throw new ServiceException(e);
+			}
+			return exists;
+		}
+	}
 
-}
+
+
+

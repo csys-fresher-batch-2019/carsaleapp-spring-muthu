@@ -1,10 +1,12 @@
-package com.chainsys.carsale.util;
+package com.chainsys.carsaleapp.util;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.TimeZone;
 
+import org.springframework.stereotype.Component;
+@Component
 public class ConnectionUtil {
 
 	public static Connection getConnection() {
@@ -12,12 +14,12 @@ public class ConnectionUtil {
 		try {
 			TimeZone timeZone = TimeZone.getTimeZone("Asia/Kolkata");
 			TimeZone.setDefault(timeZone);
-			String server = "13.235.147.120";
-			String userName = "muthu";
-			String pass = "muthu";
+			String server = "192.168.56.217";
+			String userName = "kannan";
+			String pass= "muthu";
 			Class.forName("oracle.jdbc.driver.OracleDriver");
 			String url = "jdbc:oracle:thin:@" + server + ":1521:XE";
-			connection = DriverManager.getConnection(url, userName, pass);
+			connection = DriverManager.getConnection(url,userName,pass);
 			System.out.println(connection);
 		} catch (ClassNotFoundException e) {
 			throw new RuntimeException("Driver class not found");

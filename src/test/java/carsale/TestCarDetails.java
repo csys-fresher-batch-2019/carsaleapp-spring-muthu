@@ -4,11 +4,11 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Scanner;
 
-import com.chainsys.carsale.dao.impl.CarDetailImp;
-import com.chainsys.carsale.dao.impl.CarOwnerImp;
-import com.chainsys.carsale.logger.Logger;
-import com.chainsys.carsale.model.CarDetail;
-import com.chainsys.carsale.model.CarOwner;
+import com.chainsys.carsaleapp.dao.impl.CarDetailImp;
+import com.chainsys.carsaleapp.dao.impl.CarOwnerImp;
+import com.chainsys.carsaleapp.logger.Logger;
+import com.chainsys.carsaleapp.model.CarDetail;
+import com.chainsys.carsaleapp.model.CarOwner;
 
 public class TestCarDetails {
 	private static final Logger log = Logger.getInstance();

@@ -1,12 +1,12 @@
-package com.chainsys.carsale.dao;
+package com.chainsys.carsaleapp.dao;
 
 import java.util.List;
 
 import org.springframework.stereotype.Repository;
 
-import com.chainsys.carsale.model.CarOrder;
-import com.chainsys.carsale.model.CarOwner;
-import com.chainsys.carsale.util.DbException;
+import com.chainsys.carsaleapp.model.CarOrder;
+import com.chainsys.carsaleapp.model.CarOwner;
+import com.chainsys.carsaleapp.util.DbException;
 @Repository
 public interface CarOwnerDAO {
 	void addCarOwner(CarOwner carOwner) throws DbException;

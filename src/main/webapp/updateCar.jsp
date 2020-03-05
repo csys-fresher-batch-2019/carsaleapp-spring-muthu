@@ -2,8 +2,8 @@
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-<%@page import="com.chainsys.carsale.dao.impl.CarOwnerImp"%>
-<%@page import="com.chainsys.carsale.model.CarOwner"%>
+<%@page import="com.chainsys.carsaleapp.dao.impl.CarOwnerImp"%>
+<%@page import="com.chainsys.carsaleapp.model.CarOwner"%>
 <%@page import="java.util.List"%>
 <jsp:include page="header.jsp"></jsp:include>
 
@@ -58,8 +58,8 @@ function priceUpdate(carId,sellerId){
 
 		<%
 			Integer sellerId = (Integer) session.getAttribute("login_seller_id");
-			CarOwnerImp odi = new CarOwnerImp();
-			List<CarOwner> car = (List<CarOwner>) request.getAttribute("totalCar");
+			
+			List<CarOwner> car = (List<CarOwner>)request.getAttribute("totalCar");
 			String msg = "no records";
 			
 		%>

@@ -1,4 +1,4 @@
-package com.chainsys.carsale.dao.impl;
+package com.chainsys.carsaleapp.dao.impl;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -7,14 +7,19 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.chainsys.carsale.dao.CarOwnerDAO;
-import com.chainsys.carsale.logger.Logger;
-import com.chainsys.carsale.model.CarDetail;
-import com.chainsys.carsale.model.CarOrder;
-import com.chainsys.carsale.model.CarOwner;
-import com.chainsys.carsale.util.ConnectionUtil;
-import com.chainsys.carsale.util.DbException;
+import javax.sql.DataSource;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Repository;
+
+import com.chainsys.carsaleapp.dao.CarOwnerDAO;
+import com.chainsys.carsaleapp.logger.Logger;
+import com.chainsys.carsaleapp.model.CarDetail;
+import com.chainsys.carsaleapp.model.CarOrder;
+import com.chainsys.carsaleapp.model.CarOwner;
+import com.chainsys.carsaleapp.util.DbException;
+@Repository
 public class CarOwnerImp implements CarOwnerDAO {
 	private static final Logger log = Logger.getInstance();
 	private static final String seller_id = "seller_id";
@@ -39,14 +44,17 @@ public class CarOwnerImp implements CarOwnerDAO {
 	private static final String order_id = "order_id";
 	private static final String buyer_name = "buyer_name";
 	private static final String buyer_state = "buyer_state";
-
+@Autowired
+DataSource dataSource;
+@Autowired
+JdbcTemplate jdbcTemplate;
 	public boolean isCarOwnerAlreadyRegistered(Long mobileNo) throws DbException {
 		boolean exists = false;
 		// Connection con=null;
 		String sqll = "select * from car_seller where seller_contact_no=? or seller_id=?";
-
+        
 		// Statement st=null;
-		try (Connection con = ConnectionUtil.getConnection(); PreparedStatement ps = con.prepareStatement(sqll);) {
+		try (Connection con = dataSource.getConnection(); PreparedStatement ps = con.prepareStatement(sqll);) {
 
 			ps.setLong(1, mobileNo);
 			ps.setLong(2, mobileNo);
@@ -65,8 +73,10 @@ public class CarOwnerImp implements CarOwnerDAO {
 		// Connection con=null;
 		// PreparedStatement pst=null;
 		String sql = "insert into car_seller(seller_id,seller_name,seller_contact_no,user_password,address1,address2,city,seller_state,pincode)values(seller_id_sq.nextval,?,?,?,?,?,?,?,?)";
-
-		try (Connection con = ConnectionUtil.getConnection(); PreparedStatement pst = con.prepareStatement(sql);) {
+		 Object [] params= {carOwner.getOwnerName(),carOwner.getContactNo(),carOwner.getPassword(),carOwner.getAddress1(),carOwner.getAddress2(),carOwner.getCity(),carOwner.getState(),carOwner.getPincode()};
+         int rows = jdbcTemplate.update(sql, params);
+         System.out.println(rows+""+sql);
+		/*try (Connection con = dataSource.getConnection(); PreparedStatement pst = con.prepareStatement(sql);) {
 
 			pst.setString(1, carOwner.getOwnerName());
 			pst.setLong(2, carOwner.getContactNo());
@@ -82,7 +92,7 @@ public class CarOwnerImp implements CarOwnerDAO {
 			System.out.println(sql);
 		} catch (SQLException e) {
 			log.error(e);
-		}
+		}*/
 
 	}
 
@@ -93,7 +103,7 @@ public class CarOwnerImp implements CarOwnerDAO {
 		// PreparedStatement pst=null;
 		String sqll = "select seller_id from car_seller where seller_id=?";
 
-		try (Connection con = ConnectionUtil.getConnection(); PreparedStatement ps = con.prepareStatement(sqll);) {
+		try (Connection con = dataSource.getConnection(); PreparedStatement ps = con.prepareStatement(sqll);) {
 			ps.setInt(1, carOwnerId);
 			try (ResultSet rs = ps.executeQuery();) {
 				if (rs.next()) {
@@ -117,7 +127,7 @@ public class CarOwnerImp implements CarOwnerDAO {
 		// Connection con=null;
 		// PreparedStatement ps=null;
 		String sql = "select * from car_seller s,car_detail c where (s.seller_contact_no=? or s.seller_Id=?) and s.seller_id=c.car_seller_id";
-		try (Connection con = ConnectionUtil.getConnection(); PreparedStatement ps = con.prepareStatement(sql);)
+		try (Connection con = dataSource.getConnection(); PreparedStatement ps = con.prepareStatement(sql);)
 
 		{
 			/*
@@ -159,7 +169,7 @@ public class CarOwnerImp implements CarOwnerDAO {
 
 		String sql = null;
 		CarDetail cardetail = carOwner.getCarDetail();
-		try (Connection con = ConnectionUtil.getConnection();) {
+		try (Connection con = dataSource.getConnection();) {
 
 			if (carOwner.getOwnerId() != 0) {
 				/*
@@ -201,7 +211,7 @@ public class CarOwnerImp implements CarOwnerDAO {
 		List<CarOrder> ar = new ArrayList<CarOrder>();
 		String sql = "select * from car_order where seller_id=(select seller_id from car_seller where seller_contact_no=?)";
 
-		try (Connection con = ConnectionUtil.getConnection(); PreparedStatement ps = con.prepareStatement(sql);) {
+		try (Connection con = dataSource.getConnection(); PreparedStatement ps = con.prepareStatement(sql);) {
 
 			ps.setLong(1, mobileNo);
 			try (ResultSet rs = ps.executeQuery();) {

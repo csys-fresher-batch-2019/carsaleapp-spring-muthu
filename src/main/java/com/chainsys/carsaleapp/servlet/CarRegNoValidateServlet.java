@@ -1,4 +1,4 @@
-package com.chainsys.carsale.servlet;
+package com.chainsys.carsaleapp.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -9,9 +9,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.chainsys.carsale.dao.impl.CarDetailImp;
-import com.chainsys.carsale.model.CarDetail;
-import com.chainsys.carsale.util.DbException;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.chainsys.carsaleapp.dao.impl.CarDetailImp;
+import com.chainsys.carsaleapp.model.CarDetail;
+import com.chainsys.carsaleapp.service.CarDetailService;
+import com.chainsys.carsaleapp.util.DbException;
 
 /**
  * Servlet implementation class CarRegNoValidateServlet
@@ -19,9 +22,10 @@ import com.chainsys.carsale.util.DbException;
 @WebServlet("/CarRegNoValidateServlet")
 public class CarRegNoValidateServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
+      @Autowired
+      CarDetailService coi;
    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		CarDetailImp coi=new CarDetailImp();
+		
 		CarDetail cd=new CarDetail();
 		String regNo=request.getParameter("regNo");
 		cd.setRegistrationNo(regNo);
@@ -34,7 +38,7 @@ public class CarRegNoValidateServlet extends HttpServlet {
 					alreadyRegistered=1;
 				}
 				System.out.println(exists);
-			} catch (DbException e) {
+			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}

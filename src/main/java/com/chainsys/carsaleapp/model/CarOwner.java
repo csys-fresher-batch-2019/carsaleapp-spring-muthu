@@ -1,4 +1,4 @@
-package com.chainsys.carsale.model;
+package com.chainsys.carsaleapp.model;
 
 public class CarOwner {
 	private int ownerId;

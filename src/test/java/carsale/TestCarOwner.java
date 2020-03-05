@@ -3,11 +3,11 @@ package carsale;
 import java.util.List;
 import java.util.Scanner;
 
-import com.chainsys.carsale.dao.impl.CarOwnerImp;
-import com.chainsys.carsale.logger.Logger;
-import com.chainsys.carsale.model.CarDetail;
-import com.chainsys.carsale.model.CarOrder;
-import com.chainsys.carsale.model.CarOwner;
+import com.chainsys.carsaleapp.dao.impl.CarOwnerImp;
+import com.chainsys.carsaleapp.logger.Logger;
+import com.chainsys.carsaleapp.model.CarDetail;
+import com.chainsys.carsaleapp.model.CarOrder;
+import com.chainsys.carsaleapp.model.CarOwner;
 
 public class TestCarOwner {
 	private static final Logger log=Logger.getInstance();

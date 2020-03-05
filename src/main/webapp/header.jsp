@@ -65,7 +65,7 @@ float:left;
   %>
 <body>
 <div class="topnav">
-  <a class="active" href="">BuYSeLL</a>
+  <a class="active" href="ViewAllCar">BuYSeLL</a>
    <% if(sellerId==null) {%>
   <a href="login.jsp" class="right">Login</a>
  
@@ -77,9 +77,8 @@ float:left;
   <a class="right"><span class="white">User Id:</span><Span class="orange"><%=sellerId %></Span></a>
  <a href="addCar.jsp" class="right">AddCars</a>
  <a href= "ViewCar" class="right">ViewMyCars</a>
- <a href="WhoOrderedMyCarSevlet"class="right">MyOrderedCar</a>
- <a href="ViewAllCar.jsp" class="left">HOME</a>
- <a href="ViewOrderedCarServlet" class="right">orderedCars</a>
+ <a href="WhoOrderedMyCarSevlet"class="right">PlacedCars</a>
+  <a href="ViewOrderedCarServlet" class="right">MyorderedCars</a>
  <a href="SearchByPrice.jsp" class="left">SearchBy price</a>
  <a href="SearchByBrand.jsp" class="left">Search By Brand</a>
  

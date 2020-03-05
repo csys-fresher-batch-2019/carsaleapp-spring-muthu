@@ -1,4 +1,4 @@
-package com.chainsys.carsaleapp.controller;
+package com.chainsys.carsaleapp.config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 

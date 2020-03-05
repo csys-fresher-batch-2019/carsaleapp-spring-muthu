@@ -1,4 +1,4 @@
-package com.chainsys.carsale.dao.impl;
+package com.chainsys.carsaleapp.dao.impl;
 
 import java.sql.Connection;
 import java.sql.Date;
@@ -9,13 +9,18 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.chainsys.carsale.dao.CarDetailDAO;
-import com.chainsys.carsale.logger.Logger;
-import com.chainsys.carsale.model.CarDetail;
-import com.chainsys.carsale.model.CarOwner;
-import com.chainsys.carsale.util.ConnectionUtil;
-import com.chainsys.carsale.util.DbException;
+import javax.sql.DataSource;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Repository;
+
+import com.chainsys.carsaleapp.dao.CarDetailDAO;
+import com.chainsys.carsaleapp.logger.Logger;
+import com.chainsys.carsaleapp.model.CarDetail;
+import com.chainsys.carsaleapp.model.CarOwner;
+import com.chainsys.carsaleapp.util.DbException;
+@Repository
 public class CarDetailImp implements CarDetailDAO {
 	private static final Logger log = Logger.getInstance();
 	private static final String seller_id = "seller_id";
@@ -35,12 +40,18 @@ public class CarDetailImp implements CarDetailDAO {
 	private static final String car_available_city = "car_available_city";
 	private static final String vehicle_identification_no = "vehicle_identification_no";
 	private static final String image = "images";
-
+	@Autowired
+	private DataSource dataSource;
+	
+	
+	@Autowired
+	private JdbcTemplate jdbcTemplate;
+	
 	public int getSellerId(Long mobileNo, String password) throws DbException {
 
 		int sellerId = 0;
 		String sql = "select seller_id from car_seller where (seller_contact_no=? or seller_id=?) and user_password=?";
-		try (Connection con = ConnectionUtil.getConnection(); PreparedStatement ps = con.prepareStatement(sql);) {
+		try (Connection con = dataSource.getConnection(); PreparedStatement ps = con.prepareStatement(sql);) {
 			ps.setLong(1, mobileNo);
 			ps.setLong(2, mobileNo);
 			ps.setString(3, password);
@@ -66,7 +77,7 @@ public class CarDetailImp implements CarDetailDAO {
 	 * public int verifyUser(int sellerIdd, String password) throws DbException {
 	 * int sellerId = 0; String sql =
 	 * "select seller_id from car_seller where seller_id=?  and user_password=?";
-	 * try (Connection con = ConnectionUtil.getConnection(); PreparedStatement pst =
+	 * try (Connection con = dataSource.getConnection(); PreparedStatement pst =
 	 * con.prepareStatement(sql);) { pst.setInt(1, sellerIdd); pst.setString(2,
 	 * password);
 	 * 
@@ -88,7 +99,7 @@ public class CarDetailImp implements CarDetailDAO {
 		} else if (cardetail.getCarOwner().getContactNo() != 0) {
 			query = query + " and  seller_contact_no=?";
 		}
-		try (Connection con = ConnectionUtil.getConnection(); PreparedStatement pst = con.prepareStatement(query);) {
+		try (Connection con = dataSource.getConnection(); PreparedStatement pst = con.prepareStatement(query);) {
 			pst.setString(1, cardetail.getCarOwner().getPassword());
 			if (cardetail.getCarOwnerId() != 0) {
 
@@ -115,37 +126,35 @@ public class CarDetailImp implements CarDetailDAO {
 
 	public void addCarDetail(CarDetail cardetail) throws DbException {
 
-		try {
-			LocalDate updatedDate = LocalDate.now();
-			Date updatedDate1 = Date.valueOf(updatedDate);
-			String sql = "insert into car_detail(car_seller_id,car_id,car_brand,car_name,tr_type,fuel_type,reg_state,reg_year,driven_km,price,update_date,registration_no,vehicle_identification_no,car_available_city,is_owner,images)values(?,car_id_sq.nextval,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
-			System.out.println(sql);
-			try (Connection con = ConnectionUtil.getConnection(); PreparedStatement pstt = con.prepareStatement(sql);) {
-				pstt.setInt(1, cardetail.getCarOwnerId());
-				pstt.setString(2, cardetail.getCarBrand());
-				pstt.setString(3, cardetail.getCarName());
-				pstt.setString(4, cardetail.getTrType());
-				pstt.setString(5, cardetail.getFuelType());
-				pstt.setString(6, cardetail.getRegState());
-				pstt.setInt(7, cardetail.getRegYear());
-				pstt.setFloat(8, cardetail.getDrivenKm());
-				pstt.setFloat(9, cardetail.getPrice());
-				pstt.setDate(10, updatedDate1);
-				pstt.setString(11, cardetail.getRegistrationNo());
-				pstt.setString(12, cardetail.getVehicleIdNo());
-				pstt.setString(13, cardetail.getCarAvailableCity());
-				pstt.setInt(14, cardetail.getIsOwner());
-				pstt.setString(15, cardetail.getImageSrc());
-				int rows = pstt.executeUpdate();
-				System.out.println(rows);
-			}
-
-		} catch (SQLException e) {
-			log.error(e);
-			throw new DbException("unable to add car");
-		}
+		LocalDate updatedDate = LocalDate.now();
+		Date updatedDate1 = Date.valueOf(updatedDate);
+		String sql = "insert into car_detail(car_seller_id,car_id,car_brand,car_name,tr_type,fuel_type,reg_state,reg_year,driven_km,price,update_date,registration_no,vehicle_identification_no,car_available_city,is_owner,images)values(?,car_id_sq.nextval,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+		Object [] params = { cardetail.getCarOwnerId(),cardetail.getCarBrand(),cardetail.getCarName(),cardetail.getTrType(),cardetail.getFuelType(), cardetail.getRegState(),cardetail.getRegYear(),cardetail.getDrivenKm(),cardetail.getPrice(),updatedDate1, cardetail.getRegistrationNo(),cardetail.getVehicleIdNo(),cardetail.getCarAvailableCity(),cardetail.getIsOwner(),cardetail.getImageSrc()};
+		int rows = jdbcTemplate.update(sql, params);
+		
+		System.out.println(sql);
+		/*try (Connection con = connection.getConnection(); PreparedStatement pstt = con.prepareStatement(sql);) {
+			pstt.setInt(1, cardetail.getCarOwnerId());
+			pstt.setString(2, cardetail.getCarBrand());
+			pstt.setString(3, cardetail.getCarName());
+			pstt.setString(4, cardetail.getTrType());
+			pstt.setString(5, cardetail.getFuelType());
+			pstt.setString(6, cardetail.getRegState());
+			pstt.setInt(7, cardetail.getRegYear());
+			pstt.setFloat(8, cardetail.getDrivenKm());
+			pstt.setFloat(9, cardetail.getPrice());
+			pstt.setDate(10, updatedDate1);
+			pstt.setString(11, cardetail.getRegistrationNo());
+			pstt.setString(12, cardetail.getVehicleIdNo());
+			pstt.setString(13, cardetail.getCarAvailableCity());
+			pstt.setInt(14, cardetail.getIsOwner());
+			pstt.setString(15, cardetail.getImageSrc());
+			int rows = pstt.executeUpdate();
+			System.out.println(rows);
+		}*/
 
 	}
+	
 
 	// s.close();
 
@@ -155,7 +164,7 @@ public class CarDetailImp implements CarDetailDAO {
 		String stat = "available";
 		String sql = "select * from  car_detail t left outer join car_seller d on t.car_seller_id=d.seller_id where t.car_brand=? and t.status=?";
 
-		try (Connection con = ConnectionUtil.getConnection(); PreparedStatement ps = con.prepareStatement(sql);) {
+		try (Connection con = dataSource.getConnection(); PreparedStatement ps = con.prepareStatement(sql);) {
 			ps.setString(1, carName);
 			ps.setString(2, stat);
 			try (ResultSet rs = ps.executeQuery();) {
@@ -193,8 +202,8 @@ public class CarDetailImp implements CarDetailDAO {
 		// TODO Auto-generated method stub
 		List<CarDetail> ar = new ArrayList<CarDetail>();
 
-		String sql = "select * from car_detail where car_brand=? and  reg_state=?";
-		try (Connection con = ConnectionUtil.getConnection(); PreparedStatement ps = con.prepareStatement(sql);) {
+		String sql = "select * from car_detail where car_brand=? and  car_available_city=?";
+		try (Connection con = dataSource.getConnection(); PreparedStatement ps = con.prepareStatement(sql);) {
 			System.out.println(sql);
 
 			ps.setString(1, carBrand);
@@ -229,7 +238,7 @@ public class CarDetailImp implements CarDetailDAO {
 		List<CarDetail> list = new ArrayList<CarDetail>();
 		String sql = "select * from  car_detail t left outer join car_seller d on t.car_seller_id=d.seller_id where t.car_brand=?";
 
-		try (Connection con = ConnectionUtil.getConnection(); PreparedStatement ps = con.prepareStatement(sql);) {
+		try (Connection con = dataSource.getConnection(); PreparedStatement ps = con.prepareStatement(sql);) {
 
 			System.out.println(sql);
 
@@ -279,7 +288,7 @@ public class CarDetailImp implements CarDetailDAO {
 		List<CarDetail> ar = new ArrayList<CarDetail>();
 
 		String sql = "select * from car_detail cd, car_seller s where cd.car_seller_id = s.seller_id and cd.status=?";
-		try (Connection con = ConnectionUtil.getConnection(); PreparedStatement pst = con.prepareStatement(sql);) {
+		try (Connection con = dataSource.getConnection(); PreparedStatement pst = con.prepareStatement(sql);) {
 			System.out.println(sql);
 
 			pst.setString(1, status);
@@ -334,7 +343,7 @@ public class CarDetailImp implements CarDetailDAO {
 		// String sql = "select
 		// car_brand,images,car_name,car_id,driven_km,price,fuel_type,car_available_city,registration_no,tr_type,reg_year
 		// from car_detail where price between ? and ? and status=? order by price asc";
-		try (Connection con = ConnectionUtil.getConnection(); PreparedStatement ps = con.prepareStatement(sql)) {
+		try (Connection con = dataSource.getConnection(); PreparedStatement ps = con.prepareStatement(sql)) {
 			ps.setFloat(1, min);
 			ps.setFloat(2, max);
 			ps.setString(3, car_status);
@@ -374,7 +383,7 @@ public class CarDetailImp implements CarDetailDAO {
 		// String sql = "select
 		// car_brand,images,car_name,reg_year,car_id,driven_km,price,fuel_type,car_available_city,registration_no,tr_type
 		// from car_detail where price<=? and status=? order by price asc";
-		try (Connection con = ConnectionUtil.getConnection(); PreparedStatement ps = con.prepareStatement(sql)) {
+		try (Connection con = dataSource.getConnection(); PreparedStatement ps = con.prepareStatement(sql)) {
 			ps.setFloat(1, max);
 			ps.setString(2, carStatus);
 			try (ResultSet rs = ps.executeQuery();) {
@@ -409,7 +418,7 @@ public class CarDetailImp implements CarDetailDAO {
 		List<CarDetail> ar = new ArrayList<CarDetail>();
 		String carStatus = "available";
 		String sql = "select car_brand,car_name,reg_year,car_id,driven_km,price,fuel_type,car_available_city,registration_no,tr_type from car_detail where driven_km between ? and ?  and status=? order by driven_km asc";
-		try (Connection con = ConnectionUtil.getConnection(); PreparedStatement ps = con.prepareStatement(sql)) {
+		try (Connection con = dataSource.getConnection(); PreparedStatement ps = con.prepareStatement(sql)) {
 			ps.setFloat(1, startFrom);
 			ps.setFloat(2, endTo);
 			ps.setString(3, carStatus);
@@ -442,7 +451,7 @@ public class CarDetailImp implements CarDetailDAO {
 	public List<CarDetail> getCarDetailUseFuelType(String fuelType) throws DbException {
 		List<CarDetail> ar = new ArrayList<CarDetail>();
 		String sql = "select car_brand,car_name,reg_year,car_id,driven_km,price,fuel_type,car_available_city,registration_no,tr_type from car_detail where fuel_type=?";
-		try (Connection con = ConnectionUtil.getConnection(); PreparedStatement ps = con.prepareStatement(sql)) {
+		try (Connection con = dataSource.getConnection(); PreparedStatement ps = con.prepareStatement(sql)) {
 			ps.setString(1, fuelType);
 			try (ResultSet rs = ps.executeQuery();) {
 				while (rs.next()) {
@@ -474,7 +483,7 @@ public class CarDetailImp implements CarDetailDAO {
 		List<CarDetail> ar = new ArrayList<CarDetail>();
 		String sql = "select * from  car_detail t left outer join car_seller d on t.car_seller_id=d.seller_id where t.car_id=? and t.status='available'";
 
-		try (Connection con = ConnectionUtil.getConnection(); PreparedStatement ps = con.prepareStatement(sql);) {
+		try (Connection con = dataSource.getConnection(); PreparedStatement ps = con.prepareStatement(sql);) {
 			ps.setInt(1, carId);
 			try (ResultSet rs = ps.executeQuery();) {
 				while (rs.next()) {
@@ -513,7 +522,7 @@ public class CarDetailImp implements CarDetailDAO {
 		String stat = "available";
 		String sql = "select * from  car_detail where status=?";
 
-		try (Connection con = ConnectionUtil.getConnection(); PreparedStatement ps = con.prepareStatement(sql);) {
+		try (Connection con = dataSource.getConnection(); PreparedStatement ps = con.prepareStatement(sql);) {
 			ps.setString(1, stat);
 			try (ResultSet rs = ps.executeQuery();) {
 				while (rs.next()) {
@@ -547,7 +556,7 @@ public class CarDetailImp implements CarDetailDAO {
 	public boolean isCarAlreadyRegistered(String regNo) throws DbException {
 		boolean exists = false;
 		String sqll = "select * from car_detail where registration_no=?";
-		try (Connection con = ConnectionUtil.getConnection(); PreparedStatement ps = con.prepareStatement(sqll);) {
+		try (Connection con = dataSource.getConnection(); PreparedStatement ps = con.prepareStatement(sqll);) {
 
 			ps.setString(1, regNo);
 			try (ResultSet rs = ps.executeQuery();) {

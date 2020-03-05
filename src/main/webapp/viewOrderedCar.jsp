@@ -5,8 +5,8 @@
 <!DOCTYPE html>
 <html>
 <head>
- <%@page import="com.chainsys.carsale.dao.impl.CarOrderImp" %>
-    <%@page import="com.chainsys.carsale.model.CarOrder" %>
+ <%@page import="com.chainsys.carsaleapp.dao.impl.CarOrderImp" %>
+    <%@page import="com.chainsys.carsaleapp.model.CarOrder" %>
     <%@page import="java.util.List" %>
     <jsp:include page="header.jsp"></jsp:include>
     <script

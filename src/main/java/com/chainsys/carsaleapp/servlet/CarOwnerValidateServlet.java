@@ -1,4 +1,4 @@
-package com.chainsys.carsale.servlet;
+package com.chainsys.carsaleapp.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -9,23 +9,26 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.chainsys.carsale.dao.impl.CarOwnerImp;
-import com.chainsys.carsale.model.CarOwner;
-import com.chainsys.carsale.util.DbException;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.chainsys.carsaleapp.dao.impl.CarOwnerImp;
+import com.chainsys.carsaleapp.model.CarOwner;
+import com.chainsys.carsaleapp.service.CarOwnerService;
+import com.chainsys.carsaleapp.util.DbException;
 @WebServlet("/CarOwnerValidateServlet")
 public class CarOwnerValidateServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
+@Autowired
+CarOwnerService coi;
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		
-		CarOwnerImp coi = new CarOwnerImp();
+			
 		CarOwner coo = new CarOwner();
 		long phNo = Long.parseLong(request.getParameter("phoneNo"));
 		coo.setContactNo(phNo);
 		Integer alreadyRegistered = 0;
 		try {
-			boolean exists = coi.isCarOwnerAlreadyRegistered(phNo);
+			boolean exists =coi.isCarOwnerAlreadyRegistered(phNo);
 			if (exists) {
 				alreadyRegistered = 1;
 			}
@@ -34,7 +37,7 @@ public class CarOwnerValidateServlet extends HttpServlet {
 				alreadyRegistered = 0;	
 			}
 			System.out.println(exists);
-		} catch (DbException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		

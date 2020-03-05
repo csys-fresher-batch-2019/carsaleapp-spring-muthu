@@ -8,9 +8,9 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Scanner;
 
-import com.chainsys.carsale.dao.impl.CarOrderImp;
-import com.chainsys.carsale.logger.Logger;
-import com.chainsys.carsale.model.CarOrder;
+import com.chainsys.carsaleapp.dao.impl.CarOrderImp;
+import com.chainsys.carsaleapp.logger.Logger;
+import com.chainsys.carsaleapp.model.CarOrder;
 
 public class TestCarOrder {
 	private static final Logger log=Logger.getInstance();

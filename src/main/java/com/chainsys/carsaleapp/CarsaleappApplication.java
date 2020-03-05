@@ -7,8 +7,8 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 
-@SpringBootApplication(exclude=DataSourceAutoConfiguration.class)
-@ServletComponentScan("com.chainsys.carsale.servlet")
+@SpringBootApplication
+@ServletComponentScan("com.chainsys.carsaleapp.servlet")
 public class CarsaleappApplication extends SpringBootServletInitializer {
 	@Override
 	protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {

@@ -1,4 +1,4 @@
-package com.chainsys.carsale.servlet;
+package com.chainsys.carsaleapp.servlet;
 
 import java.io.IOException;
 
@@ -8,14 +8,18 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.chainsys.carsale.dao.impl.CarOrderImp;
-import com.chainsys.carsale.model.CarOrder;
-import com.chainsys.carsale.util.DbException;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.chainsys.carsaleapp.dao.impl.CarOrderImp;
+import com.chainsys.carsaleapp.model.CarOrder;
+import com.chainsys.carsaleapp.service.CarOrderService;
+import com.chainsys.carsaleapp.util.DbException;
 
 @WebServlet("/FinalOrderServlet")
 public class FinalOrderServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-    
+    @Autowired
+    CarOrderService coi;
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String buyerName=request.getParameter("BuyerName");
 		Long buyerContact=Long.parseLong(request.getParameter("BuyerContactNo"));
@@ -40,12 +44,12 @@ public class FinalOrderServlet extends HttpServlet {
 	    co.setCity(buyerCity);
 	    co.setTestDrive(testDrive);
 	    co.setUserId(userId);
-	    CarOrderImp coi=new CarOrderImp();
+	    
 	    
 	    try {
 			coi.orderCar(co);
           	response.sendRedirect("OrderSuccess.jsp");
-		} catch (DbException e) {
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}

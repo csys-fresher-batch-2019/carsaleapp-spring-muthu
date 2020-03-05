@@ -3,7 +3,7 @@
      <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
     
     <%@page import="java.util.List" %>
-     <%@page import="com.chainsys.carsale.model.CarDetail" %>
+     <%@page import="com.chainsys.carsaleapp.model.CarDetail" %>
      <jsp:include page="header.jsp"></jsp:include>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -76,7 +76,7 @@ background-size: 100% 100%;
     <h6 class="card-text">Registered Year:<%=cd1.getRegYear()%></h6>
     <h6 class="card-text">DrivenKm:<%=cd1.getDrivenKm()%></h6>&nbsp;<h6 class="card-text">price:<%=cd1.getPrice() %></h6>
      <h6 class="card-text">Transmission Type:<%=cd1.getTrType()%></h6>&nbsp;<h6 class="card-text">Registration Number:<%=cd1.getRegistrationNo()%></h6>
-     <h6 class="card-text">Registered State:<%=cd1.getRegState() %></h6>&nbsp;<h6 class="card-text">Seller Name:<%=cd1.getCarOwner().getownerName()%></h6>
+     <h6 class="card-text">Registered State:<%=cd1.getRegState() %></h6>&nbsp;<h6 class="card-text">Seller Name:<%=cd1.getCarOwner().getOwnerName()%></h6>
         <h6 class="card-text">Seller Contact Number:<%=cd1.getCarOwner().getContactNo() %></h6>
          <a href="OrderCarServlet?carId=<%=cd1.getCarId()%>" class="right" class="madal-title"><span class="orange">Order</span></a></a>
          

@@ -1,4 +1,4 @@
-package com.chainsys.carsale.service;
+package com.chainsys.carsaleapp.service;
 
 public class ServiceException extends Exception {
 

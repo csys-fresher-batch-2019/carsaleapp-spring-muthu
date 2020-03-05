@@ -3,8 +3,8 @@
      <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
     
     <%@page import="java.util.List" %>
-    <%@page import="com.chainsys.carsale.dao.impl.CarDetailImp"%>
-     <%@page import="com.chainsys.carsale.model.CarDetail"%>
+    <%@page import="com.chainsys.carsaleapp.dao.impl.CarDetailImp"%>
+     <%@page import="com.chainsys.carsaleapp.model.CarDetail"%>
       <jsp:include page="header.jsp"></jsp:include>
 <!DOCTYPE html>
 <html>
@@ -35,15 +35,15 @@ float:right;
 }
 </style>
 <body>
-<% CarDetailImp co=new CarDetailImp(); %>
-<%List<CarDetail> list=co.viewAllCar(); %>
+
+<%List<CarDetail> li=(List<CarDetail>)request.getAttribute("viewAllCar"); %>
 
 <form action="">
 <div>
-<%if(list!=null)
+<%if(li!=null)
 {%>
 
-<%	for(CarDetail cd:list)
+<%	for(CarDetail cd:li)
 		{%>
 <div class="left">
 <div class ="card-desk" class="left">
