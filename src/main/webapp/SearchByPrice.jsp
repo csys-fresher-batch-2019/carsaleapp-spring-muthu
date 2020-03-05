@@ -125,26 +125,27 @@ rangeslider.oninput = function() {
 output.innerHTML = this.value; 
 } 
 </script>
-<%List<CarDetail> ar=(List<CarDetail>)request.getAttribute("carList") ;%>
+<%-- <%List<CarDetail> ar=(List<CarDetail>)request.getAttribute("carList") ;%>
 <%if(ar!=null){%>
 <%for(CarDetail cdl:ar)
-	{%>
+	{%> --%>
+	<c:forEach items="${carList}" var="cl">
 <div class="left">
 <div class ="card-desk" class="left">
 <div class="card" style="width: 18rem; height: 25rem">
-  <img src="assets/images/<%=cdl.getImageSrc()%>" class="card-img-top" alt="image">
+  <img src="assets/images/${cl.getImageSrc()}" class="card-img-top" alt="image">
   <div class="card-body">
-    <h5 class="card-title"><%=cdl.getCarBrand() %> <%=cdl.getCarName() %> </h5>
-    <h6 class="card-text">price:  <%=cdl.getPrice()%>  DrivenKm:<%=cdl.getDrivenKm()%></h6>
-    <a href="SearchCarServlet?carId=<%=cdl.getCarId()%>" class="right" class="madal-title"><span class="orange">view Detail></a>
+    <h5 class="card-title">${cdl.getCarBrand()} ${cl.getCarName()} </h5>
+    <h6 class="card-text">price:  ${cl.getPrice()}  DrivenKm:${cl.getDrivenKm()}</h6>
+    <a href="SearchCarServlet?carId=${cl.getCarId()}" class="right" class="madal-title"><span class="orange">view Detail></a>
     
     </div>
 </div>
 </div>
 </div>
-<%}%>
-<%} %>
+<%-- <%}%>
+<%} %> --%>
 
- 
+ </c:forEach>
 </body>
 </html>

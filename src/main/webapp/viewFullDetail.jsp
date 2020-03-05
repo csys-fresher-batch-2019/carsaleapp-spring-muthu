@@ -56,37 +56,38 @@ background-size: 100% 100%;
 }
 </style>
 <body>
-<%List<CarDetail> cd=(List<CarDetail>)request.getAttribute("carDetail"); %>
-
+<%-- <%List<CarDetail> cd=(List<CarDetail>)request.getAttribute("carDetail"); %>
+ --%>
 <form>
 <div>
-<%if(cd!=null)
+<%-- <%if(cd!=null)
 {%>
 
 <%	for(CarDetail cd1:cd)
-		{%>
-	
+		{%> --%>
+			<c:forEach items="${carDetail}" var="cd">
 	<center>
 <div class="cent">
 <div class ="card-desk" class="left">
 <div class="card" style="width: 20rem; height: 40rem">
-  <img src="assets/images/<%=cd1.getImageSrc() %>" class="card-img-top" alt="image">
+  <img src="assets/images/${cd.getImageSrc()}" class="card-img-top" alt="image">
   <div class="card-body">
-    <h5 class="card-title"><%=cd1.getCarBrand() %> <%=cd1.getCarName() %> </h5>
-    <h6 class="card-text">Registered Year:<%=cd1.getRegYear()%></h6>
-    <h6 class="card-text">DrivenKm:<%=cd1.getDrivenKm()%></h6>&nbsp;<h6 class="card-text">price:<%=cd1.getPrice() %></h6>
-     <h6 class="card-text">Transmission Type:<%=cd1.getTrType()%></h6>&nbsp;<h6 class="card-text">Registration Number:<%=cd1.getRegistrationNo()%></h6>
-     <h6 class="card-text">Registered State:<%=cd1.getRegState() %></h6>&nbsp;<h6 class="card-text">Seller Name:<%=cd1.getCarOwner().getOwnerName()%></h6>
-        <h6 class="card-text">Seller Contact Number:<%=cd1.getCarOwner().getContactNo() %></h6>
-         <a href="OrderCarServlet?carId=<%=cd1.getCarId()%>" class="right" class="madal-title"><span class="orange">Order</span></a></a>
+    <h5 class="card-title">${cd1.getCarBrand()} ${cd.getCarName()} </h5>
+    <h6 class="card-text">Registered Year:${cd.getRegYear()}</h6>
+    <h6 class="card-text">DrivenKm:${cd.getDrivenKm()}</h6>&nbsp;<h6 class="card-text">price:${cd.getPrice()}</h6>
+     <h6 class="card-text">Transmission Type:${cd.getTrType()}</h6>&nbsp;<h6 class="card-text">Registration Number:${cd.getRegistrationNo()}</h6>
+     <h6 class="card-text">Registered State:${cd.getRegState()}</h6>&nbsp;<h6 class="card-text">Seller Name:${cd.getCarOwner().getOwnerName()}</h6>
+        <h6 class="card-text">Seller Contact Number:${cd.getCarOwner().getContactNo()}</h6>
+         <a href="OrderCarServlet?carId=${cd.getCarId()}" class="right" class="madal-title"><span class="orange">Order</span></a>
          
          </div>
 </div>
 </div>
 </div>
 </center>
-<%}%>
-<%} %>
+<%-- <%}%>
+<%} %> --%>
+</c:forEach>
 </div>
 </form>
 </body>

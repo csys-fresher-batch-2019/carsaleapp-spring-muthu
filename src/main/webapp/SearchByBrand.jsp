@@ -38,8 +38,8 @@ float:right;
 }
 </style>
 </head>
-<%List<CarDetail> cd=(List<CarDetail>)request.getAttribute("availableCar"); %>
-<body>
+<%-- <%List<CarDetail> cd=(List<CarDetail>)request.getAttribute("availableCar"); %>
+ --%><body>
 <form action="SearchByBrandServlet" method="get">
 <div>
 <input list="carBrand"  name="carBrand" placeholder="CarBrand">
@@ -54,25 +54,28 @@ float:right;
 </datalist>
 <button name="submit">Search</button>
 </div>
-<%if((cd!=null)&&!cd.isEmpty()){%>
+<%-- <%if((cd!=null)&&!cd.isEmpty()){%>
 <%for(CarDetail cdl:cd)
 	{%>
-<div class="left">
+ --%>
+ <c:forEach items="${availableCar}" var="ac">
+ <div class="left">
 <div class ="card-desk" class="left">
 <div class="card" style="width: 18rem; height: 20rem">
-  <img src="assets/images/<%=cdl.getImageSrc()%>" class="card-img-top" alt="image">
+  <img src="assets/images/${ac.getImageSrc()}" class="card-img-top" alt="image">
   <div class="card-body">
-    <h5 class="card-title"><%=cdl.getCarBrand() %> <%=cdl.getCarName() %> </h5>
-    <h6 class="card-text">Registration year:<%=cdl.getRegYear()%></h6>
-    <h6>DrivenKm:<%=cdl.getDrivenKm()%></h6>
-    <h6>price:<%=cdl.getPrice() %></h6>
-    <a href="SearchCarServlet?carId=<%=cdl.getCarId()%>" class="right" class="madal-title"><span class="orange">view Detail></span></a>
+    <h5 class="card-title">${ac.getCarBrand()} ${ac.getCarName()} </h5>
+    <h6 class="card-text">Registration year:${ac.getRegYear()}</h6>
+    <h6>DrivenKm:${ac.getDrivenKm()}</h6>
+    <h6>price:${ac.getPrice()}</h6>
+    <a href="SearchCarServlet?carId=${ac.getCarId()}" class="right" class="madal-title"><span class="orange">view Detail></span></a>
   </div>
 </div>
 </div>
 </div>
-<%}%>
-<%}%>
+<%-- <%}%>
+<%}%> --%>
+</c:forEach>
 </form>
 </body>
 </html>

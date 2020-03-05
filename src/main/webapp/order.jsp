@@ -55,13 +55,16 @@ padding-bottom: 60px;
  }
  </script>
  <body>
- <% Integer userId=(Integer)session.getAttribute("login_seller_id"); %>
+ <%-- <% Integer userId=(Integer)session.getAttribute("login_seller_id"); %>
 <%List<CarDetail> cd=(List<CarDetail>)request.getAttribute("cars"); %>
-<form action="FinalOrderServlet" method="get">
-<%if(cd!=null){%>
+ --%><form action="FinalOrderServlet" method="get">
+<%-- <%if(cd!=null){%>
 <%for (CarDetail cdorder:cd) 
 { %>
-<center>
+ --%>
+ 
+ <%-- <c:out value="${ sessionScope.login_seller_id}"></c:out>
+ --%><c:forEach items="${cars}" var="co">
 <div class="card-desk">
 <div class="card" style="width: 25rem; height:33rem">
 <h6 class="modal-title">Good Choice<Span class="orange"> Happy Face!!!</Span></h6>
@@ -71,10 +74,10 @@ padding-bottom: 60px;
 
 <tr><td>Buyer Contact Number</td><td>: <input type="number"  pattern="[0-10]{10}" title=" required 10 Digit No"name="BuyerContactNo" placeHolder="BuyerContactNo" required onblur="validateContactNo(this.value)"/></td></tr>
 
-<tr><td>CarId  </td><td>: <input type="number" name="carId" value="<%=cdorder.getCarId() %>"readonly required/></td></tr>
+<tr><td>CarId  </td><td>: <input type="number" name="carId" value="${co.getCarId()}"readonly required/></td></tr>
 
-<tr><td>sellerId </td><td>: <input type="number" name="sellerId"value="<%=cdorder.getCarOwnerId()%>"readonly required/></td></tr>
-<tr><td>UserId </td><td>: <input type="number" name="userId"value="<%=userId%>"readonly required /></td></tr>
+<tr><td>sellerId </td><td>: <input type="number" name="sellerId"value="${co.getCarOwnerId()}"readonly required/></td></tr>
+<tr><td>UserId </td><td>: <input type="number" name="userId"value="${sessionScope.login_seller_id}"readonly required /></td></tr>
 <tr><td>Are you Apply TestDrive</td><td>: <input type="radio" name="testDr" value="yes" required>Yes<input type="radio" name="testDr" value="no">No</td></tr>
 
 
@@ -85,16 +88,15 @@ padding-bottom: 60px;
 <tr><td>City</td><td>: <input type="text" name="city"placeholder="City" required/></td></tr>
 
 <tr><td>State</td><td>: <input type="text" name="state"placeholder="State" required/></td></tr>
-
 <tr><td>pincode</td><td>: <input type="number" pattern="[0-9]{6}" maxlength="6" tilte="Ex:600000" name="pincode"placeholder="Pincode" required/></td></tr>
 <tr><td></td>  <td><button type="submit" class="right">Order</button></td></tr>
 </table>
 </div>
 </div>
 </div>
-</center>
-<% }%>
-<% }%>
+<%-- <% }%>
+<% }% --%>>
+</c:forEach>
 </form>
 
 </body>

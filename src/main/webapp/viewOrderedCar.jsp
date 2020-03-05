@@ -18,13 +18,9 @@
 </head>
 <body>
 <h2>Buyer Details</h2>
-<%
-	Integer sellerId=(Integer)session.getAttribute("login_seller_id"); 
-CarOrderImp odi=new CarOrderImp();
-List<CarOrder> car=(List<CarOrder>)request.getAttribute("orderedlist");
-String msg="no records";
-%>
-<% if(car!=null &&  !car.isEmpty()){ %>
+<c:choose>
+<c:when test="${(orderedlist!=null) && !empty orderedlist}">
+<c:forEach items="${orderedlist}" var="co">
 	<table class="table table-bordered">
 	<thead>
 	<tr>
@@ -35,22 +31,19 @@ String msg="no records";
 	<th>DeliveryDate</th>
 	</tr>
 	</thead>
-<% for(CarOrder co:car){%>
-
 	<tr>
-	<td><%=co.getBuyerName() %></td>
-	<td><%=co.getOrderId() %></td>
-	<td><%=co.getCarId()%></td>
-	<td><%=co.getSellerId() %></td>
-	<td><%=co.getDeliveredDate()%></td>
+	<td>${co.getBuyerName()}</td>
+	<td>${co.getOrderId()}</td>
+	<td>${co.getCarId()}</td>
+	<td>${co.getSellerId()}</td>
+	<td>${co.getDeliveredDate()}</td>
 		</tr>
-	
-	<%}%>
 	</table>
-	<%}
-else {%>
+	</c:forEach>
+	</c:when>
+<c:otherwise>
 		<h1>NO RECORDS</h1>
-
-<% }%>
+		</c:otherwise>
+</c:choose>
 </body>
 </html>

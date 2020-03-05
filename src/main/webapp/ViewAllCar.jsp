@@ -36,31 +36,34 @@ float:right;
 </style>
 <body>
 
-<%List<CarDetail> li=(List<CarDetail>)request.getAttribute("viewAllCar"); %>
+<%--  <%List<CarDetail> li=(List<CarDetail>)request.getAttribute("viewAllCar"); %>--%>
 
 <form action="">
 <div>
-<%if(li!=null)
+<%-- <%if(li!=null)
 {%>
 
 <%	for(CarDetail cd:li)
 		{%>
-<div class="left">
+ --%>
+ <c:forEach items="${viewAllCar}" var="b">
+ <div class="left">
 <div class ="card-desk" class="left">
 <div class="card" style="width: 25rem; height: 31rem">
-  <img src="assets/images/<%=cd.getImageSrc() %>" class="card-img-top" alt="image">
+  <img src="assets/images/${b.getImageSrc()}" class="card-img-top" alt="image">
   <div class="card-body">
-    <h5 class="card-title"><%=cd.getCarBrand() %> <%=cd.getCarName() %> </h5>
-    <h6 class="card-text">Registered Year:<%=cd.getRegYear()%></h6>
-    <h6 class="card-text">DrivenKm:<%=cd.getDrivenKm()%></h6>
-    <h6 class="card-text">price:<%=cd.getPrice() %></h6>
-     <h6 class="card-text">Registered State:<%=cd.getRegState() %></h6>
-      <a href="SearchCarServlet?carId=<%=cd.getCarId()%>" class="right" class="madal-title"><span class="orange">View Detail></span></a></div>
+    <h5 class="card-title">${b.getCarBrand()} ${b.getCarName()} </h5>
+    <h6 class="card-text">Registered Year:${b.getRegYear()}</h6>
+    <h6 class="card-text">DrivenKm:${cd.getDrivenKm()}</h6>
+    <h6 class="card-text">price:${b.getPrice()}</h6>
+     <h6 class="card-text">Registered State:${b.getRegState()}</h6>
+      <a href="SearchCarServlet?carId=${b.getCarId()}" class="right" class="madal-title"><span class="orange">View Detail></span></a></div>
 </div>
 </div>
 </div>
-<%}%>
-<%} %>
+<%-- <%}%>
+<%} %> --%>
+</c:forEach>
 </div>
 </form>
 </body>

@@ -60,35 +60,36 @@ float:left;
 
 </style>
 </head>
- <%
+ <%-- <%
   Integer sellerId=(Integer)session.getAttribute("login_seller_id");
   %>
-<body>
+< --%><body>
 <div class="topnav">
   <a class="active" href="ViewAllCar">BuYSeLL</a>
-   <% if(sellerId==null) {%>
+     <c:if test="${sessionScope.login_seller_id==null}">
   <a href="login.jsp" class="right">Login</a>
- 
   <a href="register.jsp" class="right">Register</a>
- <%} %>
- <%if(sellerId!=null){ %>
- 
+ </c:if>
+ <%-- <%} %>
+  --%>
+<%--   <%if(sellerId!=null){ %>
+ --%> 
+ <c:if test="${sessionScope.login_seller_id!=null}">
  <a href="LogoutServlet" class="right">Logout</a>
-  <a class="right"><span class="white">User Id:</span><Span class="orange"><%=sellerId %></Span></a>
+  <a class="right"><span class="white">User Id:</span><Span class="orange">${sessionScope.login_seller_id}</Span></a>
  <a href="addCar.jsp" class="right">AddCars</a>
  <a href= "ViewCar" class="right">ViewMyCars</a>
  <a href="WhoOrderedMyCarSevlet"class="right">PlacedCars</a>
   <a href="ViewOrderedCarServlet" class="right">MyorderedCars</a>
  <a href="SearchByPrice.jsp" class="left">SearchBy price</a>
  <a href="SearchByBrand.jsp" class="left">Search By Brand</a>
- 
- <%} %>
+  <%-- <%} %>
+ --%>
+ </c:if>
 </div>
 
 <div style="padding-left:16px">
-  <h2></h2>
-  <p></p>
-</div>
+ </div>
 
 </body>
 </html>
