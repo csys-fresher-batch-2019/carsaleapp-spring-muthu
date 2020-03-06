@@ -131,8 +131,9 @@ public class CarDetailImp implements CarDetailDAO {
 		String sql = "insert into car_detail(car_seller_id,car_id,car_brand,car_name,tr_type,fuel_type,reg_state,reg_year,driven_km,price,update_date,registration_no,vehicle_identification_no,car_available_city,is_owner,images)values(?,car_id_sq.nextval,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 		Object [] params = { cardetail.getCarOwnerId(),cardetail.getCarBrand(),cardetail.getCarName(),cardetail.getTrType(),cardetail.getFuelType(), cardetail.getRegState(),cardetail.getRegYear(),cardetail.getDrivenKm(),cardetail.getPrice(),updatedDate1, cardetail.getRegistrationNo(),cardetail.getVehicleIdNo(),cardetail.getCarAvailableCity(),cardetail.getIsOwner(),cardetail.getImageSrc()};
 		int rows = jdbcTemplate.update(sql, params);
-		
-		System.out.println(sql);
+				System.out.println(sql);
+				System.out.println(rows);
+				
 		/*try (Connection con = connection.getConnection(); PreparedStatement pstt = con.prepareStatement(sql);) {
 			pstt.setInt(1, cardetail.getCarOwnerId());
 			pstt.setString(2, cardetail.getCarBrand());

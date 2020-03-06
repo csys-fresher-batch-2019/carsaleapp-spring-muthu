@@ -8,18 +8,27 @@ import org.springframework.stereotype.Service;
 
 import com.chainsys.carsaleapp.dao.CarDetailDAO;
 import com.chainsys.carsaleapp.dao.impl.CarDetailImp;
+import com.chainsys.carsaleapp.exception.ValidatorException;
 import com.chainsys.carsaleapp.model.CarDetail;
 import com.chainsys.carsaleapp.util.DbException;
+import com.chainsys.carsaleapp.validator.CarDetailValidator;
+
 @Service
 public class CarDetailService {
-@Autowired
-CarDetailDAO carDetailDAO;
+
+	@Autowired
+	CarDetailValidator carValidator;
+	@Autowired
+	CarDetailDAO carDetailDAO;
 
 	public void addCarDetail(CarDetail carDetail) throws ServiceException {
+
 		try {
-			// carvalidator.validate(carDetail);
+			carValidator.validateCarForSave(carDetail);
 			carDetailDAO.addCarDetail(carDetail);
 		} catch (DbException e) {
+			throw new ServiceException(e);
+		} catch (ValidatorException e) {
 			e.printStackTrace();
 			throw new ServiceException(e);
 		}
@@ -139,35 +148,29 @@ CarDetailDAO carDetailDAO;
 		}
 		return ls;
 	}
-	public int getSellerId(Long mobileNo, String password) throws ServiceException
-	{
+
+	public int getSellerId(Long mobileNo, String password) throws ServiceException {
 		int id;
-		try
-		{
-			id=carDetailDAO.getSellerId(mobileNo, password);
-		}catch (DbException e) {
+		try {
+			id = carDetailDAO.getSellerId(mobileNo, password);
+		} catch (DbException e) {
 			e.printStackTrace();
 			throw new ServiceException(e);
 		}
 		return id;
-		
+
 	}
+
 	public boolean isCarAlreadyRegistered(String regNo) throws ServiceException {
-		
-			boolean exists=false;
-	
-			
-			try
-			{
-				exists=carDetailDAO.isCarAlreadyRegistered(regNo);
-			}catch (Exception e) {
-				e.printStackTrace();
-				throw new ServiceException(e);
-			}
-			return exists;
+
+		boolean exists = false;
+
+		try {
+			exists = carDetailDAO.isCarAlreadyRegistered(regNo);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new ServiceException(e);
 		}
+		return exists;
 	}
-
-
-
-
+}

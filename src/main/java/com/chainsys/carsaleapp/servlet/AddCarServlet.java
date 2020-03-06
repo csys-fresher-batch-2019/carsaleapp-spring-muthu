@@ -59,9 +59,7 @@ public class AddCarServlet extends HttpServlet {
 				System.out.println("Add success");
 				RequestDispatcher dispatcher=request.getRequestDispatcher("LoginIndex.jsp");
 				dispatcher.forward(request, response);
-				
-			  } catch (Exception e) {
-				// TODO Auto-generated catch block
+				} catch (Exception e) {
 				e.printStackTrace();
 				RequestDispatcher dispatcher=request.getRequestDispatcher("addCar.jsp");
 				dispatcher.forward(request, response);

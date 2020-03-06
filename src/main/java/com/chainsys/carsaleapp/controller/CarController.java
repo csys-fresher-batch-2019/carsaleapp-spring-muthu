@@ -20,8 +20,18 @@ import com.chainsys.carsaleapp.util.DbException;
 @RequestMapping("api/cars")
 public class CarController {
 	CarDetailDAO obj = new CarDetailImp();
-	
-	@GetMapping("{id}")
+	@GetMapping("/use_login")
+	public int getSellerId(@RequestParam(name="mobileNo")Long mobileNo, @RequestParam(name="password")String password) 
+	{
+		Integer sellerId=null;
+		try {
+			sellerId=obj.getSellerId(mobileNo, password);
+		} catch (DbException e) {
+			e.printStackTrace();
+		}
+		return sellerId;
+		}
+		@GetMapping("{id}")
 	public List<CarDetail> list(@PathVariable("id") int carId) {
 		List<CarDetail> li=new ArrayList<>();
 		
@@ -33,7 +43,7 @@ public class CarController {
 		return li;
 	
 	}
-	@PostMapping
+	@PostMapping("/addCars")
 	void addCarDetail(@RequestBody CarDetail carDetail) {
 		try
 		{
