@@ -6,7 +6,7 @@
      <%@page import="com.chainsys.carsaleapp.model.CarDetail" %>
      <jsp:include page="header.jsp"></jsp:include>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
+<html lang="en">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>BuySell</title>

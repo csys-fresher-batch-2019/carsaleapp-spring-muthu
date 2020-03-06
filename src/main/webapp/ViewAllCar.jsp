@@ -7,7 +7,7 @@
      <%@page import="com.chainsys.carsaleapp.model.CarDetail"%>
       <jsp:include page="header.jsp"></jsp:include>
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>ALL CARS</title>

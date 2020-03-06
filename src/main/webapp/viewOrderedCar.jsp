@@ -3,7 +3,7 @@
      <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
     
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
  <%@page import="com.chainsys.carsaleapp.dao.impl.CarOrderImp" %>
     <%@page import="com.chainsys.carsaleapp.model.CarOrder" %>
