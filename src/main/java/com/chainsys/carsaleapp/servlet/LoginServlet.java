@@ -16,8 +16,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.chainsys.carsaleapp.dao.impl.CarDetailImp;
 import com.chainsys.carsaleapp.model.CarOwner;
 import com.chainsys.carsaleapp.service.CarDetailService;
-import com.chainsys.carsaleapp.service.ServiceException;
-import com.chainsys.carsaleapp.util.DbException;
+import com.chainsys.carsaleapp.exception.ServiceException;
+import com.chainsys.carsaleapp.exception.DbException;
 
 @WebServlet("/LoginServlet")
 public class LoginServlet extends HttpServlet {

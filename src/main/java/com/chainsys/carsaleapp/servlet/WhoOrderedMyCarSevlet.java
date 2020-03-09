@@ -16,8 +16,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.chainsys.carsaleapp.dao.impl.CarOrderImp;
 import com.chainsys.carsaleapp.model.CarOrder;
 import com.chainsys.carsaleapp.service.CarOrderService;
-import com.chainsys.carsaleapp.service.ServiceException;
-import com.chainsys.carsaleapp.util.DbException;
+import com.chainsys.carsaleapp.exception.ServiceException;
+import com.chainsys.carsaleapp.exception.DbException;
 
 
 @WebServlet("/WhoOrderedMyCarSevlet")

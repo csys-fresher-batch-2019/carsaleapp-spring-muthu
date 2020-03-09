@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.chainsys.carsaleapp.dao.CarDetailDAO;
 import com.chainsys.carsaleapp.dao.impl.CarDetailImp;
 import com.chainsys.carsaleapp.model.CarDetail;
-import com.chainsys.carsaleapp.util.DbException;
+import com.chainsys.carsaleapp.exception.DbException;
 
 @RestController
 @RequestMapping("api/cars")

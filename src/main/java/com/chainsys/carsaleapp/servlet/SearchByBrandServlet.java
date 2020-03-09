@@ -16,7 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.chainsys.carsaleapp.dao.impl.CarDetailImp;
 import com.chainsys.carsaleapp.model.CarDetail;
 import com.chainsys.carsaleapp.service.CarDetailService;
-import com.chainsys.carsaleapp.util.DbException;
+import com.chainsys.carsaleapp.exception.DbException;
 
 @WebServlet("/SearchByBrandServlet")
 public class SearchByBrandServlet extends HttpServlet {

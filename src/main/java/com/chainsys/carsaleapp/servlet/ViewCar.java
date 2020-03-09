@@ -16,7 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.chainsys.carsaleapp.dao.impl.CarOwnerImp;
 import com.chainsys.carsaleapp.model.CarOwner;
 import com.chainsys.carsaleapp.service.CarOwnerService;
-import com.chainsys.carsaleapp.util.DbException;
+import com.chainsys.carsaleapp.exception.DbException;
 @WebServlet("/ViewCar")
 public class ViewCar extends HttpServlet {
 	private static final long serialVersionUID = 1L;

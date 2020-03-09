@@ -15,7 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.chainsys.carsaleapp.dao.impl.CarDetailImp;
 import com.chainsys.carsaleapp.model.CarDetail;
 import com.chainsys.carsaleapp.service.CarDetailService;
-import com.chainsys.carsaleapp.util.DbException;
+import com.chainsys.carsaleapp.exception.DbException;
 @WebServlet("/SearchByCarPriceServlet")
 public class SearchByCarPriceServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;

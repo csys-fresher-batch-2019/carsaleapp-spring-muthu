@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.chainsys.carsaleapp.dao.CarOwnerDAO;
 import com.chainsys.carsaleapp.dao.impl.CarOwnerImp;
 import com.chainsys.carsaleapp.model.CarOwner;
-import com.chainsys.carsaleapp.util.DbException;
+import com.chainsys.carsaleapp.exception.DbException;
 @RestController
 @RequestMapping("api/user")
 public class UserController {
