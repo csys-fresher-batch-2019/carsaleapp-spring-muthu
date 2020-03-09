@@ -20,7 +20,7 @@ import com.chainsys.carsaleapp.util.DbException;
 @RequestMapping("api/cars")
 public class CarController {
 	CarDetailDAO obj = new CarDetailImp();
-	@GetMapping("/use_login")
+	@GetMapping("/user_login")
 	public int getSellerId(@RequestParam(name="mobileNo")Long mobileNo, @RequestParam(name="password")String password) 
 	{
 		Integer sellerId=null;

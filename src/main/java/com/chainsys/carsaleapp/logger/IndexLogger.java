@@ -1,4 +1,4 @@
-package com.chainsys.carsaleapp.controller;
+package com.chainsys.carsaleapp.logger;
 
 public class IndexLogger {
 

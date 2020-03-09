@@ -13,10 +13,9 @@ import com.chainsys.carsaleapp.dao.CarOwnerDAO;
 import com.chainsys.carsaleapp.dao.impl.CarOwnerImp;
 import com.chainsys.carsaleapp.model.CarOwner;
 import com.chainsys.carsaleapp.util.DbException;
-
 @RestController
 @RequestMapping("api/user")
-public class CarUserController {
+public class UserController {
 CarOwnerDAO obj=new CarOwnerImp();
 @PostMapping("/Registration")
 public void registration(@RequestBody CarOwner carOwner)
@@ -36,9 +35,5 @@ public List<CarOwner> viewYourCar(@RequestParam(name="mobileNo")long mobileNo){
 		e.printStackTrace();
 	}
 	return li;
-}
-
-{
-	
 }
 }
