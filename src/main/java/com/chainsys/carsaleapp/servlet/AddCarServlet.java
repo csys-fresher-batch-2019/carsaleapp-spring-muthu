@@ -15,7 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.chainsys.carsaleapp.dao.impl.CarDetailImp;
 import com.chainsys.carsaleapp.model.CarDetail;
 import com.chainsys.carsaleapp.service.CarDetailService;
-import com.chainsys.carsaleapp.util.DbException;
+import com.chainsys.carsaleapp.exception.DbException;
 @WebServlet("/AddCarServlet")
 public class AddCarServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -52,7 +52,7 @@ public class AddCarServlet extends HttpServlet {
 		String vid = request.getParameter("vid");
 		String imageSrc=request.getParameter("image");
 		carDetail.setVehicleIdNo(vid);
-		carDetail.setCarOwnerId(sellerId);
+		carDetail.getCarOwner().setOwnerId(sellerId);
         carDetail.setImageSrc(imageSrc);		
 			try {
 				cdi.addCarDetail(carDetail);

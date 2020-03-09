@@ -19,7 +19,7 @@ import com.chainsys.carsaleapp.dao.CarDetailDAO;
 import com.chainsys.carsaleapp.logger.Logger;
 import com.chainsys.carsaleapp.model.CarDetail;
 import com.chainsys.carsaleapp.model.CarOwner;
-import com.chainsys.carsaleapp.util.DbException;
+import com.chainsys.carsaleapp.exception.DbException;
 @Repository
 public class CarDetailImp implements CarDetailDAO {
 	private static final Logger log = Logger.getInstance();

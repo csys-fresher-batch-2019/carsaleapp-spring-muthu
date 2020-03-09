@@ -10,7 +10,8 @@ import com.chainsys.carsaleapp.dao.CarDetailDAO;
 import com.chainsys.carsaleapp.dao.impl.CarDetailImp;
 import com.chainsys.carsaleapp.exception.ValidatorException;
 import com.chainsys.carsaleapp.model.CarDetail;
-import com.chainsys.carsaleapp.util.DbException;
+import com.chainsys.carsaleapp.exception.DbException;
+import com.chainsys.carsaleapp.exception.ServiceException;
 import com.chainsys.carsaleapp.validator.CarDetailValidator;
 
 @Service

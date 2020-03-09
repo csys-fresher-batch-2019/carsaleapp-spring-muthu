@@ -3,7 +3,7 @@
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
     <jsp:include page="header.jsp"></jsp:include>
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title></title>
@@ -93,8 +93,8 @@ function validateCarNo(regNo)
 <Form action="AddCarServlet" method="post" autocomplete="off">
 <table>
 <tbody>
-<tr><td>Car Name</td><td>: <input type="text" name="carName" id="carName" placeholder="Ex:figo" value="${param.carName}" required/></td></tr>
-<tr><td>Car Brand</td><td>: <input type="text" name="carBrand" id="carBrand" placeholder="ford" value="${param.carBrand}" required/></td></tr>
+<tr><th>Car Name<th><td>: <input type="text" name="carName" id="carName" placeholder="Ex:figo" value="${param.carName}" required/></td></tr>
+<tr><th>Car Brand</th><td>: <input type="text" name="carBrand" id="carBrand" placeholder="ford" value="${param.carBrand}" required/></td></tr>
 <tr><td>Transmission Type</td><td>: <input type="radio" name="tr" value="manual" required>manual<input type="radio" name="tr" value="auto">auto</td></tr>
 <tr><td>Fuel Type</td><td>: <input type="radio" name="fuel" value="petrol" required>Petrol<input type="radio" name="fuel" value="diesel">Diesel</td></tr>
 <tr><td>Registration State</td><td>: <input type="text" name="regState" id="regState" value="${param.regState}" placeholder="Ex:Tamilnadu"required/></td></tr>
@@ -112,7 +112,6 @@ function validateCarNo(regNo)
 </Form>
 <script>
 setYear();
-
 </script>
 </body>
 </html>

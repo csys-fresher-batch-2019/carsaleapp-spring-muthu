@@ -16,7 +16,7 @@ import org.springframework.stereotype.Repository;
 import com.chainsys.carsaleapp.dao.CarOrderDAO;
 import com.chainsys.carsaleapp.logger.Logger;
 import com.chainsys.carsaleapp.model.CarOrder;
-import com.chainsys.carsaleapp.util.DbException;
+import com.chainsys.carsaleapp.exception.DbException;
 @Repository
 public class CarOrderImp implements CarOrderDAO {
 	private static final Logger log = Logger.getInstance();

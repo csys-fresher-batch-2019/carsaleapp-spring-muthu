@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Repository;
 
 import com.chainsys.carsaleapp.model.CarDetail;
-import com.chainsys.carsaleapp.util.DbException;
+import com.chainsys.carsaleapp.exception.DbException;
 
 public interface CarDetailDAO {
 	void addCarDetail(CarDetail carDetail) throws DbException;

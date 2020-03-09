@@ -6,7 +6,8 @@ import org.springframework.stereotype.Service;
 import com.chainsys.carsaleapp.dao.CarOwnerDAO;
 import com.chainsys.carsaleapp.model.CarOrder;
 import com.chainsys.carsaleapp.model.CarOwner;
-import com.chainsys.carsaleapp.util.DbException;
+import com.chainsys.carsaleapp.exception.DbException;
+import com.chainsys.carsaleapp.exception.ServiceException;
 @Service
 public class CarOwnerService {
 	@Autowired
