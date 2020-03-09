@@ -1,6 +1,7 @@
 package com.chainsys.carsaleapp.model;
 
 import java.sql.Date;
+import java.time.LocalDate;
 
 import lombok.Data;
 import lombok.ToString;
@@ -16,8 +17,8 @@ public class CarOrder {
 	private String testDrive;
 	private String status;
 	private int userId;
-	private Date orderedDate;
-	private Date deliveredDate;
+	private LocalDate orderedDate;
+	private LocalDate deliveredDate;
 	private String address1;
 	private String address2;
 	private int pincode;

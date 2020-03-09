@@ -30,7 +30,6 @@ public class CarDetailService {
 		} catch (DbException e) {
 			throw new ServiceException(e);
 		} catch (ValidatorException e) {
-			e.printStackTrace();
 			throw new ServiceException(e);
 		}
 	}
