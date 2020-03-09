@@ -1,2 +1,0 @@
-src/main/java/com/chainsys/carsaleapp/controller/CarController.java
-src/main/java/com/chainsys/carsaleapp/controller/CarOrderController.java
