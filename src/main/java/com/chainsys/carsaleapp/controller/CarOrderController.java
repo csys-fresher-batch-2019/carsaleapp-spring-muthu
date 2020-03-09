@@ -22,7 +22,7 @@ public class CarOrderController {
 	public List<CarOrder> getCarDeleveryDate(@RequestParam(name = "orderId") int orderId) {
 		List<CarOrder> li = null;
 		try {
-			li = obj.getCarDeleveryDate(orderId);
+			li = obj.findByOrderId(orderId);
 		} catch (DbException e) {
 			e.printStackTrace();
 		}
@@ -32,7 +32,7 @@ public class CarOrderController {
 
 	public void orderCar(@RequestBody CarOrder carOrder) {
 		try {
-			obj.orderCar(carOrder);
+			obj.save(carOrder);
 		} catch (DbException e) {
 			e.printStackTrace();
 		}
@@ -42,7 +42,7 @@ public class CarOrderController {
 	public List<CarOrder> getDeliveryCarDet(@RequestParam(name = "orderId") int orderId) {
 		List<CarOrder> li = null;
 		try {
-			li = obj.getDeliveryCarDet(orderId);
+			li = obj.findCarDeliveryDetail(orderId);
 		} catch (DbException e) {
 			e.printStackTrace();
 		}
@@ -56,10 +56,10 @@ public class CarOrderController {
 		try {
 			if (userId != null) {
 
-				li = obj.getOrderedCar(userId);
+				li = obj.findByUserId(userId);
 
 			} else if (sellerId != null) {
-				li = obj.getOrderedUserCar(sellerId);
+				li = obj.findBySellerId(sellerId);
 			}
 		} catch (DbException e) {
 			e.printStackTrace();

@@ -49,7 +49,7 @@ public class CarDetailImp implements CarDetailDAO {
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
 
-	public int getSellerId(Long mobileNo, String password) throws DbException {
+	public int findByMobileNoAndPassword(Long mobileNo, String password) throws DbException {
 
 		int sellerId = 0;
 		String sql = "select seller_id from car_seller where (seller_contact_no=? or seller_id=?) and user_password=?";
@@ -126,7 +126,7 @@ public class CarDetailImp implements CarDetailDAO {
 
 	}
 
-	public void addCarDetail(CarDetail cardetail) throws DbException {
+	public void save(CarDetail cardetail) throws DbException {
 
 		LocalDate updatedDate = LocalDate.now();
 		Date updatedDate1 = Date.valueOf(updatedDate);
@@ -160,7 +160,7 @@ public class CarDetailImp implements CarDetailDAO {
 
 	// s.close();
 
-	public List<CarDetail> getCarDetail(String carName) throws DbException {
+	public List<CarDetail> findByCarName(String carName) throws DbException {
 
 		List<CarDetail> ar = new ArrayList<CarDetail>();
 		String stat = "available";
@@ -200,7 +200,7 @@ public class CarDetailImp implements CarDetailDAO {
 		return ar;
 	}
 
-	public List<CarDetail> getCarDetail(String carBrand, String regState) throws DbException {
+	public List<CarDetail> findByCarBrandAndRegState(String carBrand, String regState) throws DbException {
 		// TODO Auto-generated method stub
 		List<CarDetail> ar = new ArrayList<CarDetail>();
 
@@ -235,7 +235,7 @@ public class CarDetailImp implements CarDetailDAO {
 
 	}
 
-	public List<CarDetail> getDetailWithOwner(String carBrand) throws DbException {
+	public List<CarDetail> findByCarBrand(String carBrand) throws DbException {
 
 		List<CarDetail> list = new ArrayList<CarDetail>();
 		String sql = "select * from  car_detail t left outer join car_seller d on t.car_seller_id=d.seller_id where t.car_brand=?";
@@ -285,7 +285,7 @@ public class CarDetailImp implements CarDetailDAO {
 		return list;
 	}
 
-	public List<CarDetail> getUpdatedCar(String status) throws DbException {
+	public List<CarDetail> updateStatus(String status) throws DbException {
 
 		List<CarDetail> ar = new ArrayList<CarDetail>();
 
@@ -324,19 +324,19 @@ public class CarDetailImp implements CarDetailDAO {
 		return ar;
 	}
 
-	public List<CarDetail> getCarDetail(String carName, String carBrand, String fuleType) throws DbException {
+	public List<CarDetail> findByCarNameAndBrandAndFuelType(String carName, String carBrand, String fuleType) throws DbException {
 
 		return null;
 	}
 
 	@Override
-	public List<CarDetail> getCarDetail(Float max, String carBrand) throws DbException {
+	public List<CarDetail> findByMaxPriceAndCarBrand(Float max, String carBrand) throws DbException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public List<CarDetail> getCarDetailAbovePrice(float min) throws DbException {
+	public List<CarDetail> findByMaxPrice(float min) throws DbException {
 		List<CarDetail> ar = new ArrayList<CarDetail>();
 		float max = 900000000;
 		String car_status = "available";
@@ -377,7 +377,7 @@ public class CarDetailImp implements CarDetailDAO {
 	}
 
 	@Override
-	public List<CarDetail> getCarDetailBelowPrice(Float max) throws DbException {
+	public List<CarDetail> findByMinPrice(Float min) throws DbException {
 		List<CarDetail> ar = new ArrayList<CarDetail>();
 		String carStatus = "available";
 		String sql = "select * from  car_detail t left outer join car_seller d on t.car_seller_id=d.seller_id  where price <=? and status=?";
@@ -386,7 +386,7 @@ public class CarDetailImp implements CarDetailDAO {
 		// car_brand,images,car_name,reg_year,car_id,driven_km,price,fuel_type,car_available_city,registration_no,tr_type
 		// from car_detail where price<=? and status=? order by price asc";
 		try (Connection con = dataSource.getConnection(); PreparedStatement ps = con.prepareStatement(sql)) {
-			ps.setFloat(1, max);
+			ps.setFloat(1, min);
 			ps.setString(2, carStatus);
 			try (ResultSet rs = ps.executeQuery();) {
 				while (rs.next()) {
@@ -416,7 +416,7 @@ public class CarDetailImp implements CarDetailDAO {
 	}
 
 	@Override
-	public List<CarDetail> getCarDetailAboveDrivenKm(float startFrom, float endTo) throws DbException {
+	public List<CarDetail> findByDrivenKmFromAndTo(float startFrom, float endTo) throws DbException {
 		List<CarDetail> ar = new ArrayList<CarDetail>();
 		String carStatus = "available";
 		String sql = "select car_brand,car_name,reg_year,car_id,driven_km,price,fuel_type,car_available_city,registration_no,tr_type from car_detail where driven_km between ? and ?  and status=? order by driven_km asc";
@@ -450,7 +450,7 @@ public class CarDetailImp implements CarDetailDAO {
 	}
 
 	@Override
-	public List<CarDetail> getCarDetailUseFuelType(String fuelType) throws DbException {
+	public List<CarDetail> findByFuelType(String fuelType) throws DbException {
 		List<CarDetail> ar = new ArrayList<CarDetail>();
 		String sql = "select car_brand,car_name,reg_year,car_id,driven_km,price,fuel_type,car_available_city,registration_no,tr_type from car_detail where fuel_type=?";
 		try (Connection con = dataSource.getConnection(); PreparedStatement ps = con.prepareStatement(sql)) {
@@ -481,7 +481,7 @@ public class CarDetailImp implements CarDetailDAO {
 	}
 
 	@Override
-	public List<CarDetail> getCarDetailUseCarId(int carId) throws DbException {
+	public List<CarDetail> findOne(int carId) throws DbException {
 		List<CarDetail> ar = new ArrayList<CarDetail>();
 		String sql = "select * from  car_detail t left outer join car_seller d on t.car_seller_id=d.seller_id where t.car_id=? and t.status='available'";
 
@@ -519,7 +519,7 @@ public class CarDetailImp implements CarDetailDAO {
 	}
 
 	@Override
-	public List<CarDetail> viewAllCar() throws DbException {
+	public List<CarDetail> findAll() throws DbException {
 		List<CarDetail> ar = new ArrayList<CarDetail>();
 		String stat = "available";
 		String sql = "select * from  car_detail where status=?";
@@ -555,7 +555,7 @@ public class CarDetailImp implements CarDetailDAO {
 		return ar;
 	}
 
-	public boolean isCarAlreadyRegistered(String regNo) throws DbException {
+	public boolean findByRegNo(String regNo) throws DbException {
 		boolean exists = false;
 		String sqll = "select * from car_detail where registration_no=?";
 		try (Connection con = dataSource.getConnection(); PreparedStatement ps = con.prepareStatement(sqll);) {

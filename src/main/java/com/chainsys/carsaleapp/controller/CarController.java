@@ -26,7 +26,7 @@ public class CarController {
 	{
 		Integer sellerId=null;
 		try {
-			sellerId=obj.getSellerId(mobileNo, password);
+			sellerId=obj.findByMobileNoAndPassword(mobileNo, password);
 		} catch (DbException e) {
 			e.printStackTrace();
 		}
@@ -37,7 +37,7 @@ public class CarController {
 		List<CarDetail> li=new ArrayList<>();
 		
 				try {
-					li=obj.getCarDetailUseCarId(carId);
+					li=obj.findOne(carId);
 		} catch (DbException e) {
 			e.printStackTrace();
 		}
@@ -48,7 +48,7 @@ public class CarController {
 	void addCarDetail(@RequestBody CarDetail carDetail) {
 		try
 		{
-			obj.addCarDetail(carDetail);
+			obj.save(carDetail);
 			
 		}catch(Exception e)
 		{
@@ -70,24 +70,24 @@ public class CarController {
 		try
 		{
 			if (min != null) {
-				ar=obj.getCarDetailAbovePrice(min);
+				ar=obj.findByMaxPrice(min);
 			}
 			else if (max !=null)
 			{
-				ar=obj.getCarDetailBelowPrice(max);
+				ar=obj.findByMinPrice(max);
 				
 			}
 			else if(carBrand!=null && regState!=null )
 			{
-				ar=obj.getCarDetail(carBrand,regState);
+				ar=obj.findByCarBrandAndRegState(carBrand,regState);
 			}
 			else if(carBrand !=null)
 			{
-				ar=obj.getCarDetail(carBrand);
+				ar=obj.findByCarName(carBrand);
 			}
 			else if(carId!=null)
 			{
-				ar=obj.getCarDetailUseCarId(carId);
+				ar=obj.findOne(carId);
 			}
 			
 		}catch(Exception e)

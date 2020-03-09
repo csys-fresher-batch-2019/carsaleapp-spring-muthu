@@ -26,6 +26,7 @@ public class TestCarOrder {
 			log.getInput("3.view Your car Delivery Information");
 			log.getInput("4.view your ordered car");
 			log.getInput("5.View ordered  your Car ");
+			log.getInput("6.View   placed car ");
 			int ch = sc.nextInt();
 			switch (ch) {
 			case 1: {
@@ -66,14 +67,14 @@ public class TestCarOrder {
 				c.setBuyerState(state);
 				c.setPincode(pincode);
 				c.setUserId(userId);
-				obj.orderCar(c);
+				obj.save(c);
 				break;
 			}
 			case 2: {
 				CarOrderImp obj = new CarOrderImp();
 				log.getInput("Enter the order_id");
 				int id = sc.nextInt();
-				List<CarOrder> cars = obj.getCarDeleveryDate(id);
+				List<CarOrder> cars = obj.findByOrderId(id);
 				String fileContent = "";
 				for (CarOrder c : cars) {
 					String data = c.getBuyerName() + "," + c.getOrderId() + "," + c.getCarId() + ","
@@ -92,7 +93,7 @@ public class TestCarOrder {
 				CarOrderImp co = new CarOrderImp();
 				log.getInput("Enter the order_id");
 				int orderId = sc.nextInt();
-				List<CarOrder> al = co.getDeliveryCarDet(orderId);
+				List<CarOrder> al = co.findCarDeliveryDetail(orderId);
 				for (CarOrder c : al) {
 					LocalDate deliveredDate = c.getDeliveredDate();
 					long days = Duration.between(ldd.atTime(0, 0), deliveredDate.atTime(0, 0)).toDays();
@@ -124,7 +125,7 @@ public class TestCarOrder {
 				CarOrderImp co = new CarOrderImp();
 				log.getInput("Enter userId");
 				int userId = sc.nextInt();
-				List<CarOrder> li = co.getOrderedCar(userId);
+				List<CarOrder> li = co.findByUserId(userId);
 				for (CarOrder c : li) {
 					log.info(c.getBuyerName() + "," + c.getOrderId() + "," + c.getCarId() + "," + c.getDeliveredDate());
 				}
@@ -135,9 +136,22 @@ public class TestCarOrder {
 				CarOrderImp co = new CarOrderImp();
 				log.getInput("Enter userId");
 				int userId = sc.nextInt();
-				List<CarOrder> li = co.getOrderedUserCar(userId);
+				List<CarOrder> li = co.findBySellerId(userId);
 				for (CarOrder c : li) {
 					log.info(c.getBuyerName() + "," + c.getOrderId() + "," + c.getCarId() + "," + c.getDeliveredDate());
+				}
+				break;
+			}
+			case 6: {
+				log.getInput("enter your Mobileno");
+				Long mobileNo = sc.nextLong();
+				CarOrderImp co = new CarOrderImp();
+				List<CarOrder> al = co.findByMobileNo(mobileNo);
+				for (CarOrder ca : al) {
+					log.info(+ca.getBuyerContactNo() + "   " + ca.getBuyerName() + "  " + ca.getAddress1() + "  "
+							+ ca.getAddress2() + "  " + ca.getPincode() + "  " + ca.getBuyerState() + "   "
+							+ ca.getCarId() + "  " + ca.getOrderId() + "  " + ca.getStatus() + "  "
+							+ ca.getDeliveredDate() + "    " + ca.getOrderedDate());
 				}
 				break;
 			}

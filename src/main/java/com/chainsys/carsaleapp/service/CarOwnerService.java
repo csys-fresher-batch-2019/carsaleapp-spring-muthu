@@ -18,7 +18,7 @@ public class CarOwnerService {
 
 	public void addCarOwner(CarOwner carOwner) throws ServiceException {
 		try {
-			carOwnerDAO.addCarOwner(carOwner);
+			carOwnerDAO.save(carOwner);
 		} catch (DbException e) {
 			e.printStackTrace();
 		}
@@ -26,7 +26,7 @@ public class CarOwnerService {
 
 	void deleteCarDetail(int carOwnerId, int carId) throws ServiceException {
 		try {
-			carOwnerDAO.deleteCarDetail(carOwnerId, carId);
+			carOwnerDAO.delete(carOwnerId, carId);
 		} catch (DbException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -36,7 +36,7 @@ public class CarOwnerService {
 	public List<CarOwner> viewYourCar(long mobileNo) throws ServiceException {
 		List<CarOwner> li = null;
 		try {
-			li = carOwnerDAO.viewYourCar(mobileNo);
+			li = carOwnerDAO.findBymobileNo(mobileNo);
 		} catch (DbException e) {
 			e.printStackTrace();
 		}
@@ -45,7 +45,7 @@ public class CarOwnerService {
 
 	public void updateCarPrice(CarOwner carOwner) throws ServiceException {
 		try {
-			carOwnerDAO.updateCarPrice(carOwner);
+			carOwnerDAO.update(carOwner);
 		} catch (DbException e) {
 			e.printStackTrace();
 		}
@@ -55,21 +55,10 @@ public class CarOwnerService {
 	public boolean isCarOwnerAlreadyRegistered(Long mobileNo) throws ServiceException {
 		boolean exists = false;
 		try {
-			exists = carOwnerDAO.isCarOwnerAlreadyRegistered(mobileNo);
+			exists = carOwnerDAO.exists(mobileNo);
 		} catch (DbException e) {
 			e.printStackTrace();
 		}
 		return exists;
 	}
-
-	public List<CarOrder> viewYourPlacedCar(Long mobileNo) throws ServiceException {
-		List<CarOrder> li = null;
-		try {
-			li = carOwnerDAO.viewYourPlacedCar(mobileNo);
-		} catch (DbException e) {
-			e.printStackTrace();
-		}
-		return li;
-	}
-
 }

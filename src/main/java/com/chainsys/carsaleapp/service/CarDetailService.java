@@ -26,7 +26,7 @@ public class CarDetailService {
 
 		try {
 			carValidator.validateCarForSave(carDetail);
-			carDetailDAO.addCarDetail(carDetail);
+			carDetailDAO.save(carDetail);
 		} catch (DbException e) {
 			throw new ServiceException(e);
 		} catch (ValidatorException e) {
@@ -37,7 +37,7 @@ public class CarDetailService {
 	public List<CarDetail> getCarDetail(String carName) throws ServiceException {
 		List<CarDetail> ls = new ArrayList<CarDetail>();
 		try {
-			ls = carDetailDAO.getCarDetail(carName);
+			ls = carDetailDAO.findByCarName(carName);
 
 		} catch (DbException e) {
 			e.printStackTrace();
@@ -50,7 +50,7 @@ public class CarDetailService {
 	public List<CarDetail> getDetailWithOwner(String carBrand) throws ServiceException {
 		List<CarDetail> ls = new ArrayList<CarDetail>();
 		try {
-			ls = carDetailDAO.getDetailWithOwner(carBrand);
+			ls = carDetailDAO.findByCarBrand(carBrand);
 		} catch (DbException e) {
 			e.printStackTrace();
 			throw new ServiceException(e);
@@ -61,7 +61,7 @@ public class CarDetailService {
 	public List<CarDetail> getUpdatedCar(String status) throws ServiceException {
 		List<CarDetail> ls = new ArrayList<CarDetail>();
 		try {
-			ls = carDetailDAO.getUpdatedCar(status);
+			ls = carDetailDAO.updateStatus(status);
 		} catch (DbException e) {
 			e.printStackTrace();
 			throw new ServiceException(e);
@@ -72,7 +72,7 @@ public class CarDetailService {
 	public List<CarDetail> getCarDetail(String carName, String carBrand, String fuleType) throws ServiceException {
 		List<CarDetail> ls = new ArrayList<CarDetail>();
 		try {
-			ls = carDetailDAO.getCarDetail(carName, carBrand, fuleType);
+			ls = carDetailDAO.findByCarNameAndBrandAndFuelType(carName, carBrand, fuleType);
 		} catch (DbException e) {
 			e.printStackTrace();
 			throw new ServiceException(e);
@@ -84,7 +84,7 @@ public class CarDetailService {
 	public List<CarDetail> getCarDetailAbovePrice(float max) throws ServiceException {
 		List<CarDetail> ls = new ArrayList<CarDetail>();
 		try {
-			ls = carDetailDAO.getCarDetailAbovePrice(max);
+			ls = carDetailDAO.findByMaxPrice(max);
 		} catch (DbException e) {
 			e.printStackTrace();
 			throw new ServiceException(e);
@@ -95,7 +95,7 @@ public class CarDetailService {
 	public List<CarDetail> getCarDetail(Float max, String carBrand) throws ServiceException {
 		List<CarDetail> ls = new ArrayList<CarDetail>();
 		try {
-			ls = carDetailDAO.getCarDetail(max, carBrand);
+			ls = carDetailDAO.findByMaxPriceAndCarBrand(max, carBrand);
 		} catch (DbException e) {
 			e.printStackTrace();
 			throw new ServiceException(e);
@@ -106,7 +106,7 @@ public class CarDetailService {
 	public List<CarDetail> viewAllCar() throws ServiceException {
 		List<CarDetail> ls = new ArrayList<CarDetail>();
 		try {
-			ls = carDetailDAO.viewAllCar();
+			ls = carDetailDAO.findAll();
 		} catch (DbException e) {
 			e.printStackTrace();
 			throw new ServiceException(e);
@@ -118,7 +118,7 @@ public class CarDetailService {
 	public List<CarDetail> getCarDetailBelowPrice(Float max) throws ServiceException {
 		List<CarDetail> ls = new ArrayList<CarDetail>();
 		try {
-			ls = carDetailDAO.viewAllCar();
+			ls = carDetailDAO.findAll();
 		} catch (DbException e) {
 			e.printStackTrace();
 			throw new ServiceException(e);
@@ -129,7 +129,7 @@ public class CarDetailService {
 	public List<CarDetail> getCarDetailAboveDrivenKm(float from, float to) throws ServiceException {
 		List<CarDetail> ls = new ArrayList<CarDetail>();
 		try {
-			ls = carDetailDAO.getCarDetailAboveDrivenKm(from, to);
+			ls = carDetailDAO.findByDrivenKmFromAndTo(from, to);
 		} catch (DbException e) {
 			e.printStackTrace();
 			throw new ServiceException(e);
@@ -141,7 +141,7 @@ public class CarDetailService {
 	public List<CarDetail> getCarDetailUseCarId(int carId) throws ServiceException {
 		List<CarDetail> ls = new ArrayList<CarDetail>();
 		try {
-			ls = carDetailDAO.getCarDetailUseCarId(carId);
+			ls = carDetailDAO.findOne(carId);
 		} catch (DbException e) {
 			e.printStackTrace();
 			throw new ServiceException(e);
@@ -152,7 +152,7 @@ public class CarDetailService {
 	public int getSellerId(Long mobileNo, String password) throws ServiceException {
 		int id;
 		try {
-			id = carDetailDAO.getSellerId(mobileNo, password);
+			id = carDetailDAO.findByMobileNoAndPassword(mobileNo, password);
 		} catch (DbException e) {
 			e.printStackTrace();
 			throw new ServiceException(e);
@@ -166,7 +166,7 @@ public class CarDetailService {
 		boolean exists = false;
 
 		try {
-			exists = carDetailDAO.isCarAlreadyRegistered(regNo);
+			exists = carDetailDAO.findByRegNo(regNo);
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw new ServiceException(e);

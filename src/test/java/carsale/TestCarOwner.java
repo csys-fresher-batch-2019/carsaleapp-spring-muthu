@@ -16,25 +16,20 @@ public class TestCarOwner {
 		// TODO Auto-generated method stub
 		CarOwnerImp obj = new CarOwnerImp();
 		CarOwner c = new CarOwner();
-		/*
-		 * int sellno=18; String sellername="sundar"; long contactno=8970893828l;
-		 * CarOwner c=new CarOwner(); c.setownerId(sellno); c.setownerName(sellername);
-		 * c.setcontactNo(contactno); obj.AddCarOwner(c);
-		 */
 		Scanner sc = new Scanner(System.in);
 		char m;
 		do {
 			log.getInput("1.View Your car");
 			log.getInput("2.Update your Car Price");
 			log.getInput("3.Remove your car");
-			log.getInput("4.view your status");
+			log.getInput("4.check you car is available or not");
 
 			int ch = sc.nextInt();
 			switch (ch) {
 			case 1: {
 				log.getInput("Enter Your Phone Number or sellerID");
 				long mobileno = sc.nextLong();
-				List<CarOwner> al = obj.viewYourCar(mobileno);
+				List<CarOwner> al = obj.findBymobileNo(mobileno);
 				for (CarOwner co : al) {
 					log.info(co.getOwnerName() + "   " + co.getCarDetail().getCarBrand() + "    "
 							+ co.getCarDetail().getCarName() + "   " + co.getOwnerId() + "   "
@@ -66,7 +61,7 @@ public class TestCarOwner {
 						int f = sc.nextInt();
 						cd.setPrice(f);
 						c.setCarDetail(cd);
-						obj.updateCarPrice(c);
+						obj.update(c);
 						break;
 					}
 					case 2: {
@@ -78,7 +73,7 @@ public class TestCarOwner {
 						log.getInput("Enter your car price");
 						cd.setPrice(sc.nextInt());
 						c.setCarDetail(cd);
-						obj.updateCarPrice(c);
+						obj.update(c);
 						break;
 
 					}
@@ -94,25 +89,15 @@ public class TestCarOwner {
 				int carOwnerId = sc.nextInt();
 				log.getInput("Enter your car id");
 				int carId = sc.nextInt();
-				coi.deleteCarDetail(carOwnerId, carId);
+				coi.delete(carOwnerId, carId);
 				break;
 			}
+			
+			
 			case 4: {
-				log.getInput("enter your Mobileno");
-				Long mobileNo = sc.nextLong();
-				List<CarOrder> al = obj.viewYourPlacedCar(mobileNo);
-				for (CarOrder ca : al) {
-					log.info(+ca.getBuyerContactNo() + "   " + ca.getBuyerName() + "  " + ca.getAddress1() + "  "
-							+ ca.getAddress2() + "  " + ca.getPincode() + "  " + ca.getBuyerState() + "   "
-							+ ca.getCarId() + "  " + ca.getOrderId() + "  " + ca.getStatus() + "  "
-							+ ca.getDeliveredDate() + "    " + ca.getOrderedDate());
-				}
-				break;
-			}
-			case 5: {
 				log.getInput("Enter mobile no/userId");
 				Long mobileNo = sc.nextLong();
-				boolean exist = obj.isCarOwnerAlreadyRegistered(mobileNo);
+				boolean exist = obj.exists(mobileNo);
 				if (exist) {
 					log.info(exist);
 				} else {

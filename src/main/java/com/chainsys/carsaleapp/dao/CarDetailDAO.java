@@ -6,37 +6,37 @@ import com.chainsys.carsaleapp.exception.DbException;
 import com.chainsys.carsaleapp.model.CarDetail;
 
 public interface CarDetailDAO {
-	void addCarDetail(CarDetail carDetail) throws DbException;
+	void save(CarDetail carDetail) throws DbException;
 
-	public List<CarDetail> getCarDetail(String carName) throws DbException;
+	public List<CarDetail> findByCarName(String carName) throws DbException;
 
-	public List<CarDetail> getCarDetail(String carBrand, String regState) throws DbException;
+	public List<CarDetail> findByCarBrandAndRegState(String carBrand, String regState) throws DbException;
 
-	public List<CarDetail> getDetailWithOwner(String carBrand) throws DbException;
+	public List<CarDetail> findByCarBrand(String carBrand) throws DbException;
 
-	public List<CarDetail> getUpdatedCar(String status) throws DbException;
+	public List<CarDetail> updateStatus(String status) throws DbException;
 
-	public List<CarDetail> getCarDetail(String carName, String carBrand, String fuleType) throws DbException;
+	public List<CarDetail> findByCarNameAndBrandAndFuelType(String carName, String carBrand, String fuelType) throws DbException;
 
 	// public int verifyUser(int sellerIdd, String password) throws DbException;
 
 	// public int getSellerId(Long mobileNo, String password) throws DbException;
 
-	public List<CarDetail> getCarDetailAbovePrice(float max) throws DbException;
+	public List<CarDetail> findByMaxPrice(float max) throws DbException;
 
-	public List<CarDetail> getCarDetail(Float max, String carBrand) throws DbException;
+	public List<CarDetail> findByMaxPriceAndCarBrand(Float max, String carBrand) throws DbException;
 
-	public List<CarDetail> getCarDetailBelowPrice(Float max) throws DbException;
+	public List<CarDetail> findByMinPrice(Float min) throws DbException;
 
-	public List<CarDetail> getCarDetailAboveDrivenKm(float from, float to) throws DbException;
+	public List<CarDetail> findByDrivenKmFromAndTo(float StartFrom, float endTo) throws DbException;
 
-	public List<CarDetail> getCarDetailUseFuelType(String fuelType) throws DbException;
+	public List<CarDetail> findByFuelType(String fuelType) throws DbException;
 
-	public List<CarDetail> getCarDetailUseCarId(int carId) throws DbException;
+	public List<CarDetail> findOne(int carId) throws DbException;
 
-	public List<CarDetail> viewAllCar() throws DbException;
+	public List<CarDetail> findAll() throws DbException;
 
-	public int getSellerId(Long mobileNo, String password) throws DbException;
+	public int findByMobileNoAndPassword(Long mobileNo, String password) throws DbException;
 
-	public boolean isCarAlreadyRegistered(String regNo) throws DbException;
+	public boolean findByRegNo(String regNo) throws DbException;
 }

@@ -9,16 +9,18 @@ import com.chainsys.carsaleapp.model.CarOrder;
 
 @Repository
 public interface CarOrderDAO {
-	public void orderCar(CarOrder carOrder) throws DbException;
+	public void save(CarOrder carOrder) throws DbException;
 
-	public List<CarOrder> getCarDeleveryDate(int orderId) throws DbException;
+	public List<CarOrder> findByOrderId(int orderId) throws DbException;
 
-	public List<CarOrder> getDeliveryCarDet(int orderId) throws DbException;
+	public List<CarOrder> findCarDeliveryDetail(int orderId) throws DbException;
 
-	public void updateCarStatus(int carId) throws DbException;
+	public void updateStatus(int carId) throws DbException;
 
-	public List<CarOrder> getOrderedCar(int userId) throws DbException;
+	public List<CarOrder> findByUserId(int userId) throws DbException;
 
-	public List<CarOrder> getOrderedUserCar(int sellerId) throws DbException;
+	public List<CarOrder> findBySellerId(int sellerId) throws DbException;
+
+	public List<CarOrder> findByMobileNo(Long mobileNo) throws DbException;
 
 }

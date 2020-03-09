@@ -22,7 +22,7 @@ public class UserController {
 	@PostMapping("/Registration")
 	public void registration(@RequestBody CarOwner carOwner) {
 		try {
-			obj.addCarOwner(carOwner);
+			obj.save(carOwner);
 		} catch (DbException e) {
 			e.printStackTrace();
 		}
@@ -32,7 +32,7 @@ public class UserController {
 	public List<CarOwner> viewYourCar(@RequestParam(name = "mobileNo") long mobileNo) {
 		List<CarOwner> li = null;
 		try {
-			li = obj.viewYourCar(mobileNo);
+			li = obj.findBymobileNo(mobileNo);
 		} catch (DbException e) {
 			e.printStackTrace();
 		}

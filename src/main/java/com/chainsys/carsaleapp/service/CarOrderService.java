@@ -17,7 +17,7 @@ public class CarOrderService {
 
 	public void orderCar(CarOrder carOrder) throws ServiceException {
 		try {
-			carOrderDAO.orderCar(carOrder);
+			carOrderDAO.save(carOrder);
 		} catch (DbException e) {
 			throw new ServiceException(e);
 		}
@@ -27,7 +27,7 @@ public class CarOrderService {
 	public List<CarOrder> getCarDeleveryDate(int orderId) throws ServiceException {
 		List<CarOrder> col = null;
 		try {
-			col = carOrderDAO.getCarDeleveryDate(orderId);
+			col = carOrderDAO.findByOrderId(orderId);
 
 		} catch (DbException e) {
 			throw new ServiceException(e);
@@ -39,7 +39,7 @@ public class CarOrderService {
 	public List<CarOrder> getDeliveryCarDet(int orderId) throws ServiceException {
 		List<CarOrder> li = null;
 		try {
-			li = carOrderDAO.getDeliveryCarDet(orderId);
+			li = carOrderDAO.findCarDeliveryDetail(orderId);
 		} catch (DbException e) {
 			throw new ServiceException(e);
 		}
@@ -49,7 +49,7 @@ public class CarOrderService {
 
 	public void updateCarStatus(int carId) throws ServiceException {
 		try {
-			carOrderDAO.updateCarStatus(carId);
+			carOrderDAO.updateStatus(carId);
 		} catch (DbException e) {
 			throw new ServiceException(e);
 		}
@@ -59,7 +59,7 @@ public class CarOrderService {
 	public List<CarOrder> getOrderedCar(int userId) throws ServiceException {
 		List<CarOrder> li = null;
 		try {
-			li = carOrderDAO.getOrderedCar(userId);
+			li = carOrderDAO.findByUserId(userId);
 		} catch (DbException e) {
 			throw new ServiceException(e);
 		}
@@ -69,12 +69,21 @@ public class CarOrderService {
 	public List<CarOrder> getOrderedUserCar(int sellerId) throws ServiceException {
 		List<CarOrder> li = null;
 		try {
-			li = carOrderDAO.getOrderedUserCar(sellerId);
+			li = carOrderDAO.findBySellerId(sellerId);
 		} catch (DbException e) {
 			throw new ServiceException(e);
 		}
 		return li;
 
+	}
+	public List<CarOrder> viewYourPlacedCar(Long mobileNo) throws ServiceException {
+		List<CarOrder> li = null;
+		try {
+			li = carOrderDAO.findByMobileNo(mobileNo);
+		} catch (DbException e) {
+			e.printStackTrace();
+		}
+		return li;
 	}
 
 }

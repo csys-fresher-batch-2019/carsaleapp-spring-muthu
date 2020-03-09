@@ -22,10 +22,15 @@ import com.chainsys.carsaleapp.model.CarOrder;
 @Repository
 public class CarOrderImp implements CarOrderDAO {
 	private static final Logger log = Logger.getInstance();
-	static final String seller_id = "seller_id";
-	private static final String buyer_name = "buyer_name";
-	private static final String order_id = "order_id";
+	private static final String buyer_contact_number = "buyer_contact_number";
+	private static final String status = "status";
+	private static final String test_drive = "test_drive";
 	private static final String delivered_date = "delivered_date";
+	private static final String ordered_date = "ordered_date";
+	private static final String order_id = "order_id";
+	private static final String buyer_name = "buyer_name";
+	private static final String buyer_state = "buyer_state";
+	static final String seller_id = "seller_id";
 	private static final String car_name = "car_name";
 	private static final String car_id = "car_id";
 	private static final String user_id = "user_id";
@@ -40,7 +45,7 @@ public class CarOrderImp implements CarOrderDAO {
 	@Autowired
 	private DataSource dataSource;
 
-	public void orderCar(CarOrder carOrder) throws DbException {
+	public void save(CarOrder carOrder) throws DbException {
 		String check = " select car_id  from car_detail where car_id = ?";
 
 		try (Connection con = dataSource.getConnection(); PreparedStatement ps = con.prepareStatement(check);) {
@@ -88,7 +93,7 @@ public class CarOrderImp implements CarOrderDAO {
 		}
 	}
 
-	public List<CarOrder> getCarDeleveryDate(int orderId) throws DbException {
+	public List<CarOrder> findByOrderId(int orderId) throws DbException {
 		// TODO Auto-generated method stub
 		List<CarOrder> lt = new ArrayList<CarOrder>();
 		String sql = "select buyer_name ,order_id,car_id,delivered_date from car_order where order_id=?";
@@ -114,7 +119,7 @@ public class CarOrderImp implements CarOrderDAO {
 		return lt;
 	}
 
-	public List<CarOrder> getDeliveryCarDet(int orderId) throws DbException {
+	public List<CarOrder> findCarDeliveryDetail(int orderId) throws DbException {
 		// TODO Auto-generated method stub
 		// Connection con =null;
 		// PreparedStatement pst=null;
@@ -146,13 +151,13 @@ public class CarOrderImp implements CarOrderDAO {
 	}
 
 	@Override
-	public void updateCarStatus(int carId) throws DbException {
+	public void updateStatus(int carId) throws DbException {
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public List<CarOrder> getOrderedCar(int userId) throws DbException {
+	public List<CarOrder> findByUserId(int userId) throws DbException {
 		String sql = "select * from car_order where user_id=?";
 		List<CarOrder> ts = new ArrayList<CarOrder>();
 		try (Connection con = dataSource.getConnection(); PreparedStatement pst = con.prepareStatement(sql);) {
@@ -179,7 +184,7 @@ public class CarOrderImp implements CarOrderDAO {
 		return ts;
 	}
 
-	public List<CarOrder> getOrderedUserCar(int sellerId) throws DbException {
+	public List<CarOrder> findBySellerId(int sellerId) throws DbException {
 		String sql = "select * from car_order where seller_id=?";
 		List<CarOrder> ts = new ArrayList<CarOrder>();
 		try (Connection con = dataSource.getConnection(); PreparedStatement pst = con.prepareStatement(sql);) {
@@ -213,6 +218,43 @@ public class CarOrderImp implements CarOrderDAO {
 		}
 		return ts;
 
+	}
+	public List<CarOrder> findByMobileNo(Long mobileNo) throws DbException {
+		// Connection con = null;
+		// PreparedStatement ps = null;
+		List<CarOrder> ar = new ArrayList<CarOrder>();
+		String sql = "select * from car_order where seller_id=(select seller_id from car_seller where seller_contact_no=?)";
+
+		try (Connection con = dataSource.getConnection(); PreparedStatement ps = con.prepareStatement(sql);) {
+
+			ps.setLong(1, mobileNo);
+			try (ResultSet rs = ps.executeQuery();) {
+				if (rs.next()) {
+					CarOrder co = new CarOrder();
+					co.setBuyerContactNo(rs.getLong(buyer_contact_number));
+					co.setBuyerName(rs.getString(buyer_name));
+					co.setCarId(rs.getInt(car_id));
+					co.setOrderId(rs.getInt(order_id));
+					co.setTestDrive(rs.getString(test_drive));
+					Date d = rs.getDate(delivered_date);
+					co.setDeliveredDate(d.toLocalDate());
+					Date od = rs.getDate(ordered_date);
+					co.setOrderedDate(od.toLocalDate());
+					co.setAddress1(rs.getString(address1));
+					co.setAddress2(rs.getString(address2));
+					co.setBuyerState(rs.getString(buyer_state));
+					co.setStatus(rs.getString(status));
+					co.setPincode(rs.getInt(pincode));
+					ar.add(co);
+				} else {
+					log.error("your car not ordered");
+				}
+			}
+		} catch (SQLException e) {
+			log.error(e);
+		}
+
+		return ar;
 	}
 
 	/*

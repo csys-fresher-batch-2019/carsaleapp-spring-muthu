@@ -34,24 +34,16 @@ public class CarOwnerImp implements CarOwnerDAO {
 	private static final String registration_no = "registration_no";
 	private static final String seller_name = "seller_name";
 	private static final String reg_year = "reg_year";
-	private static final String buyer_contact_number = "buyer_contact_number";
 	private static final String price = "price";
-	private static final String status = "status";
 	private static final String driven_km = "driven_km";
 	private static final String car_available_city = "car_available_city";
 	private static final String vehicle_identification_no = "vehicle_identification_no";
-	private static final String test_drive = "test_drive";
-	private static final String delivered_date = "delivered_date";
-	private static final String ordered_date = "ordered_date";
-	private static final String order_id = "order_id";
-	private static final String buyer_name = "buyer_name";
-	private static final String buyer_state = "buyer_state";
-	@Autowired
+		@Autowired
 	DataSource dataSource;
 	@Autowired
 	JdbcTemplate jdbcTemplate;
 
-	public boolean isCarOwnerAlreadyRegistered(Long mobileNo) throws DbException {
+	public boolean exists(Long mobileNo) throws DbException {
 		boolean exists = false;
 		// Connection con=null;
 		String sqll = "select * from car_seller where seller_contact_no=? or seller_id=?";
@@ -72,7 +64,7 @@ public class CarOwnerImp implements CarOwnerDAO {
 		return exists;
 	}
 
-	public void addCarOwner(CarOwner carOwner) throws DbException {
+	public void save(CarOwner carOwner) throws DbException {
 		// Connection con=null;
 		// PreparedStatement pst=null;
 		String sql = "insert into car_seller(seller_id,seller_name,seller_contact_no,user_password,address1,address2,city,seller_state,pincode)values(seller_id_sq.nextval,?,?,?,?,?,?,?,?)";
@@ -97,7 +89,7 @@ public class CarOwnerImp implements CarOwnerDAO {
 
 	}
 
-	public void deleteCarDetail(int carOwnerId, int carId) throws DbException {
+	public void delete(int carOwnerId, int carId) throws DbException {
 		// TODO Auto-generated method stub
 		// Connection con=null;
 		// PreparedStatement ps=null;
@@ -123,7 +115,7 @@ public class CarOwnerImp implements CarOwnerDAO {
 		}
 	}
 
-	public List<CarOwner> viewYourCar(long mobileNo) throws DbException {
+	public List<CarOwner> findBymobileNo(long mobileNo) throws DbException {
 		List<CarOwner> al = new ArrayList<CarOwner>();
 		// Connection con=null;
 		// PreparedStatement ps=null;
@@ -166,7 +158,7 @@ public class CarOwnerImp implements CarOwnerDAO {
 		return al;
 	}
 
-	public void updateCarPrice(CarOwner carOwner) throws DbException {
+	public void update(CarOwner carOwner) throws DbException {
 
 		String sql = null;
 		CarDetail cardetail = carOwner.getCarDetail();
@@ -206,41 +198,5 @@ public class CarOwnerImp implements CarOwnerDAO {
 
 	}
 
-	public List<CarOrder> viewYourPlacedCar(Long mobileNo) throws DbException {
-		// Connection con = null;
-		// PreparedStatement ps = null;
-		List<CarOrder> ar = new ArrayList<CarOrder>();
-		String sql = "select * from car_order where seller_id=(select seller_id from car_seller where seller_contact_no=?)";
-
-		try (Connection con = dataSource.getConnection(); PreparedStatement ps = con.prepareStatement(sql);) {
-
-			ps.setLong(1, mobileNo);
-			try (ResultSet rs = ps.executeQuery();) {
-				if (rs.next()) {
-					CarOrder co = new CarOrder();
-					co.setBuyerContactNo(rs.getLong(buyer_contact_number));
-					co.setBuyerName(rs.getString(buyer_name));
-					co.setCarId(rs.getInt(car_id));
-					co.setOrderId(rs.getInt(order_id));
-					co.setTestDrive(rs.getString(test_drive));
-					Date d = rs.getDate(delivered_date);
-					co.setDeliveredDate(d.toLocalDate());
-					Date od = rs.getDate(ordered_date);
-					co.setOrderedDate(od.toLocalDate());
-					co.setAddress1(rs.getString(address1));
-					co.setAddress2(rs.getString(address2));
-					co.setBuyerState(rs.getString(buyer_state));
-					co.setStatus(rs.getString(status));
-					co.setPincode(rs.getInt(pincode));
-					ar.add(co);
-				} else {
-					log.error("your car not ordered");
-				}
-			}
-		} catch (SQLException e) {
-			log.error(e);
-		}
-
-		return ar;
-	}
+	
 }

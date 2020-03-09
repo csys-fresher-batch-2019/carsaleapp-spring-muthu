@@ -50,7 +50,7 @@ public class TestCarDetails {
 						log.getInput("Enter the contact no");
 						long mobileno = sc.nextLong();
 						CarOwnerImp coi = new CarOwnerImp();
-						boolean exists = coi.isCarOwnerAlreadyRegistered(mobileno);
+						boolean exists = coi.exists(mobileno);
 						if (exists == false) {
 							log.getInput("Enter the seller name");
 							coo.setOwnerName(sc.next());
@@ -68,7 +68,7 @@ public class TestCarDetails {
 							coo.setPincode(sc.nextInt());
 							coo.setContactNo(mobileno);
 							CarOwnerImp coii = new CarOwnerImp();
-							coii.addCarOwner(coo);
+							coii.save(coo);
 						} else {
 							log.getInput("user already Exists");
 						}
@@ -89,7 +89,7 @@ public class TestCarDetails {
 								String pass = sc.next();
 
 								CarDetailImp ci = new CarDetailImp();
-								int sellerIdd = ci.getSellerId((long) sellerId, pass);
+								int sellerIdd = ci.findByMobileNoAndPassword((long) sellerId, pass);
 								if (sellerIdd != 0) {
 									log.getInput("Enter car name");
 									String carName = sc.next();
@@ -141,7 +141,7 @@ public class TestCarDetails {
 									cardetail.setCarOwner(cown);
 									cardetail.setIsOwner(isOwner);
 
-									ci.addCarDetail(cardetail);
+									ci.save(cardetail);
 								} else {
 									log.error("invalid userId and password");
 								}
@@ -160,7 +160,7 @@ public class TestCarDetails {
 
 								CarDetailImp ci = new CarDetailImp();
 
-								int sellerId = ci.getSellerId(mobileNo, password);
+								int sellerId = ci.findByMobileNoAndPassword(mobileNo, password);
 								// int sellerId=ci.getSellerId2();
 								if (sellerId != 0) {
 									log.getInput("Enter car name");
@@ -208,7 +208,7 @@ public class TestCarDetails {
 									cardetail.setVehicleIdNo(vehicleNo);
 									cardetail.setCarOwner(car);
 									cardetail.setIsOwner(isOwner);
-									ci.addCarDetail(cardetail);
+									ci.save(cardetail);
 								} else {
 									log.error("invalid mobileno or password");
 								}
@@ -238,7 +238,7 @@ public class TestCarDetails {
 				log.getInput("Enter the car status 1. Available 2. Not Available");
 				int choice = sc.nextInt();
 				String status = choice == 1 ? "available" : "not available";
-				List<CarDetail> al = cdi.getUpdatedCar(status);
+				List<CarDetail> al = cdi.updateStatus(status);
 				for (CarDetail ss : al) {
 					// log.getInput(ss.toString());
 					log.info(ss.getCarOwner().getOwnerName() + "  " + ss.getCarOwner().getContactNo() + "  "
@@ -252,7 +252,7 @@ public class TestCarDetails {
 			case 3: {
 				log.getInput(" enter preffered Car Brand");
 				cd.setCarBrand(sc.next());
-				List<CarDetail> al = co.getCarDetail(cd.getCarBrand());
+				List<CarDetail> al = co.findByCarName(cd.getCarBrand());
 				for (CarDetail cdl : al) {
 					log.info(cdl.getCarId() + " " + cdl.getCarName() + "   " + cdl.getCarBrand() + "   "
 							+ cdl.getTrType() + "    " + cdl.getFuelType() + "   " + cdl.getRegState() + "   "
@@ -267,7 +267,7 @@ public class TestCarDetails {
 				cd.setCarBrand(sc.next());
 				log.getInput("Enter the state");
 				cd.setRegState(sc.next());
-				List<CarDetail> al = co.getCarDetail(cd.getCarBrand(), cd.getRegState());
+				List<CarDetail> al = co.findByCarBrandAndRegState(cd.getCarBrand(), cd.getRegState());
 				for (CarDetail cdl : al) {
 					// log.getInput(cdl.toString());
 					log.info(cdl.getCarName() + "    " + cdl.getCarBrand() + "    " + cdl.getTrType() + "  "
@@ -281,7 +281,7 @@ public class TestCarDetails {
 			case 5: {
 				log.getInput("Enter the car brand");
 				cd.setCarBrand(sc.next());
-				List<CarDetail> carList = co.getDetailWithOwner(cd.getCarBrand());
+				List<CarDetail> carList = co.findByCarBrand(cd.getCarBrand());
 				for (CarDetail carDetail : carList) {
 
 					log.info(carDetail);
@@ -293,7 +293,7 @@ public class TestCarDetails {
 				float minPrice = sc.nextFloat();
 				// log.getInput("Enter the car Brand");
 				// String carBrand=sc.next();
-				List<CarDetail> ar = co.getCarDetailAbovePrice(minPrice);
+				List<CarDetail> ar = co.findByMaxPrice(minPrice);
 				for (CarDetail cdr : ar) {
 					log.info(cdr.getCarOwner().getOwnerId() + "" + cdr.getImageSrc() + "" + cdr.getCarName() + "    "
 							+ cdr.getCarBrand() + "    " + cdr.getTrType() + "  " + cdr.getFuelType() + " "
@@ -313,7 +313,7 @@ public class TestCarDetails {
 				float maxPrice = sc.nextFloat();
 				// log.getInput("Enter the car Brand");
 				// String carBrand=sc.next();
-				List<CarDetail> ar = co.getCarDetailBelowPrice(maxPrice);
+				List<CarDetail> ar = co.findByMinPrice(maxPrice);
 				for (CarDetail cdr : ar) {
 					log.info(cdr.getCarOwner().getOwnerId() + "" + cdr.getImageSrc() + " " + cdr.getCarName() + "    "
 							+ cdr.getCarBrand() + "    " + cdr.getTrType() + "  " + cdr.getFuelType() + " "
@@ -329,7 +329,7 @@ public class TestCarDetails {
 				float start = sc.nextFloat();
 				log.getInput("Kilometer End TO:");
 				float end = sc.nextFloat();
-				List<CarDetail> ar = co.getCarDetailAboveDrivenKm(start, end);
+				List<CarDetail> ar = co.findByDrivenKmFromAndTo(start, end);
 				for (CarDetail cdr : ar) {
 					log.info(cdr.getCarName() + "    " + cdr.getCarBrand() + "    " + cdr.getTrType() + "  "
 							+ cdr.getFuelType() + " " + cdr.getCarId() + "  " + cdr.getCarAvailableCity() + "   "
@@ -346,7 +346,7 @@ public class TestCarDetails {
 			case 9: {
 				log.getInput("Enter  FuelType:");
 				String fuelType = sc.next();
-				List<CarDetail> ar = co.getCarDetailUseFuelType(fuelType);
+				List<CarDetail> ar = co.findByFuelType(fuelType);
 				for (CarDetail cdr : ar) {
 					log.info(cdr.getCarName() + "    " + cdr.getCarBrand() + "    " + cdr.getTrType() + "  "
 							+ cdr.getFuelType() + " " + cdr.getCarId() + "  " + cdr.getCarAvailableCity() + "   "
@@ -360,7 +360,7 @@ public class TestCarDetails {
 				log.getInput(" enter  car id");
 				int carId = sc.nextInt();
 				cd.setCarId(carId);
-				List<CarDetail> al = co.getCarDetailUseCarId(cd.getCarId());
+				List<CarDetail> al = co.findOne(cd.getCarId());
 				for (CarDetail cdl : al) {
 					log.info(cdl.getCarOwner().getOwnerId() + "   " + cdl.getCarId() + " " + cdl.getCarName() + "   "
 							+ cdl.getCarBrand() + "   " + cdl.getTrType() + "    " + cdl.getFuelType() + "   "
@@ -372,7 +372,7 @@ public class TestCarDetails {
 				break;
 			}
 			case 11: {
-				List<CarDetail> list = co.viewAllCar();
+				List<CarDetail> list = co.findAll();
 				for (CarDetail cdl : list) {
 					log.info(cdl.getCarOwner().getOwnerId() + "   " + cdl.getCarId() + " " + cdl.getCarName() + "   "
 							+ cdl.getCarBrand() + "   " + cdl.getTrType() + "    " + cdl.getFuelType() + "   "
@@ -384,7 +384,7 @@ public class TestCarDetails {
 			case 12: {
 				String regNo = "TN69BA897";
 				CarDetailImp cdi = new CarDetailImp();
-				boolean ex = cdi.isCarAlreadyRegistered(regNo);
+				boolean ex = cdi.findByRegNo(regNo);
 				System.out.println(ex);
 			}
 				break;
