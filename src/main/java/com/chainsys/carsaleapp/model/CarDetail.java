@@ -3,7 +3,10 @@ package com.chainsys.carsaleapp.model;
 import java.time.LocalDate;
 
 import lombok.Data;
+import lombok.ToString;
+
 @Data
+@ToString
 public class CarDetail {
 	private int carOwnerId;
 	private int carId;
@@ -25,16 +28,6 @@ public class CarDetail {
 	private Long contactNo;
 	private String password;
 
-		private CarOwner carOwner;
-
-	@Override
-	public String toString() {
-		return "CarDetail [carOwnerId=" + carOwnerId + ", carId=" + carId + ", carBrand=" + carBrand + ", carName="
-				+ carName + ", trType=" + trType + ", fuelType=" + fuelType + ", regState=" + regState + ", regYear="
-				+ regYear + ", registrationNo=" + registrationNo + ", drivenKm=" + drivenKm + ", updateDate="
-				+ updateDate + ", price=" + price + ", status=" + status + ", carAvailableCity=" + carAvailableCity
-				+ ", imageSrc=" + imageSrc + ", vehicleIdNo=" + vehicleIdNo + ", isOwner=" + isOwner + ", contactNo="
-				+ contactNo + ", password=" + password + ", carOwner=" + carOwner + "]";
-	}
+	private CarOwner carOwner;
 
 }

@@ -3,8 +3,10 @@ package com.chainsys.carsaleapp.model;
 import java.sql.Date;
 
 import lombok.Data;
+import lombok.ToString;
 
 @Data
+@ToString
 public class CarOrder {
 	private int orderId;
 	private String BuyerName;
@@ -22,14 +24,5 @@ public class CarOrder {
 	private String BuyerState;
 	private String city;
 	private String carName;
-
-	@Override
-	public String toString() {
-		return "CarOrder [orderId=" + orderId + ", BuyerName=" + BuyerName + ", BuyerContactNo=" + BuyerContactNo
-				+ ", carId=" + carId + ", sellerId=" + sellerId + ", testDrive=" + testDrive + ", status=" + status
-				+ ", userId=" + userId + ", orderedDate=" + orderedDate + ", deliveredDate=" + deliveredDate
-				+ ", address1=" + address1 + ", address2=" + address2 + ", pincode=" + pincode + ", BuyerState="
-				+ BuyerState + ", city=" + city + ", carName=" + carName + "]";
-	}
 
 }

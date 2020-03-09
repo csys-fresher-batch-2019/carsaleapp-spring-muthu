@@ -1,8 +1,10 @@
 package com.chainsys.carsaleapp.model;
 
 import lombok.Data;
+import lombok.ToString;
 
 @Data
+@ToString
 public class CarOwner {
 	private int ownerId;
 	private String ownerName;
@@ -14,12 +16,5 @@ public class CarOwner {
 	private String state;
 	private String password;
 	private CarDetail carDetail;
-
-	@Override
-	public String toString() {
-		return "CarOwner [ownerId=" + ownerId + ", ownerName=" + ownerName + ", contactNo=" + contactNo + ", address1="
-				+ address1 + ", pincode=" + pincode + ", address2=" + address2 + ", city=" + city + ", state=" + state
-				+ ", password=" + password + ", carDetail=" + carDetail + "]";
-	}
 
 }
