@@ -10,7 +10,7 @@ import com.chainsys.carsaleapp.model.CarOrder;
 import com.chainsys.carsaleapp.model.CarOwner;
 
 public class TestCarOwner {
-	private static final Logger log=Logger.getInstance();
+	private static final Logger log = Logger.getInstance();
 
 	public static void main(String[] args) throws Exception {
 		// TODO Auto-generated method stub
@@ -102,24 +102,20 @@ public class TestCarOwner {
 				Long mobileNo = sc.nextLong();
 				List<CarOrder> al = obj.viewYourPlacedCar(mobileNo);
 				for (CarOrder ca : al) {
-					log.info(+ca.getBuyerContactNo() + "   " + ca.getBuyerName() + "  " + ca.getAddress1()
-							+ "  " + ca.getAddress2() + "  " + ca.getPincode() + "  " + ca.getBuyerState() + "   "
+					log.info(+ca.getBuyerContactNo() + "   " + ca.getBuyerName() + "  " + ca.getAddress1() + "  "
+							+ ca.getAddress2() + "  " + ca.getPincode() + "  " + ca.getBuyerState() + "   "
 							+ ca.getCarId() + "  " + ca.getOrderId() + "  " + ca.getStatus() + "  "
 							+ ca.getDeliveredDate() + "    " + ca.getOrderedDate());
 				}
 				break;
 			}
-			case 5:
-			{
+			case 5: {
 				log.getInput("Enter mobile no/userId");
 				Long mobileNo = sc.nextLong();
-				boolean exist=obj.isCarOwnerAlreadyRegistered(mobileNo);
-				if(exist)
-				{
+				boolean exist = obj.isCarOwnerAlreadyRegistered(mobileNo);
+				if (exist) {
 					log.info(exist);
-				}
-				else
-				{
+				} else {
 					log.info("1");
 				}
 			}
@@ -127,6 +123,6 @@ public class TestCarOwner {
 			log.getInput("Do you want to continue");
 			m = sc.next().charAt(0);
 		} while (m == 'y' || m == 'Y');
-sc.close();
+		sc.close();
 	}
 }

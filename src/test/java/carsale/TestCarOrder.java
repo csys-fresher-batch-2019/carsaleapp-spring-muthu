@@ -13,11 +13,11 @@ import com.chainsys.carsaleapp.logger.Logger;
 import com.chainsys.carsaleapp.model.CarOrder;
 
 public class TestCarOrder {
-	private static final Logger log=Logger.getInstance();
+	private static final Logger log = Logger.getInstance();
 
 	public static void main(String[] args) throws Exception {
 		// TODO Auto-generated method stub
-		
+
 		Scanner sc = new Scanner(System.in);
 		char m;
 		do {
@@ -25,11 +25,11 @@ public class TestCarOrder {
 			log.getInput("2.get your car delivery Date!!!!");
 			log.getInput("3.view Your car Delivery Information");
 			log.getInput("4.view your ordered car");
-             log.getInput("5.View ordered  your Car ");
+			log.getInput("5.View ordered  your Car ");
 			int ch = sc.nextInt();
 			switch (ch) {
 			case 1: {
-				//LocalDate ldd = LocalDate.now();
+				// LocalDate ldd = LocalDate.now();
 				log.getInput("Enter the buyer name");
 				String buyerName = sc.next();
 				log.getInput("Enter the  buyer contact no");
@@ -52,7 +52,7 @@ public class TestCarOrder {
 				log.getInput("Enter the pincode");
 				int pincode = sc.nextInt();
 				log.getInput("Enter the userId");
-				int userId=sc.nextInt();
+				int userId = sc.nextInt();
 				CarOrderImp obj = new CarOrderImp();
 				CarOrder c = new CarOrder();
 				c.setBuyerName(buyerName);
@@ -86,16 +86,15 @@ public class TestCarOrder {
 				break;
 			}
 			case 3: {
-				
+
 				LocalDate ldd = LocalDate.now();
 
-				//Date daa = Date.valueOf(ldd);
 				CarOrderImp co = new CarOrderImp();
 				log.getInput("Enter the order_id");
 				int orderId = sc.nextInt();
 				List<CarOrder> al = co.getDeliveryCarDet(orderId);
 				for (CarOrder c : al) {
-					LocalDate deliveredDate = c.getDeliveredDate().toLocalDate();
+					LocalDate deliveredDate = c.getDeliveredDate();
 					long days = Duration.between(ldd.atTime(0, 0), deliveredDate.atTime(0, 0)).toDays();
 
 					log.getInput(c.getCarName() + " " + deliveredDate + " " + c.getBuyerName());
@@ -108,7 +107,7 @@ public class TestCarOrder {
 						 * java.util.Date();
 						 */
 						log.info("Delivered");
-					
+
 					} else if (deliveredDate.isAfter(ldd)) {
 
 						log.info(days + "  more days!!!");
@@ -119,30 +118,26 @@ public class TestCarOrder {
 				}
 
 				break;
-				
+
 			}
-			case 4:
-			{
-				CarOrderImp co=new CarOrderImp();
+			case 4: {
+				CarOrderImp co = new CarOrderImp();
 				log.getInput("Enter userId");
-				int userId=sc.nextInt();
-				List<CarOrder> li=co.getOrderedCar(userId);
-				for(CarOrder c:li)
-				{
-				 log.info(c.getBuyerName() + "," + c.getOrderId() + "," + c.getCarId() + ","+ c.getDeliveredDate());
+				int userId = sc.nextInt();
+				List<CarOrder> li = co.getOrderedCar(userId);
+				for (CarOrder c : li) {
+					log.info(c.getBuyerName() + "," + c.getOrderId() + "," + c.getCarId() + "," + c.getDeliveredDate());
 				}
 				break;
-				
+
 			}
-			case 5:
-			{
-				CarOrderImp co=new CarOrderImp();
+			case 5: {
+				CarOrderImp co = new CarOrderImp();
 				log.getInput("Enter userId");
-				int userId=sc.nextInt();
-				List<CarOrder> li=co.getOrderedUserCar(userId);
-				for(CarOrder c:li)
-				{
-				 log.info(c.getBuyerName() + "," + c.getOrderId() + "," + c.getCarId() + ","+ c.getDeliveredDate());
+				int userId = sc.nextInt();
+				List<CarOrder> li = co.getOrderedUserCar(userId);
+				for (CarOrder c : li) {
+					log.info(c.getBuyerName() + "," + c.getOrderId() + "," + c.getCarId() + "," + c.getDeliveredDate());
 				}
 				break;
 			}
