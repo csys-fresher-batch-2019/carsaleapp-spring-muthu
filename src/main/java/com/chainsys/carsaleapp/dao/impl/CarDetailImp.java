@@ -24,6 +24,8 @@ import com.chainsys.carsaleapp.util.DbException;
 public class CarDetailImp implements CarDetailDAO {
 	private static final Logger log = Logger.getInstance();
 	private static final String seller_id = "seller_id";
+	private static final String car_seller_id = "car_seller_id";
+	
 	private static final String seller_contact_no = "seller_contact_no";
 	private static final String car_name = "car_name";
 	private static final String car_id = "car_id";
@@ -94,16 +96,16 @@ public class CarDetailImp implements CarDetailDAO {
 
 		int sellerId = 0;
 		String query = "select seller_id,seller_contact_no,user_password from car_seller where user_password= ? ";
-		if (cardetail.getCarOwnerId() != 0) {
+		if (cardetail.getCarOwner().getOwnerId() != 0) {
 			query = query + " and seller_id=?";
 		} else if (cardetail.getCarOwner().getContactNo() != 0) {
 			query = query + " and  seller_contact_no=?";
 		}
 		try (Connection con = dataSource.getConnection(); PreparedStatement pst = con.prepareStatement(query);) {
 			pst.setString(1, cardetail.getCarOwner().getPassword());
-			if (cardetail.getCarOwnerId() != 0) {
+			if (cardetail.getCarOwner().getOwnerId() != 0) {
 
-				pst.setInt(2, cardetail.getCarOwnerId());
+				pst.setInt(2, cardetail.getCarOwner().getOwnerId());
 
 			} else if (cardetail.getCarOwner().getContactNo() != 0) {
 
@@ -129,7 +131,7 @@ public class CarDetailImp implements CarDetailDAO {
 		LocalDate updatedDate = LocalDate.now();
 		Date updatedDate1 = Date.valueOf(updatedDate);
 		String sql = "insert into car_detail(car_seller_id,car_id,car_brand,car_name,tr_type,fuel_type,reg_state,reg_year,driven_km,price,update_date,registration_no,vehicle_identification_no,car_available_city,is_owner,images)values(?,car_id_sq.nextval,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
-		Object [] params = { cardetail.getCarOwnerId(),cardetail.getCarBrand(),cardetail.getCarName(),cardetail.getTrType(),cardetail.getFuelType(), cardetail.getRegState(),cardetail.getRegYear(),cardetail.getDrivenKm(),cardetail.getPrice(),updatedDate1, cardetail.getRegistrationNo(),cardetail.getVehicleIdNo(),cardetail.getCarAvailableCity(),cardetail.getIsOwner(),cardetail.getImageSrc()};
+		Object [] params = { cardetail.getCarOwner().getOwnerId(),cardetail.getCarBrand(),cardetail.getCarName(),cardetail.getTrType(),cardetail.getFuelType(), cardetail.getRegState(),cardetail.getRegYear(),cardetail.getDrivenKm(),cardetail.getPrice(),updatedDate1, cardetail.getRegistrationNo(),cardetail.getVehicleIdNo(),cardetail.getCarAvailableCity(),cardetail.getIsOwner(),cardetail.getImageSrc()};
 		int rows = jdbcTemplate.update(sql, params);
 				System.out.println(sql);
 				System.out.println(rows);
@@ -252,7 +254,7 @@ public class CarDetailImp implements CarDetailDAO {
 					cd.setCarId(rss.getInt(car_id));
 					cd.setCarName(rss.getString(car_name));
 					cd.setCarBrand(rss.getString(car_brand));
-					// cd.setCarOwnerId(rss.getInt("car_seller_id"));
+					// cd.setCarOwner().setOwnerId()(rss.getInt("car_seller_id"));
 					cd.setDrivenKm(rss.getInt(driven_km));
 					cd.setFuelType(rss.getString(fuel_type));
 					cd.setRegState(rss.getString(reg_state));
@@ -352,7 +354,7 @@ public class CarDetailImp implements CarDetailDAO {
 				while (rs.next()) {
 
 					CarDetail carDetail = new CarDetail();
-					carDetail.setCarOwnerId(rs.getInt(seller_id));
+					carDetail.getCarOwner().setOwnerId(rs.getInt(seller_id));
 					carDetail.setCarBrand(rs.getString(car_brand));
 					carDetail.setCarName(rs.getString(car_name));
 					carDetail.setCarId(rs.getInt(car_id));
@@ -390,7 +392,7 @@ public class CarDetailImp implements CarDetailDAO {
 			try (ResultSet rs = ps.executeQuery();) {
 				while (rs.next()) {
 					CarDetail carDetail = new CarDetail();
-					carDetail.setCarOwnerId(rs.getInt(seller_id));
+					carDetail.getCarOwner().setOwnerId(rs.getInt(seller_id));
 					carDetail.setCarBrand(rs.getString(car_brand));
 					carDetail.setCarName(rs.getString(car_name));
 					carDetail.setCarId(rs.getInt(car_id));
@@ -490,7 +492,7 @@ public class CarDetailImp implements CarDetailDAO {
 				while (rs.next()) {
 					CarDetail c = new CarDetail();
 					c.setCarId(rs.getInt(car_id));
-					c.setCarOwnerId(rs.getInt(seller_id));
+					c.getCarOwner().setOwnerId(rs.getInt(seller_id));
 					c.setCarName(rs.getString(car_name));
 					c.setCarBrand(rs.getString(car_brand));
 					c.setTrType(rs.getString(tr_type));
@@ -529,7 +531,6 @@ public class CarDetailImp implements CarDetailDAO {
 				while (rs.next()) {
 					CarDetail c = new CarDetail();
 					c.setCarId(rs.getInt(car_id));
-					c.setCarOwnerId(rs.getInt("car_seller_id"));
 					c.setCarName(rs.getString(car_name));
 					c.setCarBrand(rs.getString(car_brand));
 					c.setTrType(rs.getString(tr_type));
@@ -541,8 +542,9 @@ public class CarDetailImp implements CarDetailDAO {
 					c.setStatus(rs.getString(statuss));
 					c.setRegistrationNo(rs.getString(registration_no));
 					c.setImageSrc(rs.getString(image));
-					CarOwner carowner = new CarOwner();
-					c.setCarOwner(carowner);
+					CarOwner carOwner = new CarOwner();
+					carOwner.setOwnerId(rs.getInt(car_seller_id));
+					c.setCarOwner(carOwner);
 					ar.add(c);
 				}
 			}

@@ -8,7 +8,6 @@ import lombok.ToString;
 @Data
 @ToString
 public class CarDetail {
-	private int carOwnerId;
 	private int carId;
 	private String carBrand;
 	private String carName;

@@ -136,11 +136,11 @@ public class TestCarDetails {
 			CarOwner cown=new CarOwner();
 			cown.setPassword(pass);
 		    CarDetail cardetail = new CarDetail();
-			//cardetail.setCarOwnerId(carOwnerId);
+			//cardetail.getCarOwner().setOwnerId(carOwnerId);
 			cardetail.setCarBrand(carBrand);
 			cardetail.setCarName(carName);
 			cardetail.setPrice(price);
-			cardetail.setCarOwnerId(sellerId);
+			cardetail.getCarOwner().setOwnerId(sellerId);
 			//cardetail.setStatus(status);
 			cardetail.setFuelType(fuelType);
 			cardetail.setTrType(trType);
@@ -212,11 +212,11 @@ public class TestCarDetails {
 			
 			
 		    CarDetail cardetail = new CarDetail();
-			//cardetail.setCarOwnerId(carOwnerId);
+			//cardetail.getCarOwner().setOwnerId(carOwnerId);
 			cardetail.setCarBrand(carBrand);
 			cardetail.setCarName(carName);
 			cardetail.setPrice(price);
-			cardetail.setCarOwnerId(sellerId);
+			cardetail.getCarOwner().setOwnerId(sellerId);
 			//cardetail.setStatus(status);
 			cardetail.setFuelType(fuelType);
 			cardetail.setTrType(trType);
@@ -320,7 +320,7 @@ public class TestCarDetails {
 			List<CarDetail> ar=co.getCarDetailAbovePrice(minPrice);
 			for(CarDetail cdr:ar)
 			{
-				log.info(cdr.getCarOwnerId()+""+cdr.getImageSrc()+""+cdr.getCarName()+"    "+cdr.getCarBrand()+"    "+cdr.getTrType()+"  "+cdr.getFuelType()+" "+cdr.getCarId()+"  "+cdr.getCarAvailableCity()+"   "+cdr.getRegYear()+"  "+cdr.getDrivenKm()+"   "+cdr.getPrice()+"  "+cdr.getStatus()+"   "+cdr.getRegistrationNo());
+				log.info(cdr.getCarOwner().getOwnerId()+""+cdr.getImageSrc()+""+cdr.getCarName()+"    "+cdr.getCarBrand()+"    "+cdr.getTrType()+"  "+cdr.getFuelType()+" "+cdr.getCarId()+"  "+cdr.getCarAvailableCity()+"   "+cdr.getRegYear()+"  "+cdr.getDrivenKm()+"   "+cdr.getPrice()+"  "+cdr.getStatus()+"   "+cdr.getRegistrationNo());
 				
 				}
 			if(ar.isEmpty())
@@ -339,7 +339,7 @@ public class TestCarDetails {
 			List<CarDetail> ar=co.getCarDetailBelowPrice(maxPrice);
 			for(CarDetail cdr:ar)
 			{
-				log.info(cdr.getCarOwnerId()+""+cdr.getImageSrc()+" "+cdr.getCarName()+"    "+cdr.getCarBrand()+"    "+cdr.getTrType()+"  "+cdr.getFuelType()+" "+cdr.getCarId()+"  "+cdr.getCarAvailableCity()+"   "+cdr.getRegYear()+"  "+cdr.getDrivenKm()+"   "+cdr.getPrice()+"    "+cdr.getRegistrationNo());
+				log.info(cdr.getCarOwner().getOwnerId()+""+cdr.getImageSrc()+" "+cdr.getCarName()+"    "+cdr.getCarBrand()+"    "+cdr.getTrType()+"  "+cdr.getFuelType()+" "+cdr.getCarId()+"  "+cdr.getCarAvailableCity()+"   "+cdr.getRegYear()+"  "+cdr.getDrivenKm()+"   "+cdr.getPrice()+"    "+cdr.getRegistrationNo());
 				
 				}
 			break;
@@ -384,7 +384,7 @@ public class TestCarDetails {
 			List<CarDetail>al=co.getCarDetailUseCarId(cd.getCarId());
 			for(CarDetail cdl:al)
 			{
-			log.info(cdl.getCarOwnerId()+"   "+cdl.getCarId()+" "+cdl.getCarName()+"   "+cdl.getCarBrand()+"   "+cdl.getTrType()+"    "+cdl.getFuelType()+"   "+cdl.getRegState()+"   "+cdl.getRegYear()+"   "+cdl.getDrivenKm()+"   "+cdl.getPrice()+"    "+cdl.getStatus()+"   "+cdl.getRegistrationNo()+"    "+cdl.getCarOwner().getOwnerName()+"   "+cdl.getImageSrc()+"   "+cdl.getCarOwner().getContactNo());
+			log.info(cdl.getCarOwner().getOwnerId()+"   "+cdl.getCarId()+" "+cdl.getCarName()+"   "+cdl.getCarBrand()+"   "+cdl.getTrType()+"    "+cdl.getFuelType()+"   "+cdl.getRegState()+"   "+cdl.getRegYear()+"   "+cdl.getDrivenKm()+"   "+cdl.getPrice()+"    "+cdl.getStatus()+"   "+cdl.getRegistrationNo()+"    "+cdl.getCarOwner().getOwnerName()+"   "+cdl.getImageSrc()+"   "+cdl.getCarOwner().getContactNo());
 			}
 			break;
 		}
@@ -393,7 +393,7 @@ public class TestCarDetails {
 		List<CarDetail> list=co.viewAllCar();
 		for(CarDetail cdl:list)
 		{
-		log.info(cdl.getCarOwnerId()+"   "+cdl.getCarId()+" "+cdl.getCarName()+"   "+cdl.getCarBrand()+"   "+cdl.getTrType()+"    "+cdl.getFuelType()+"   "+cdl.getRegState()+"   "+cdl.getRegYear()+"   "+cdl.getDrivenKm()+"   "+cdl.getPrice()+"    "+cdl.getStatus()+"   "+cdl.getRegistrationNo());
+		log.info(cdl.getCarOwner().getOwnerId()+"   "+cdl.getCarId()+" "+cdl.getCarName()+"   "+cdl.getCarBrand()+"   "+cdl.getTrType()+"    "+cdl.getFuelType()+"   "+cdl.getRegState()+"   "+cdl.getRegYear()+"   "+cdl.getDrivenKm()+"   "+cdl.getPrice()+"    "+cdl.getStatus()+"   "+cdl.getRegistrationNo());
 		}
 		}
 		break;
