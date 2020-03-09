@@ -3,7 +3,6 @@ package com.chainsys.carsaleapp.servlet;
 
 import java.io.IOException;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -13,11 +12,10 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.chainsys.carsaleapp.dao.impl.CarDetailImp;
+import com.chainsys.carsaleapp.exception.DbException;
+import com.chainsys.carsaleapp.exception.ServiceException;
 import com.chainsys.carsaleapp.model.CarOwner;
 import com.chainsys.carsaleapp.service.CarDetailService;
-import com.chainsys.carsaleapp.exception.ServiceException;
-import com.chainsys.carsaleapp.exception.DbException;
 
 @WebServlet("/LoginServlet")
 public class LoginServlet extends HttpServlet {
@@ -26,8 +24,10 @@ public class LoginServlet extends HttpServlet {
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 	}
-@Autowired
-CarDetailService cdi;
+
+	@Autowired
+	CarDetailService cdi;
+
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		CarOwner cs = new CarOwner();
@@ -35,24 +35,22 @@ CarDetailService cdi;
 		String pass = request.getParameter("pass");
 		cs.setContactNo(phNo);
 		cs.setPassword(pass);
-			int sellerId = 0;
-		
+		int sellerId = 0;
 
-			try {
-				sellerId = cdi.getSellerId(cs.getContactNo(), cs.getPassword());
-					
+		try {
+			sellerId = cdi.getSellerId(cs.getContactNo(), cs.getPassword());
+
 			System.out.println(sellerId);
 			if (sellerId == 0) {
 				throw new DbException("Invalid Login credential");
-			}
-			else if (sellerId != 0) {
+			} else if (sellerId != 0) {
 				HttpSession session = request.getSession();
 				session.setAttribute("login_seller_id", sellerId);
-				//RequestDispatcher dispatcher = request.getRequestDispatcher("ViewAllCar");
-				//dispatcher.forward(request, response);
+				// RequestDispatcher dispatcher = request.getRequestDispatcher("ViewAllCar");
+				// dispatcher.forward(request, response);
 				response.sendRedirect("ViewAllCar");
 
-			} 
+			}
 		} catch (ServiceException e) {
 			e.printStackTrace();
 		} catch (DbException e) {
@@ -60,7 +58,7 @@ CarDetailService cdi;
 			e.printStackTrace();
 			response.sendRedirect("login.jsp?errorMessage=" + e.getMessage());
 
-		} 
+		}
 
 	}
 
