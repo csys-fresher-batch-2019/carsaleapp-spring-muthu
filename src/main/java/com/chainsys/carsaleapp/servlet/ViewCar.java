@@ -13,25 +13,25 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.chainsys.carsaleapp.dao.impl.CarOwnerImp;
 import com.chainsys.carsaleapp.model.CarOwner;
 import com.chainsys.carsaleapp.service.CarOwnerService;
-import com.chainsys.carsaleapp.exception.DbException;
+
 @WebServlet("/ViewCar")
 public class ViewCar extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-   @Autowired
-   CarOwnerService coi;
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
-	{ 
-	   	HttpSession session = request.getSession();
+	@Autowired
+	CarOwnerService coi;
+
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		HttpSession session = request.getSession();
 		int sellerId = (Integer) session.getAttribute("login_seller_id");
-		
+
 		try {
-			List<CarOwner> cars=coi.viewYourCar(sellerId);
-		request.setAttribute("totalCar",cars);
-		RequestDispatcher dispatcher=request.getRequestDispatcher("updateCar.jsp");
-		dispatcher.forward(request, response);
+			List<CarOwner> cars = coi.viewYourCar(sellerId);
+			request.setAttribute("totalCar", cars);
+			RequestDispatcher dispatcher = request.getRequestDispatcher("updateCar.jsp");
+			dispatcher.forward(request, response);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

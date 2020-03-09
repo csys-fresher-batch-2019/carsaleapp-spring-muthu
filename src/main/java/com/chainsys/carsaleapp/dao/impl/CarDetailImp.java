@@ -16,16 +16,17 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.chainsys.carsaleapp.dao.CarDetailDAO;
+import com.chainsys.carsaleapp.exception.DbException;
 import com.chainsys.carsaleapp.logger.Logger;
 import com.chainsys.carsaleapp.model.CarDetail;
 import com.chainsys.carsaleapp.model.CarOwner;
-import com.chainsys.carsaleapp.exception.DbException;
+
 @Repository
 public class CarDetailImp implements CarDetailDAO {
 	private static final Logger log = Logger.getInstance();
 	private static final String seller_id = "seller_id";
 	private static final String car_seller_id = "car_seller_id";
-	
+
 	private static final String seller_contact_no = "seller_contact_no";
 	private static final String car_name = "car_name";
 	private static final String car_id = "car_id";
@@ -44,11 +45,10 @@ public class CarDetailImp implements CarDetailDAO {
 	private static final String image = "images";
 	@Autowired
 	private DataSource dataSource;
-	
-	
+
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
-	
+
 	public int getSellerId(Long mobileNo, String password) throws DbException {
 
 		int sellerId = 0;
@@ -131,33 +131,32 @@ public class CarDetailImp implements CarDetailDAO {
 		LocalDate updatedDate = LocalDate.now();
 		Date updatedDate1 = Date.valueOf(updatedDate);
 		String sql = "insert into car_detail(car_seller_id,car_id,car_brand,car_name,tr_type,fuel_type,reg_state,reg_year,driven_km,price,update_date,registration_no,vehicle_identification_no,car_available_city,is_owner,images)values(?,car_id_sq.nextval,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
-		Object [] params = { cardetail.getCarOwner().getOwnerId(),cardetail.getCarBrand(),cardetail.getCarName(),cardetail.getTrType(),cardetail.getFuelType(), cardetail.getRegState(),cardetail.getRegYear(),cardetail.getDrivenKm(),cardetail.getPrice(),updatedDate1, cardetail.getRegistrationNo(),cardetail.getVehicleIdNo(),cardetail.getCarAvailableCity(),cardetail.getIsOwner(),cardetail.getImageSrc()};
+		Object[] params = { cardetail.getCarOwner().getOwnerId(), cardetail.getCarBrand(), cardetail.getCarName(),
+				cardetail.getTrType(), cardetail.getFuelType(), cardetail.getRegState(), cardetail.getRegYear(),
+				cardetail.getDrivenKm(), cardetail.getPrice(), updatedDate1, cardetail.getRegistrationNo(),
+				cardetail.getVehicleIdNo(), cardetail.getCarAvailableCity(), cardetail.getIsOwner(),
+				cardetail.getImageSrc() };
 		int rows = jdbcTemplate.update(sql, params);
-				System.out.println(sql);
-				System.out.println(rows);
-				
-		/*try (Connection con = connection.getConnection(); PreparedStatement pstt = con.prepareStatement(sql);) {
-			pstt.setInt(1, cardetail.getCarOwnerId());
-			pstt.setString(2, cardetail.getCarBrand());
-			pstt.setString(3, cardetail.getCarName());
-			pstt.setString(4, cardetail.getTrType());
-			pstt.setString(5, cardetail.getFuelType());
-			pstt.setString(6, cardetail.getRegState());
-			pstt.setInt(7, cardetail.getRegYear());
-			pstt.setFloat(8, cardetail.getDrivenKm());
-			pstt.setFloat(9, cardetail.getPrice());
-			pstt.setDate(10, updatedDate1);
-			pstt.setString(11, cardetail.getRegistrationNo());
-			pstt.setString(12, cardetail.getVehicleIdNo());
-			pstt.setString(13, cardetail.getCarAvailableCity());
-			pstt.setInt(14, cardetail.getIsOwner());
-			pstt.setString(15, cardetail.getImageSrc());
-			int rows = pstt.executeUpdate();
-			System.out.println(rows);
-		}*/
+		System.out.println(sql);
+		System.out.println(rows);
+
+		/*
+		 * try (Connection con = connection.getConnection(); PreparedStatement pstt =
+		 * con.prepareStatement(sql);) { pstt.setInt(1, cardetail.getCarOwnerId());
+		 * pstt.setString(2, cardetail.getCarBrand()); pstt.setString(3,
+		 * cardetail.getCarName()); pstt.setString(4, cardetail.getTrType());
+		 * pstt.setString(5, cardetail.getFuelType()); pstt.setString(6,
+		 * cardetail.getRegState()); pstt.setInt(7, cardetail.getRegYear());
+		 * pstt.setFloat(8, cardetail.getDrivenKm()); pstt.setFloat(9,
+		 * cardetail.getPrice()); pstt.setDate(10, updatedDate1); pstt.setString(11,
+		 * cardetail.getRegistrationNo()); pstt.setString(12,
+		 * cardetail.getVehicleIdNo()); pstt.setString(13,
+		 * cardetail.getCarAvailableCity()); pstt.setInt(14, cardetail.getIsOwner());
+		 * pstt.setString(15, cardetail.getImageSrc()); int rows = pstt.executeUpdate();
+		 * System.out.println(rows); }
+		 */
 
 	}
-	
 
 	// s.close();
 
@@ -185,10 +184,10 @@ public class CarDetailImp implements CarDetailDAO {
 					c.setStatus(rs.getString(statuss));
 					c.setRegistrationNo(rs.getString(registration_no));
 					c.setImageSrc(rs.getString(image));
-					
+
 					CarOwner carowner = new CarOwner();
 					carowner.setOwnerName(rs.getString(seller_name));
-					//set car owner detail in car detail
+					// set car owner detail in car detail
 					c.setCarOwner(carowner);
 					ar.add(c);
 				}
@@ -369,7 +368,7 @@ public class CarDetailImp implements CarDetailDAO {
 					ar.add(carDetail);
 				}
 			}
-		} catch (Exception e) {
+		} catch (SQLException e) {
 			log.error(e);
 			throw new DbException("unable to retrive");
 

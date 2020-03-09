@@ -13,30 +13,30 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.chainsys.carsaleapp.dao.impl.CarDetailImp;
 import com.chainsys.carsaleapp.model.CarDetail;
 import com.chainsys.carsaleapp.service.CarDetailService;
-import com.chainsys.carsaleapp.exception.DbException;
 
 @WebServlet("/SearchByBrandServlet")
 public class SearchByBrandServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	@Autowired
 	CarDetailService cdi;
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String carBrand=request.getParameter("carBrand");
-		CarDetail cd=new CarDetail();
+
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		String carBrand = request.getParameter("carBrand");
+		CarDetail cd = new CarDetail();
 		cd.setCarBrand(carBrand);
-		List<CarDetail> ar=new ArrayList<CarDetail>();
-				try {
-			ar=cdi.getCarDetail(carBrand);
-			request.setAttribute("availableCar",ar);
-			RequestDispatcher dispatcher=request.getRequestDispatcher("SearchByBrand.jsp");
+		List<CarDetail> ar = new ArrayList<CarDetail>();
+		try {
+			ar = cdi.getCarDetail(carBrand);
+			request.setAttribute("availableCar", ar);
+			RequestDispatcher dispatcher = request.getRequestDispatcher("SearchByBrand.jsp");
 			dispatcher.forward(request, response);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		}
+	}
 
 }

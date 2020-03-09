@@ -2,10 +2,8 @@ package com.chainsys.carsaleapp.dao;
 
 import java.util.List;
 
-import org.springframework.stereotype.Repository;
-
-import com.chainsys.carsaleapp.model.CarDetail;
 import com.chainsys.carsaleapp.exception.DbException;
+import com.chainsys.carsaleapp.model.CarDetail;
 
 public interface CarDetailDAO {
 	void addCarDetail(CarDetail carDetail) throws DbException;
@@ -39,5 +37,6 @@ public interface CarDetailDAO {
 	public List<CarDetail> viewAllCar() throws DbException;
 
 	public int getSellerId(Long mobileNo, String password) throws DbException;
+
 	public boolean isCarAlreadyRegistered(String regNo) throws DbException;
 }

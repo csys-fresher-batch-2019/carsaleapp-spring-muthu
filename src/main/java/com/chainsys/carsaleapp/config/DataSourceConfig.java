@@ -13,5 +13,5 @@ public class DataSourceConfig {
 		JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
 		return jdbcTemplate;
 	}
-	
+
 }

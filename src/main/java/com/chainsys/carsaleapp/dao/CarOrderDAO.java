@@ -4,8 +4,9 @@ import java.util.List;
 
 import org.springframework.stereotype.Repository;
 
-import com.chainsys.carsaleapp.model.CarOrder;
 import com.chainsys.carsaleapp.exception.DbException;
+import com.chainsys.carsaleapp.model.CarOrder;
+
 @Repository
 public interface CarOrderDAO {
 	public void orderCar(CarOrder carOrder) throws DbException;
@@ -17,6 +18,7 @@ public interface CarOrderDAO {
 	public void updateCarStatus(int carId) throws DbException;
 
 	public List<CarOrder> getOrderedCar(int userId) throws DbException;
-	public List<CarOrder> getOrderedUserCar(int sellerId) throws DbException ;
-		
+
+	public List<CarOrder> getOrderedUserCar(int sellerId) throws DbException;
+
 }

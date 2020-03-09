@@ -14,14 +14,17 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+	integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+	crossorigin="anonymous">
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>MyCars</title>
 </head>
 <script src="js/jquery-3.4.1.min.js"></script>
 <style>
-.left{
-float:left
+.left {
+	float: left
 }
 </style>
 <script>
@@ -53,70 +56,75 @@ function priceUpdate(carId,sellerId){
 }
 </script>
 <body>
-	
 
 
-		<%
-			Integer sellerId = (Integer) session.getAttribute("login_seller_id");
-			
-			List<CarOwner> car = (List<CarOwner>)request.getAttribute("totalCar");
-			String msg = "no records";
-			
-		%>
-		<%
-			if (car != null && !car.isEmpty()) {
-		
-		%>
-		
-		<div class="container left">
-			<table class="table table-bordered">
-				<thead>
-					<tr>
-						<th>UserName</th>
-						<th>AvailableCity</th>
-						<th>CarBrand</th>
-						<th>CarName</th>
-						<th>CarId</th>
-						<th>DrivenKm</th>
-						<th>Price(Rs)</th>
-						<th>Reg Year</th>
-						<th>Reg Number</th>
-						<th>VID Number</th>
-						<th>Edit</th>
-						<th>UpdatePrice</th>
-					</tr>
-				</thead>
-				<%
-					for (CarOwner co : car) {
-							%>
 
+	<%
+		Integer sellerId = (Integer) session.getAttribute("login_seller_id");
+
+		List<CarOwner> car = (List<CarOwner>) request.getAttribute("totalCar");
+		String msg = "no records";
+	%>
+	<%
+		if (car != null && !car.isEmpty()) {
+	%>
+
+	<div class="container left">
+		<table class="table table-bordered">
+			<thead>
 				<tr>
-					<td><%=co.getOwnerName()%></td>
-					<td><%=co.getCarDetail().getCarAvailableCity()%></td>
-					<td><%=co.getCarDetail().getCarBrand()%></td>
-					<td><%=co.getCarDetail().getCarName()%></td>
-					<td><%=co.getCarDetail().getCarId()%></td>
-					<td><%=co.getCarDetail().getDrivenKm()%></td>
-					<td><input type="number" value="<%=co.getCarDetail().getPrice()%>" name="price" id="price_<%=co.getCarDetail().getCarId()%>" disabled /></td>
-					<td><%=co.getCarDetail().getRegYear()%></td>
-					<td><%=co.getCarDetail().getRegistrationNo()%></td>
-					<td><%=co.getCarDetail().getVehicleIdNo()%></td>
-					<td><button id="bidd" value="yes" onclick="enableTxt(<%=co.getCarDetail().getCarId()%>)" class="btn btn-danger">edit</button></td>
-					<td><button id="bid" value="yes" onclick="priceUpdate(<%=co.getCarDetail().getCarId()%>,<%=co.getOwnerId()%>)" class="btn btn-danger">update</button></td>
-					
+					<th>UserName</th>
+					<th>AvailableCity</th>
+					<th>CarBrand</th>
+					<th>CarName</th>
+					<th>CarId</th>
+					<th>DrivenKm</th>
+					<th>Price(Rs)</th>
+					<th>Reg Year</th>
+					<th>Reg Number</th>
+					<th>VID Number</th>
+					<th>Edit</th>
+					<th>UpdatePrice</th>
+				</tr>
+			</thead>
+			<%
+				for (CarOwner co : car) {
+			%>
+
+			<tr>
+				<td><%=co.getOwnerName()%></td>
+				<td><%=co.getCarDetail().getCarAvailableCity()%></td>
+				<td><%=co.getCarDetail().getCarBrand()%></td>
+				<td><%=co.getCarDetail().getCarName()%></td>
+				<td><%=co.getCarDetail().getCarId()%></td>
+				<td><%=co.getCarDetail().getDrivenKm()%></td>
+				<td><input type="number"
+					value="<%=co.getCarDetail().getPrice()%>" name="price"
+					id="price_<%=co.getCarDetail().getCarId()%>" disabled /></td>
+				<td><%=co.getCarDetail().getRegYear()%></td>
+				<td><%=co.getCarDetail().getRegistrationNo()%></td>
+				<td><%=co.getCarDetail().getVehicleIdNo()%></td>
+				<td><button id="bidd" value="yes"
+						onclick="enableTxt(<%=co.getCarDetail().getCarId()%>)"
+						class="btn btn-danger">edit</button></td>
+				<td><button id="bid" value="yes"
+						onclick="priceUpdate(<%=co.getCarDetail().getCarId()%>,<%=co.getOwnerId()%>)"
+						class="btn btn-danger">update</button></td>
+
 				<%
 					}
 				%>
-			</table>
-		</div>
-		<%
-			} else {
-		%>
-		<h1>NO RECORDS</h1>
+			
+		</table>
+	</div>
+	<%
+		} else {
+	%>
+	<h1>NO RECORDS</h1>
 
-		<%
-			}
-		%>
+	<%
+		}
+	%>
 
 </body>
 </html>

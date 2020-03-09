@@ -1,6 +1,7 @@
 package com.chainsys.carsaleapp.dao.impl;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -14,11 +15,12 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.chainsys.carsaleapp.dao.CarOwnerDAO;
+import com.chainsys.carsaleapp.exception.DbException;
 import com.chainsys.carsaleapp.logger.Logger;
 import com.chainsys.carsaleapp.model.CarDetail;
 import com.chainsys.carsaleapp.model.CarOrder;
 import com.chainsys.carsaleapp.model.CarOwner;
-import com.chainsys.carsaleapp.exception.DbException;
+
 @Repository
 public class CarOwnerImp implements CarOwnerDAO {
 	private static final Logger log = Logger.getInstance();
@@ -44,15 +46,16 @@ public class CarOwnerImp implements CarOwnerDAO {
 	private static final String order_id = "order_id";
 	private static final String buyer_name = "buyer_name";
 	private static final String buyer_state = "buyer_state";
-@Autowired
-DataSource dataSource;
-@Autowired
-JdbcTemplate jdbcTemplate;
+	@Autowired
+	DataSource dataSource;
+	@Autowired
+	JdbcTemplate jdbcTemplate;
+
 	public boolean isCarOwnerAlreadyRegistered(Long mobileNo) throws DbException {
 		boolean exists = false;
 		// Connection con=null;
 		String sqll = "select * from car_seller where seller_contact_no=? or seller_id=?";
-        
+
 		// Statement st=null;
 		try (Connection con = dataSource.getConnection(); PreparedStatement ps = con.prepareStatement(sqll);) {
 
@@ -73,26 +76,24 @@ JdbcTemplate jdbcTemplate;
 		// Connection con=null;
 		// PreparedStatement pst=null;
 		String sql = "insert into car_seller(seller_id,seller_name,seller_contact_no,user_password,address1,address2,city,seller_state,pincode)values(seller_id_sq.nextval,?,?,?,?,?,?,?,?)";
-		 Object [] params= {carOwner.getOwnerName(),carOwner.getContactNo(),carOwner.getPassword(),carOwner.getAddress1(),carOwner.getAddress2(),carOwner.getCity(),carOwner.getState(),carOwner.getPincode()};
-         int rows = jdbcTemplate.update(sql, params);
-         System.out.println(rows+""+sql);
-		/*try (Connection con = dataSource.getConnection(); PreparedStatement pst = con.prepareStatement(sql);) {
-
-			pst.setString(1, carOwner.getOwnerName());
-			pst.setLong(2, carOwner.getContactNo());
-			pst.setString(3, carOwner.getPassword());
-			pst.setString(4, carOwner.getAddress1());
-			pst.setString(5, carOwner.getAddress2());
-			pst.setString(6, carOwner.getCity());
-			pst.setString(7, carOwner.getState());
-			pst.setInt(8, carOwner.getPincode());
-
-			int row = pst.executeUpdate();
-			System.out.println(row);
-			System.out.println(sql);
-		} catch (SQLException e) {
-			log.error(e);
-		}*/
+		Object[] params = { carOwner.getOwnerName(), carOwner.getContactNo(), carOwner.getPassword(),
+				carOwner.getAddress1(), carOwner.getAddress2(), carOwner.getCity(), carOwner.getState(),
+				carOwner.getPincode() };
+		int rows = jdbcTemplate.update(sql, params);
+		System.out.println(rows + "" + sql);
+		/*
+		 * try (Connection con = dataSource.getConnection(); PreparedStatement pst =
+		 * con.prepareStatement(sql);) {
+		 * 
+		 * pst.setString(1, carOwner.getOwnerName()); pst.setLong(2,
+		 * carOwner.getContactNo()); pst.setString(3, carOwner.getPassword());
+		 * pst.setString(4, carOwner.getAddress1()); pst.setString(5,
+		 * carOwner.getAddress2()); pst.setString(6, carOwner.getCity());
+		 * pst.setString(7, carOwner.getState()); pst.setInt(8, carOwner.getPincode());
+		 * 
+		 * int row = pst.executeUpdate(); System.out.println(row);
+		 * System.out.println(sql); } catch (SQLException e) { log.error(e); }
+		 */
 
 	}
 
@@ -222,8 +223,10 @@ JdbcTemplate jdbcTemplate;
 					co.setCarId(rs.getInt(car_id));
 					co.setOrderId(rs.getInt(order_id));
 					co.setTestDrive(rs.getString(test_drive));
-					co.setDeliveredDate(rs.getDate(delivered_date));
-					co.setOrderedDate(rs.getDate(ordered_date));
+					Date d = rs.getDate(delivered_date);
+					co.setDeliveredDate(d.toLocalDate());
+					Date od = rs.getDate(ordered_date);
+					co.setOrderedDate(od.toLocalDate());
 					co.setAddress1(rs.getString(address1));
 					co.setAddress2(rs.getString(address2));
 					co.setBuyerState(rs.getString(buyer_state));

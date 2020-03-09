@@ -13,10 +13,8 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.chainsys.carsaleapp.dao.impl.CarOrderImp;
 import com.chainsys.carsaleapp.model.CarOrder;
 import com.chainsys.carsaleapp.service.CarOrderService;
-import com.chainsys.carsaleapp.exception.DbException;
 
 /**
  * Servlet implementation class viewOrderedCarServlet
@@ -41,7 +39,7 @@ public class ViewOrderedCarServlet extends HttpServlet {
 		} catch (Exception e) {
 			e.printStackTrace();
 			response.sendRedirect("viewOrderedCar.jsp");
-					}
+		}
 
 	}
 }

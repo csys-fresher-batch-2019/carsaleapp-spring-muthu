@@ -13,15 +13,16 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.chainsys.carsaleapp.dao.CarDetailDAO;
 import com.chainsys.carsaleapp.dao.impl.CarDetailImp;
-import com.chainsys.carsaleapp.model.CarDetail;
 import com.chainsys.carsaleapp.exception.DbException;
+import com.chainsys.carsaleapp.model.CarDetail;
 
 @RestController
 @RequestMapping("api/cars")
 public class CarController {
 	CarDetailDAO obj = new CarDetailImp();
 	@GetMapping("/user_login")
-	public int getSellerId(@RequestParam(name="mobileNo")Long mobileNo, @RequestParam(name="password")String password) 
+	public int getSellerId(@RequestParam(name = "mobileNo") Long mobileNo,
+			@RequestParam(name = "password") String password) 
 	{
 		Integer sellerId=null;
 		try {

@@ -13,10 +13,8 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.chainsys.carsaleapp.dao.impl.CarDetailImp;
 import com.chainsys.carsaleapp.model.CarDetail;
 import com.chainsys.carsaleapp.service.CarDetailService;
-import com.chainsys.carsaleapp.exception.DbException;
 
 /**
  * Servlet implementation class ViewAllCar
@@ -24,21 +22,23 @@ import com.chainsys.carsaleapp.exception.DbException;
 @WebServlet("/ViewAllCar")
 public class ViewAllCar extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-    @Autowired
-   CarDetailService co;
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	 
+	@Autowired
+	CarDetailService co;
+
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
 		try {
-			List<CarDetail> list=co.viewAllCar();
-			HttpSession session=request.getSession();
-			request.setAttribute("viewAllCar",list);
-			RequestDispatcher dispatcher=request.getRequestDispatcher("ViewAllCar.jsp");
+			List<CarDetail> list = co.viewAllCar();
+			HttpSession session = request.getSession();
+			request.setAttribute("viewAllCar", list);
+			RequestDispatcher dispatcher = request.getRequestDispatcher("ViewAllCar.jsp");
 			dispatcher.forward(request, response);
-		
+
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-			}
+	}
 
 }

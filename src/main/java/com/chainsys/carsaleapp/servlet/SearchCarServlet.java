@@ -12,10 +12,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.chainsys.carsaleapp.dao.impl.CarDetailImp;
 import com.chainsys.carsaleapp.model.CarDetail;
 import com.chainsys.carsaleapp.service.CarDetailService;
-import com.chainsys.carsaleapp.exception.DbException;
 
 /**
  * Servlet implementation class SearchCarServlet
@@ -23,30 +21,31 @@ import com.chainsys.carsaleapp.exception.DbException;
 @WebServlet("/SearchCarServlet")
 public class SearchCarServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-   @Autowired
-   CarDetailService cao;
-   	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	@Autowired
+	CarDetailService cao;
+
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
- String carId=request.getParameter("carId");
-   int car=Integer.parseInt(carId);
-    System.out.println(carId);
-    
-    CarDetail cd=new CarDetail();
-        cd.setCarId(car);
-        
-       try {
-		List<CarDetail> lcd=cao.getCarDetailUseCarId(car);
-		System.out.println(lcd.size());
-		request.setAttribute("carDetail", lcd);
-		 RequestDispatcher dispatcher=request.getRequestDispatcher("viewFullDetail.jsp");
+		String carId = request.getParameter("carId");
+		int car = Integer.parseInt(carId);
+		System.out.println(carId);
+
+		CarDetail cd = new CarDetail();
+		cd.setCarId(car);
+
+		try {
+			List<CarDetail> lcd = cao.getCarDetailUseCarId(car);
+			System.out.println(lcd.size());
+			request.setAttribute("carDetail", lcd);
+			RequestDispatcher dispatcher = request.getRequestDispatcher("viewFullDetail.jsp");
 			dispatcher.forward(request, response);
-		    
-	} catch (Exception e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
+
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
 	}
-    
-   	}
-		
 
 }

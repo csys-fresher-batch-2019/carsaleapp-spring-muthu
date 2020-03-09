@@ -6,7 +6,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,9 +15,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.chainsys.carsaleapp.dao.CarOrderDAO;
+import com.chainsys.carsaleapp.exception.DbException;
 import com.chainsys.carsaleapp.logger.Logger;
 import com.chainsys.carsaleapp.model.CarOrder;
-import com.chainsys.carsaleapp.exception.DbException;
+
 @Repository
 public class CarOrderImp implements CarOrderDAO {
 	private static final Logger log = Logger.getInstance();
@@ -37,8 +37,9 @@ public class CarOrderImp implements CarOrderDAO {
 	private static final String orderDate = "ordered_date";
 	private static final String testDrive = "test_drive";
 	private static final String statuss = "status";
-@Autowired
-private DataSource dataSource;
+	@Autowired
+	private DataSource dataSource;
+
 	public void orderCar(CarOrder carOrder) throws DbException {
 		String check = " select car_id  from car_detail where car_id = ?";
 
@@ -101,8 +102,8 @@ private DataSource dataSource;
 					c.setBuyerName(rs.getString(buyer_name));
 					c.setOrderId(rs.getInt(order_id));
 					c.setCarId(rs.getInt(car_id));
-				   Date d=rs.getDate(delivered_date);
-				   c.setDeliveredDate(d.toLocalDate());
+					Date d = rs.getDate(delivered_date);
+					c.setDeliveredDate(d.toLocalDate());
 					lt.add(c);
 				}
 			}
@@ -130,7 +131,7 @@ private DataSource dataSource;
 				while (rs.next()) {
 					CarOrder cc = new CarOrder();
 					cc.setCarName(rs.getString(car_name));
-					Date d=rs.getDate(delivered_date);
+					Date d = rs.getDate(delivered_date);
 					cc.setDeliveredDate(d.toLocalDate());
 					cc.setBuyerName(rs.getString(buyer_name));
 					ts.add(cc);
@@ -160,7 +161,7 @@ private DataSource dataSource;
 				while (rs.next()) {
 					CarOrder cc = new CarOrder();
 					// cc.setCarName(rs.getString(car_name));
-					Date d=rs.getDate(delivered_date);
+					Date d = rs.getDate(delivered_date);
 					cc.setDeliveredDate(d.toLocalDate());
 					cc.setBuyerName(rs.getString(buyer_name));
 					cc.setOrderId(rs.getInt(order_id));
@@ -187,7 +188,7 @@ private DataSource dataSource;
 				while (rs.next()) {
 					CarOrder cc = new CarOrder();
 					// cc.setCarName(rs.getString(car_name));
-					Date d=rs.getDate(delivered_date);
+					Date d = rs.getDate(delivered_date);
 					cc.setDeliveredDate(d.toLocalDate());
 					cc.setBuyerName(rs.getString(buyer_name));
 					cc.setAddress1(rs.getString(address1));
@@ -198,8 +199,8 @@ private DataSource dataSource;
 					cc.setStatus(rs.getString(statuss));
 					cc.setCarId(rs.getInt(car_id));
 					cc.setSellerId(rs.getInt(seller_id));
-					cc.setUserId(rs.getInt(user_id));	
-					Date od=rs.getDate(orderDate);
+					cc.setUserId(rs.getInt(user_id));
+					Date od = rs.getDate(orderDate);
 					cc.setOrderedDate(od.toLocalDate());
 					cc.setTestDrive(rs.getString(testDrive));
 					cc.setPincode(rs.getInt(pincode));
