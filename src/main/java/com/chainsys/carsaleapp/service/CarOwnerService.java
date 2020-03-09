@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 import com.chainsys.carsaleapp.dao.CarOwnerDAO;
 import com.chainsys.carsaleapp.exception.DbException;
 import com.chainsys.carsaleapp.exception.ServiceException;
-import com.chainsys.carsaleapp.model.CarOrder;
 import com.chainsys.carsaleapp.model.CarOwner;
 
 @Service
@@ -39,6 +38,7 @@ public class CarOwnerService {
 			li = carOwnerDAO.findBymobileNo(mobileNo);
 		} catch (DbException e) {
 			e.printStackTrace();
+			throw new ServiceException(e);
 		}
 		return li;
 	}
@@ -48,6 +48,7 @@ public class CarOwnerService {
 			carOwnerDAO.update(carOwner);
 		} catch (DbException e) {
 			e.printStackTrace();
+			throw new ServiceException(e);
 		}
 
 	}
@@ -58,6 +59,7 @@ public class CarOwnerService {
 			exists = carOwnerDAO.exists(mobileNo);
 		} catch (DbException e) {
 			e.printStackTrace();
+			throw new ServiceException(e);
 		}
 		return exists;
 	}

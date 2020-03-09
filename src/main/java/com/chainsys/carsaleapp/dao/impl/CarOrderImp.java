@@ -119,12 +119,12 @@ public class CarOrderImp implements CarOrderDAO {
 		return lt;
 	}
 
-	public List<CarOrder> findCarDeliveryDetail(int orderId) throws DbException {
+	public CarOrder findCarDeliveryDetail(int orderId) throws DbException {
 		// TODO Auto-generated method stub
 		// Connection con =null;
 		// PreparedStatement pst=null;
 		String sql = "select c.car_name ,d.delivered_date,d.buyer_name from car_order d,car_detail c where order_id=?  and c.car_id=d.car_id ";
-
+		CarOrder cc = null;
 		List<CarOrder> ts = new ArrayList<CarOrder>();
 		try (Connection con = dataSource.getConnection(); PreparedStatement pst = con.prepareStatement(sql);) {
 			// LocalDate ld=LocalDate.parse(deliver);
@@ -133,13 +133,12 @@ public class CarOrderImp implements CarOrderDAO {
 			pst.setInt(1, orderId);
 
 			try (ResultSet rs = pst.executeQuery();) {
-				while (rs.next()) {
-					CarOrder cc = new CarOrder();
+				if (rs.next()) {
+					cc = new CarOrder();
 					cc.setCarName(rs.getString(car_name));
 					Date d = rs.getDate(delivered_date);
 					cc.setDeliveredDate(d.toLocalDate());
 					cc.setBuyerName(rs.getString(buyer_name));
-					ts.add(cc);
 				}
 				System.out.println(sql);
 			}
@@ -147,7 +146,7 @@ public class CarOrderImp implements CarOrderDAO {
 			log.error(e);
 		}
 
-		return ts;
+		return cc;
 	}
 
 	@Override

@@ -3,6 +3,7 @@ package com.chainsys.carsaleapp.controller;
 import java.util.List;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -18,7 +19,7 @@ import com.chainsys.carsaleapp.model.CarOrder;
 public class CarOrderController {
 	CarOrderDAO obj = new CarOrderImp();
 
-	@GetMapping("/getDeleveryDate")
+	@GetMapping("/getDeliveryDate")
 	public List<CarOrder> getCarDeleveryDate(@RequestParam(name = "orderId") int orderId) {
 		List<CarOrder> li = null;
 		try {
@@ -38,15 +39,15 @@ public class CarOrderController {
 		}
 	}
 
-	@GetMapping("/get_delivery_car_detail")
-	public List<CarOrder> getDeliveryCarDet(@RequestParam(name = "orderId") int orderId) {
-		List<CarOrder> li = null;
+	@GetMapping("/{orderId}")
+	public CarOrder getDeliveryCarDet(@PathVariable("orderId") int orderId) {
+		CarOrder co = null;
 		try {
-			li = obj.findCarDeliveryDetail(orderId);
+			co = obj.findCarDeliveryDetail(orderId);
 		} catch (DbException e) {
 			e.printStackTrace();
 		}
-		return li;
+		return co;
 	}
 
 	@GetMapping("/viewOrderedCar")

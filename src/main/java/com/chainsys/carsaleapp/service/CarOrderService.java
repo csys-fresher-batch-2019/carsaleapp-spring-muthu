@@ -36,14 +36,14 @@ public class CarOrderService {
 
 	}
 
-	public List<CarOrder> getDeliveryCarDet(int orderId) throws ServiceException {
-		List<CarOrder> li = null;
+	public CarOrder getDeliveryCarDet(int orderId) throws ServiceException {
+		CarOrder li = null;
 		try {
 			li = carOrderDAO.findCarDeliveryDetail(orderId);
 		} catch (DbException e) {
 			throw new ServiceException(e);
 		}
-		return null;
+		return li;
 
 	}
 
@@ -81,7 +81,7 @@ public class CarOrderService {
 		try {
 			li = carOrderDAO.findByMobileNo(mobileNo);
 		} catch (DbException e) {
-			e.printStackTrace();
+			throw new ServiceException(e);
 		}
 		return li;
 	}

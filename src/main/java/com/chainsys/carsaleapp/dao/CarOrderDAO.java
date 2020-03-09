@@ -13,7 +13,7 @@ public interface CarOrderDAO {
 
 	public List<CarOrder> findByOrderId(int orderId) throws DbException;
 
-	public List<CarOrder> findCarDeliveryDetail(int orderId) throws DbException;
+	public CarOrder findCarDeliveryDetail(int orderId) throws DbException;
 
 	public void updateStatus(int carId) throws DbException;
 

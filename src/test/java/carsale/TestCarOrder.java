@@ -93,12 +93,12 @@ public class TestCarOrder {
 				CarOrderImp co = new CarOrderImp();
 				log.getInput("Enter the order_id");
 				int orderId = sc.nextInt();
-				List<CarOrder> al = co.findCarDeliveryDetail(orderId);
-				for (CarOrder c : al) {
-					LocalDate deliveredDate = c.getDeliveredDate();
+				CarOrder al= co.findCarDeliveryDetail(orderId);
+				
+					LocalDate deliveredDate = al.getDeliveredDate();
 					long days = Duration.between(ldd.atTime(0, 0), deliveredDate.atTime(0, 0)).toDays();
 
-					log.getInput(c.getCarName() + " " + deliveredDate + " " + c.getBuyerName());
+					log.getInput(al.getCarName() + " " + deliveredDate + " " + al.getBuyerName());
 					if (deliveredDate.isBefore(ldd)) {
 						/*
 						 * LocalDate ld1=c.getDeliveredDate().toLocalDate(); LocalDate
@@ -116,8 +116,6 @@ public class TestCarOrder {
 					} else {
 						log.getInput("Delivered today!!!!");
 					}
-				}
-
 				break;
 
 			}
