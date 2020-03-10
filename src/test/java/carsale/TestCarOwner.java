@@ -6,7 +6,6 @@ import java.util.Scanner;
 import com.chainsys.carsaleapp.dao.impl.CarOwnerImp;
 import com.chainsys.carsaleapp.logger.Logger;
 import com.chainsys.carsaleapp.model.CarDetail;
-import com.chainsys.carsaleapp.model.CarOrder;
 import com.chainsys.carsaleapp.model.CarOwner;
 
 public class TestCarOwner {
@@ -92,8 +91,7 @@ public class TestCarOwner {
 				coi.delete(carOwnerId, carId);
 				break;
 			}
-			
-			
+
 			case 4: {
 				log.getInput("Enter mobile no/userId");
 				Long mobileNo = sc.nextLong();

@@ -8,19 +8,27 @@ import org.springframework.stereotype.Service;
 import com.chainsys.carsaleapp.dao.CarOwnerDAO;
 import com.chainsys.carsaleapp.exception.DbException;
 import com.chainsys.carsaleapp.exception.ServiceException;
+import com.chainsys.carsaleapp.exception.ValidatorException;
 import com.chainsys.carsaleapp.model.CarOwner;
+import com.chainsys.carsaleapp.validator.CarDetailValidator;
+import com.chainsys.carsaleapp.validator.CarOwnerValidator;
 
 @Service
 public class CarOwnerService {
 	@Autowired
+	CarOwnerValidator carValidator;
+	@Autowired
 	CarOwnerDAO carOwnerDAO;
-
 	public void addCarOwner(CarOwner carOwner) throws ServiceException {
 		try {
+			carValidator.validateRegistationForSave(carOwner);
 			carOwnerDAO.save(carOwner);
 		} catch (DbException e) {
+			throw new ServiceException(e);
+		} catch (ValidatorException e) {
 			e.printStackTrace();
-		}
+			throw new ServiceException(e);
+		} 
 	}
 
 	void deleteCarDetail(int carOwnerId, int carId) throws ServiceException {

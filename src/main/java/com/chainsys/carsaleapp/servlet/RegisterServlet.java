@@ -47,7 +47,6 @@ public class RegisterServlet extends HttpServlet {
 			dispatcher.forward(request, response);
 
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			response.sendRedirect("register.jsp?errorMessage=Register failed!!!");
 

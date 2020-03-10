@@ -85,11 +85,46 @@
 	color: transparent;
 }
 
-.form-label-group input:not (:placeholder-shown ) {
-	border: 2px solid #ed6c0d;
-}
+.form-label-group
 
-.form-label-group input:focus ~label{
+ 
+
+input
+
+
+:not
+
+ 
+
+(
+:placeholder-shown
+
+ 
+
+)
+{
+border
+
+
+:
+
+ 
+
+2
+px
+
+ 
+
+solid
+
+ 
+
+#ed6c0d
+
+
+;
+}
+.form-label-group input:focus ~label {
 	padding: 0 20px;
 	font-size: 10px;
 	color: #ed6c0d;
@@ -436,9 +471,9 @@ h4 { &.modal-title { font-size:2.25rem;
 								<input type="text" id="phone" name="mobileno"
 									placeholder="MobileNumber/userId" pattern="[0-9]{10}||[0-9]{4}"
 									title="10 digit mobile No OR Your User Id"
-									class="form-control user-mobile" required
-									onblur="validateUser(this.value)"> <label for="phone">Mobile
-									Number/userId*</label> <span id="valid"
+									value="${param.mobileno}" class="form-control user-mobile"
+									required onblur="validateUser(this.value)"> <label
+									for="phone">Mobile Number/userId*</label> <span id="valid"
 									class="glyphicon glyphicon-remove" style="color: #FF0004;"></span>
 							</div>
 							<div class="form-label-group otp-field">
@@ -448,17 +483,17 @@ h4 { &.modal-title { font-size:2.25rem;
 									for="pass">Password</label>
 								<p id="text">WARNING! Caps lock is ON.</p>
 							</div>
-							<%
+							<%-- <%
 								String errorMessage = request.getParameter("errorMessage");
 							%>
 
 							<%
 								if (errorMessage != null) {
-							%>
-							<font color="red"><h><%=errorMessage%></h></font>
-							<%
+							%> --%>
+							<font color="red"><h>${param.errorMessage}</h></font>
+							<%-- <%
 								}
-							%>
+							%> --%>
 
 							<button type="submit"
 								class="btn btn-default login-buton btn-disabled">Login</button>

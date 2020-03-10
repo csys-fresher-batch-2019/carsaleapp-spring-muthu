@@ -11,17 +11,21 @@ import java.util.List;
 
 import javax.sql.DataSource;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.chainsys.carsaleapp.dao.CarOrderDAO;
 import com.chainsys.carsaleapp.exception.DbException;
-import com.chainsys.carsaleapp.logger.Logger;
+import com.chainsys.carsaleapp.exception.InfoMessages;
 import com.chainsys.carsaleapp.model.CarOrder;
 
 @Repository
 public class CarOrderImp implements CarOrderDAO {
-	private static final Logger log = Logger.getInstance();
+	// private static final Logger log = Logger.getInstance();
+	private static final Logger log = LoggerFactory.getLogger(CarDetailImp.class);
+
 	private static final String buyer_contact_number = "buyer_contact_number";
 	private static final String status = "status";
 	private static final String test_drive = "test_drive";
@@ -30,7 +34,7 @@ public class CarOrderImp implements CarOrderDAO {
 	private static final String order_id = "order_id";
 	private static final String buyer_name = "buyer_name";
 	private static final String buyer_state = "buyer_state";
-	static final String seller_id = "seller_id";
+	private static final String seller_id = "seller_id";
 	private static final String car_name = "car_name";
 	private static final String car_id = "car_id";
 	private static final String user_id = "user_id";
@@ -88,13 +92,16 @@ public class CarOrderImp implements CarOrderDAO {
 		}
 
 		catch (SQLException e) {
-			log.error(e);
+			log.error("unable to order the car!!", e);
+			throw new DbException(InfoMessages.SQL_QUERY_FAIL);
+
+		} catch (Exception e) {
+			throw new DbException(InfoMessages.CONNECTION_FAIL);
 
 		}
 	}
 
 	public List<CarOrder> findByOrderId(int orderId) throws DbException {
-		// TODO Auto-generated method stub
 		List<CarOrder> lt = new ArrayList<CarOrder>();
 		String sql = "select buyer_name ,order_id,car_id,delivered_date from car_order where order_id=?";
 
@@ -113,7 +120,12 @@ public class CarOrderImp implements CarOrderDAO {
 				}
 			}
 		} catch (SQLException e) {
-			log.error(e);
+			log.error("Sorry invalid orderId", e);
+			throw new DbException(InfoMessages.SQL_QUERY_FAIL);
+
+		} catch (Exception e1) {
+			throw new DbException(InfoMessages.CONNECTION_FAIL);
+
 		}
 
 		return lt;
@@ -125,7 +137,6 @@ public class CarOrderImp implements CarOrderDAO {
 		// PreparedStatement pst=null;
 		String sql = "select c.car_name ,d.delivered_date,d.buyer_name from car_order d,car_detail c where order_id=?  and c.car_id=d.car_id ";
 		CarOrder cc = null;
-		List<CarOrder> ts = new ArrayList<CarOrder>();
 		try (Connection con = dataSource.getConnection(); PreparedStatement pst = con.prepareStatement(sql);) {
 			// LocalDate ld=LocalDate.parse(deliver);
 			// Date da=Date.valueOf(ld);
@@ -143,7 +154,12 @@ public class CarOrderImp implements CarOrderDAO {
 				System.out.println(sql);
 			}
 		} catch (SQLException e) {
-			log.error(e);
+			log.error("no cars found in this date");
+			throw new DbException(InfoMessages.SQL_QUERY_FAIL);
+
+		} catch (Exception e1) {
+			throw new DbException(InfoMessages.CONNECTION_FAIL);
+
 		}
 
 		return cc;
@@ -177,7 +193,12 @@ public class CarOrderImp implements CarOrderDAO {
 				System.out.println(sql);
 			}
 		} catch (SQLException e) {
-			log.error(e);
+			log.error("unable to get car details,check your input", e);
+			throw new DbException(InfoMessages.SQL_QUERY_FAIL);
+
+		} catch (Exception e1) {
+			throw new DbException(InfoMessages.CONNECTION_FAIL);
+
 		}
 
 		return ts;
@@ -210,14 +231,20 @@ public class CarOrderImp implements CarOrderDAO {
 					cc.setPincode(rs.getInt(pincode));
 					ts.add(cc);
 				}
-				System.out.println(sql);
+				log.info(sql);
 			}
 		} catch (SQLException e) {
-			log.error(e);
+			log.error("unable to retrive your car Information", e);
+			throw new DbException(InfoMessages.SQL_QUERY_FAIL);
+
+		} catch (Exception e) {
+			throw new DbException(InfoMessages.CONNECTION_FAIL);
+
 		}
 		return ts;
 
 	}
+
 	public List<CarOrder> findByMobileNo(Long mobileNo) throws DbException {
 		// Connection con = null;
 		// PreparedStatement ps = null;
@@ -245,12 +272,14 @@ public class CarOrderImp implements CarOrderDAO {
 					co.setStatus(rs.getString(status));
 					co.setPincode(rs.getInt(pincode));
 					ar.add(co);
-				} else {
-					log.error("your car not ordered");
 				}
 			}
 		} catch (SQLException e) {
-			log.error(e);
+			log.error("order failed", e);
+			throw new DbException(InfoMessages.SQL_QUERY_FAIL);
+		} catch (Exception e) {
+			throw new DbException(InfoMessages.CONNECTION_FAIL);
+
 		}
 
 		return ar;

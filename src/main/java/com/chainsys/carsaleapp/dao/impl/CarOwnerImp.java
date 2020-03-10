@@ -1,7 +1,6 @@
 package com.chainsys.carsaleapp.dao.impl;
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -10,20 +9,21 @@ import java.util.List;
 
 import javax.sql.DataSource;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.chainsys.carsaleapp.dao.CarOwnerDAO;
 import com.chainsys.carsaleapp.exception.DbException;
-import com.chainsys.carsaleapp.logger.Logger;
 import com.chainsys.carsaleapp.model.CarDetail;
-import com.chainsys.carsaleapp.model.CarOrder;
 import com.chainsys.carsaleapp.model.CarOwner;
 
 @Repository
 public class CarOwnerImp implements CarOwnerDAO {
-	private static final Logger log = Logger.getInstance();
+	private static final Logger log = LoggerFactory.getLogger(CarDetailImp.class);
+//	private static final Logger log = Logger.getInstance();
 	private static final String seller_id = "seller_id";
 	private static final String address1 = "address1";
 	private static final String car_name = "car_name";
@@ -38,7 +38,7 @@ public class CarOwnerImp implements CarOwnerDAO {
 	private static final String driven_km = "driven_km";
 	private static final String car_available_city = "car_available_city";
 	private static final String vehicle_identification_no = "vehicle_identification_no";
-		@Autowired
+	@Autowired
 	DataSource dataSource;
 	@Autowired
 	JdbcTemplate jdbcTemplate;
@@ -59,7 +59,7 @@ public class CarOwnerImp implements CarOwnerDAO {
 				}
 			}
 		} catch (SQLException e) {
-			log.error(e);
+			throw new DbException("Phone number not Exists");
 		}
 		return exists;
 	}
@@ -111,7 +111,7 @@ public class CarOwnerImp implements CarOwnerDAO {
 				}
 			}
 		} catch (SQLException e) {
-			log.error(e);
+			throw new DbException("unable to delete car");
 		}
 	}
 
@@ -151,7 +151,6 @@ public class CarOwnerImp implements CarOwnerDAO {
 
 			}
 		} catch (SQLException e) {
-			log.error(e);
 			throw new DbException("unable to view Car");
 		}
 
@@ -192,11 +191,9 @@ public class CarOwnerImp implements CarOwnerDAO {
 				log.info("Failed to Upadate");
 			}
 		} catch (SQLException e) {
-			log.error(e);
 			throw new DbException("unable to retrive");
 		}
 
 	}
 
-	
 }

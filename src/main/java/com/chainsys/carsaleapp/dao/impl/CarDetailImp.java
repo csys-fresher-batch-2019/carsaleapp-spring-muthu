@@ -11,22 +11,24 @@ import java.util.List;
 
 import javax.sql.DataSource;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.chainsys.carsaleapp.dao.CarDetailDAO;
 import com.chainsys.carsaleapp.exception.DbException;
-import com.chainsys.carsaleapp.logger.Logger;
+import com.chainsys.carsaleapp.exception.InfoMessages;
 import com.chainsys.carsaleapp.model.CarDetail;
 import com.chainsys.carsaleapp.model.CarOwner;
 
 @Repository
 public class CarDetailImp implements CarDetailDAO {
-	private static final Logger log = Logger.getInstance();
+	//private static final Logger log = Logger.getInstance();
+	private static final Logger log = LoggerFactory.getLogger(CarDetailImp.class);
 	private static final String seller_id = "seller_id";
 	private static final String car_seller_id = "car_seller_id";
-
 	private static final String seller_contact_no = "seller_contact_no";
 	private static final String car_name = "car_name";
 	private static final String car_id = "car_id";
@@ -61,14 +63,17 @@ public class CarDetailImp implements CarDetailDAO {
 
 				if (rs.next()) {
 					sellerId = rs.getInt(seller_id);
-					log.info("login success");
+					log.info(InfoMessages.LOGIN_SUCCESS);
 				} else {
-					log.info("login failed");
+					log.info(InfoMessages.LOGIN_FAIL);
 
 				}
 			}
 		} catch (SQLException e) {
-			log.error(e);
+			throw new DbException(InfoMessages.SQL_QUERY_FAIL);
+
+		} catch (Exception e1) {
+			throw new DbException(InfoMessages.CONNECTION_FAIL);
 
 		}
 		return sellerId;
@@ -111,7 +116,7 @@ public class CarDetailImp implements CarDetailDAO {
 
 				pst.setLong(2, cardetail.getContactNo());
 			}
-			System.out.println(query);
+			log.info(query);
 
 			try (ResultSet rs = pst.executeQuery();) {
 
@@ -193,8 +198,10 @@ public class CarDetailImp implements CarDetailDAO {
 				}
 			}
 		} catch (SQLException e) {
-			log.error(e);
-			throw new DbException("unable to retrive the car information!!");
+			log.error("uanble to find car",e);
+			throw new DbException(InfoMessages.SQL_QUERY_FAIL);
+		} catch (Exception e) {
+			throw new DbException(InfoMessages.CONNECTION_FAIL);
 		}
 
 		return ar;
@@ -228,8 +235,10 @@ public class CarDetailImp implements CarDetailDAO {
 				}
 			}
 		} catch (SQLException e) {
-			log.error(e);
-			throw new DbException("unable to retrive car Details");
+			log.error("unable to find car",e);
+			throw new DbException(InfoMessages.SQL_QUERY_FAIL);
+		} catch (Exception e) {
+			throw new DbException(InfoMessages.CONNECTION_FAIL);
 		}
 		return ar;
 
@@ -278,8 +287,10 @@ public class CarDetailImp implements CarDetailDAO {
 				}
 			}
 		} catch (SQLException e) {
-			log.error(e);
-			throw new DbException("unable to retrive");
+			log.error("unable to find car",e);
+			throw new DbException(InfoMessages.SQL_QUERY_FAIL);
+		} catch (Exception e1) {
+			throw new DbException(InfoMessages.CONNECTION_FAIL);
 		}
 
 		return list;
@@ -318,13 +329,17 @@ public class CarDetailImp implements CarDetailDAO {
 				}
 			}
 		} catch (SQLException e) {
-			log.error(e);
+			log.error("unable to update Status",e);
+			throw new DbException(InfoMessages.SQL_QUERY_FAIL);
+		} catch (Exception e1) {
+			throw new DbException(InfoMessages.CONNECTION_FAIL);
 		}
 
 		return ar;
 	}
 
-	public List<CarDetail> findByCarNameAndBrandAndFuelType(String carName, String carBrand, String fuleType) throws DbException {
+	public List<CarDetail> findByCarNameAndBrandAndFuelType(String carName, String carBrand, String fuleType)
+			throws DbException {
 
 		return null;
 	}
@@ -369,8 +384,11 @@ public class CarDetailImp implements CarDetailDAO {
 				}
 			}
 		} catch (SQLException e) {
-			log.error(e);
-			throw new DbException("unable to retrive");
+			log.error("unable to find car in this price",e);
+			throw new DbException(InfoMessages.SQL_QUERY_FAIL);
+
+		} catch (Exception e1) {
+			throw new DbException(InfoMessages.CONNECTION_FAIL);
 
 		}
 		return ar;
@@ -407,10 +425,10 @@ public class CarDetailImp implements CarDetailDAO {
 				}
 			}
 		} catch (SQLException e) {
-			log.error(e);
-
-			throw new DbException("unable to retrive");
-
+			log.error("unable to find car in this price!!",e);
+			throw new DbException(InfoMessages.SQL_QUERY_FAIL);
+		} catch (Exception e) {
+			throw new DbException(InfoMessages.CONNECTION_FAIL);
 		}
 		return ar;
 	}
@@ -441,9 +459,12 @@ public class CarDetailImp implements CarDetailDAO {
 				}
 			}
 		} catch (SQLException e) {
-			log.error(e);
+			log.error("Unable to find car",e);
 
-			throw new DbException("unable to retrive");
+			throw new DbException(InfoMessages.SQL_QUERY_FAIL);
+
+		} catch (Exception e1) {
+			throw new DbException(InfoMessages.CONNECTION_FAIL);
 
 		}
 		return ar;
@@ -472,10 +493,12 @@ public class CarDetailImp implements CarDetailDAO {
 				}
 			}
 		} catch (SQLException e) {
-			log.error(e);
+			log.error("unable to find car",e);
 
-			throw new DbException("unable to retrive");
+			throw new DbException(InfoMessages.SQL_QUERY_FAIL);
 
+		} catch (Exception e1) {
+			throw new DbException(InfoMessages.CONNECTION_FAIL);
 		}
 		return ar;
 	}
@@ -491,7 +514,7 @@ public class CarDetailImp implements CarDetailDAO {
 				while (rs.next()) {
 					CarDetail c = new CarDetail();
 					c.setCarId(rs.getInt(car_id));
-					c.getCarOwner().setOwnerId(rs.getInt(seller_id));
+					// c.getCarOwner().setOwnerId(rs.getInt(seller_id));
 					c.setCarName(rs.getString(car_name));
 					c.setCarBrand(rs.getString(car_brand));
 					c.setTrType(rs.getString(tr_type));
@@ -503,16 +526,19 @@ public class CarDetailImp implements CarDetailDAO {
 					c.setStatus(rs.getString(statuss));
 					c.setRegistrationNo(rs.getString(registration_no));
 					c.setImageSrc(rs.getString(image));
-					CarOwner carowner = new CarOwner();
-					carowner.setOwnerName(rs.getString(seller_name));
-					carowner.setContactNo(rs.getLong(seller_contact_no));
-					c.setCarOwner(carowner);
+					CarOwner carOwner = new CarOwner();
+					carOwner.setOwnerId(rs.getInt(seller_id));
+					carOwner.setOwnerName(rs.getString(seller_name));
+					carOwner.setContactNo(rs.getLong(seller_contact_no));
+					c.setCarOwner(carOwner);
 					ar.add(c);
 				}
 			}
 		} catch (SQLException e) {
-			log.error(e);
-			throw new DbException("unable to retrive the car information!!");
+			log.error("unable to find car",e);
+			throw new DbException(InfoMessages.SQL_QUERY_FAIL);
+		} catch (Exception e) {
+			throw new DbException(InfoMessages.CONNECTION_FAIL);
 		}
 
 		return ar;
@@ -549,8 +575,10 @@ public class CarDetailImp implements CarDetailDAO {
 			}
 
 		} catch (SQLException e) {
-			log.error(e);
-			throw new DbException("unable to retrive the car information!!");
+			log.error("unable to find car",e);
+			throw new DbException(InfoMessages.SQL_QUERY_FAIL);
+		} catch (Exception e1) {
+			throw new DbException(InfoMessages.CONNECTION_FAIL);
 		}
 		return ar;
 	}
@@ -567,7 +595,10 @@ public class CarDetailImp implements CarDetailDAO {
 				}
 			}
 		} catch (SQLException e) {
-			log.error(e);
+			log.error("unable to find car",e);
+			throw new DbException(InfoMessages.SQL_QUERY_FAIL);
+		} catch (Exception e1) {
+			throw new DbException(InfoMessages.CONNECTION_FAIL);
 		}
 		return exists;
 

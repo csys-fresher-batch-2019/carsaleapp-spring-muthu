@@ -13,7 +13,9 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.chainsys.carsaleapp.exception.ServiceException;
 import com.chainsys.carsaleapp.model.CarDetail;
+import com.chainsys.carsaleapp.model.CarOwner;
 import com.chainsys.carsaleapp.service.CarDetailService;
 
 @WebServlet("/AddCarServlet")
@@ -53,16 +55,20 @@ public class AddCarServlet extends HttpServlet {
 		String vid = request.getParameter("vid");
 		String imageSrc = request.getParameter("image");
 		carDetail.setVehicleIdNo(vid);
-		carDetail.getCarOwner().setOwnerId(sellerId);
+		CarOwner carOwner=new CarOwner();
+		carOwner.setOwnerId(sellerId);
+		carDetail.setCarOwner(carOwner);
 		carDetail.setImageSrc(imageSrc);
 		try {
 			cdi.addCarDetail(carDetail);
 			System.out.println("Add success");
 			RequestDispatcher dispatcher = request.getRequestDispatcher("LoginIndex.jsp");
 			dispatcher.forward(request, response);
-		} catch (Exception e) {
+		} catch (ServiceException e) {
 			e.printStackTrace();
-			RequestDispatcher dispatcher = request.getRequestDispatcher("addCar.jsp");
+			out.println(e.getMessage());
+			out.flush();
+			RequestDispatcher dispatcher = request.getRequestDispatcher("addCar.jsp?errorMessage="+e.getMessage());
 			dispatcher.forward(request, response);
 
 		}

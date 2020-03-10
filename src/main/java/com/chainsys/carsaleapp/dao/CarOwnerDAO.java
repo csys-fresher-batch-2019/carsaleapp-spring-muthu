@@ -5,7 +5,6 @@ import java.util.List;
 import org.springframework.stereotype.Repository;
 
 import com.chainsys.carsaleapp.exception.DbException;
-import com.chainsys.carsaleapp.model.CarOrder;
 import com.chainsys.carsaleapp.model.CarOwner;
 
 @Repository
@@ -20,4 +19,4 @@ public interface CarOwnerDAO {
 
 	public boolean exists(Long mobileNo) throws DbException;
 
-	}
+}

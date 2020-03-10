@@ -101,7 +101,7 @@
 							<tr>
 								<td>sellerId</td>
 								<td>: <input type="number" name="sellerId"
-									value="${co.getCarOwnerId()}" readonly required /></td>
+									value="${co.getCarOwner().getOwnerId()}" readonly required /></td>
 							</tr>
 							<tr>
 								<td>UserId</td>

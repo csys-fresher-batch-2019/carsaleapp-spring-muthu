@@ -53,10 +53,9 @@ public class LoginServlet extends HttpServlet {
 			}
 		} catch (ServiceException e) {
 			e.printStackTrace();
+			response.sendRedirect("login.jsp?errorMessage=" + e.getMessage());
 		} catch (DbException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
-			response.sendRedirect("login.jsp?errorMessage=" + e.getMessage());
 
 		}
 

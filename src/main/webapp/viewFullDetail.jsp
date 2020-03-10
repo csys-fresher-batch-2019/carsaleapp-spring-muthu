@@ -77,7 +77,7 @@ style>body {
 								<img src="assets/images/${cd.getImageSrc()}"
 									class="card-img-top" alt="image">
 								<div class="card-body">
-									<h5 class="card-title">${cd1.getCarBrand()}
+									<h5 class="card-title">${cd.getCarBrand()}
 										${cd.getCarName()}</h5>
 									<h6 class="card-text">Registered Year:${cd.getRegYear()}</h6>
 									<h6 class="card-text">DrivenKm:${cd.getDrivenKm()}</h6>
