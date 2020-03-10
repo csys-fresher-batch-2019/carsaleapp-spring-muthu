@@ -62,7 +62,8 @@
 		</c:when>
 		<c:otherwise>
 			<h1>NO RECORDS</h1>
+
 		</c:otherwise>
-	</c:choose>
+		</c:choose>
 </body>
 </html>

@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.chainsys.carsaleapp.exception.ServiceException;
 import com.chainsys.carsaleapp.model.CarOwner;
 import com.chainsys.carsaleapp.service.CarOwnerService;
 
@@ -46,9 +47,10 @@ public class RegisterServlet extends HttpServlet {
 			RequestDispatcher dispatcher = request.getRequestDispatcher("login.jsp");
 			dispatcher.forward(request, response);
 
-		} catch (Exception e) {
+		} catch (ServiceException e) {
 			e.printStackTrace();
-			response.sendRedirect("register.jsp?errorMessage=Register failed!!!");
+			RequestDispatcher dispatcher = request.getRequestDispatcher("register.jsp?errorMessage=" + e.getMessage());
+			dispatcher.forward(request, response);
 
 		}
 	}

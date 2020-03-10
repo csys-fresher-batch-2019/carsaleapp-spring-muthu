@@ -85,7 +85,8 @@
 		<table>
 			<tbody>
 				<tr>
-					<th><td><font color="red"><small>${param.errorMessage}</small></font></td>
+					<th>
+					<td><font color="red"><small>${param.errorMessage}</small></font></td>
 
 				</tr>
 				<tr>
@@ -148,7 +149,7 @@
 					<td>: <input type="text" name="vid" value="${param.vid}"
 						maxLength="17" pattern="[0-9]{1}[A-Z]{4}[0-9]{2}[A-Z]{4}[0-9]{6}"
 						title="need 17 character" id="vid" required
-						placeholder="Ex:1NNNN11NNNN111111"/></td>
+						placeholder="Ex:1NNNN11NNNN111111" /></td>
 					<td><Label for="vid"><span class="orange">Ex:1NNNN11NNNN111111</span></Label></td>
 				</tr>
 				<tr>
@@ -158,12 +159,12 @@
 						pattern="^[0-9]" title="Give valid price" required /></td>
 				</tr>
 				<tr>
-					<th align="left">Are You owner</th>
+					<th align="">Are You owner</th>
 					<td><input type="radio" name="isowner" value=1 required>Yes<input
 						type="radio" name="isowner" value=0>No<br></td>
 				</tr>
 				<tr>
-					<th align="left">Car Image Source</th>
+					<th>Car Image Source</th>
 					<td>: <input type="text" name="image" value="${param.image}"
 						placeholder="image.jpg" /></td>
 				</tr>
@@ -172,7 +173,7 @@
 					<td class="right"><button type="submit" onclick="myfunction()"
 							class="btn btn-default login-buton btn-disabled">add</button></td>
 				</tr>
-							</tbody>
+			</tbody>
 		</table>
 	</Form>
 	<script>

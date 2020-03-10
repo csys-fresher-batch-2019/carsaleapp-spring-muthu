@@ -29,8 +29,10 @@ public class InfoMessages {
 	public static final String VALIDATE_CITY = "Enter CITY";
 	public static final String VALIDATE_TESTDRIVE = "chooes TestDrive Option";
 	public static final String VALIDATE_STREETNAME = "Enter Street name";
-	public static final String VALIDATE_STREETNO = "Enter Contact Number";
+	public static final String VALIDATE_STREETNO = "Enter   Street No";
 	public static final String VALIDATE_STATE = "Enter state";
 	public static final String VALIDATE_PINCODE = "Enter Pincode";
+	public static final String VALIDATE_REGSTATE= "Enter Registration State";
+
 
 }

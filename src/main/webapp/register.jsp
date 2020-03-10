@@ -95,38 +95,41 @@
 				<div class="card-body">
 					<table>
 						<tr>
+							<td><font color="red"><small>${param.errorMessage}</small></font></td>
+						</tr>
+						<tr>
 							<td><label for="ContactNo">Contact No:</label></td>
 							<td><input type="number" name="contactNo" id="ContactNo"
 								maxLength="10" pattern="[0-9]{10}" title="10 digit mobile no"
-								required onblur="validateContactNo(this.value)" /></td>
+								required onblur="validateContactNo(this.value)" value="${param.contactNo}"/></td>
 						<tr>
 							<td><label for="sname">Your Name:</label></td>
-							<td><input type="text" name="sname" id="sname" required /></td>
+							<td><input type="text" name="sname" id="sname" value="${param.sname}" required /></td>
 						</tr>
 						<tr>
 							<td><label for="sname">Address1:</label></td>
-							<td><input type="text" name="address1" id="address" required /></td>
+							<td><input type="text" name="address1" id="address" value="${param.address1}"required /></td>
 						</tr>
 						<tr>
 							<td><label for="sname">Address2:</label></td>
-							<td><input type="text" name="doorno" id="sname" /></td>
+							<td><input type="text" name="doorno" id="sname" value="${param.doorno}"/></td>
 						</tr>
 						<tr>
 							<td><label for="scity">City:</label></td>
-							<td><input type="text" name="city" id="scity" required /></td>
+							<td><input type="text" name="city" id="scity" value="${param.city}"required /></td>
 						</tr>
 						<tr>
 							<td><label for="sname">State :</label></td>
-							<td><input type="text" name="state" id="sstate" required /></td>
+							<td><input type="text" name="state" id="sstate" value="${param.state}" required /></td>
 						</tr>
 						<tr>
 							<td><label for="sname">Pincode :</label></td>
 							<td><input type="text" name="pincode" id="spincode"
-								pattern=[0-9]{6} maxlength="6" title="EX:600000" required /></td>
+								pattern=[0-9]{6} maxlength="6" title="EX:600000" value="${param.pincode}" required /></td>
 						</tr>
 						<tr>
 							<td><label for="npass">Password</label></td>
-							<td><input type="password" name="npass" id="npass" required /></td>
+							<td><input type="password" name="npass" id="npass" value="${param.npass}" required /></td>
 						</tr>
 						<tr>
 							<td><label for="npass">Re-Enter Password</label></td>
@@ -145,8 +148,8 @@
 		</div>
 	</form>
 
-	<%
+	<%-- <%
 		String errorMessage = request.getParameter("errorMessage");
-	%>
+	%> --%>
 </body>
 </html>

@@ -59,7 +59,7 @@ function priceUpdate(carId,sellerId){
 
 
 
-	<%
+	<%-- <%
 		Integer sellerId = (Integer) session.getAttribute("login_seller_id");
 
 		List<CarOwner> car = (List<CarOwner>) request.getAttribute("totalCar");
@@ -67,64 +67,60 @@ function priceUpdate(carId,sellerId){
 	%>
 	<%
 		if (car != null && !car.isEmpty()) {
-	%>
-
-	<div class="container left">
-		<table class="table table-bordered">
-			<thead>
-				<tr>
-					<th>UserName</th>
-					<th>AvailableCity</th>
-					<th>CarBrand</th>
-					<th>CarName</th>
-					<th>CarId</th>
-					<th>DrivenKm</th>
-					<th>Price(Rs)</th>
-					<th>Reg Year</th>
-					<th>Reg Number</th>
-					<th>VID Number</th>
-					<th>Edit</th>
-					<th>UpdatePrice</th>
-				</tr>
-			</thead>
-			<%
+	%> --%>
+	<c:choose>
+		<c:when test="${totalCar!=null && !totalCar.isEmpty()}">
+			<div class="container left">
+				<table class="table table-bordered">
+					<thead>
+						<tr>
+							<th>UserName</th>
+							<th>AvailableCity</th>
+							<th>CarBrand</th>
+							<th>CarName</th>
+							<th>CarId</th>
+							<th>DrivenKm</th>
+							<th>Price(Rs)</th>
+							<th>Reg Year</th>
+							<th>Reg Number</th>
+							<th>VID Number</th>
+							<th>Edit</th>
+							<th>UpdatePrice</th>
+						</tr>
+					</thead>
+					<%-- <%
 				for (CarOwner co : car) {
 			%>
+ --%>
+					<c:forEach items="${totalCar}" var="co">
+						<tr>
+							<td>${co.getOwnerName()}</td>
+							<td>${co.getCarDetail().getCarAvailableCity()}</td>
+							<td>${co.getCarDetail().getCarBrand()}</td>
+							<td>${co.getCarDetail().getCarName()}</td>
+							<td>${co.getCarDetail().getCarId()}</td>
+							<td>${co.getCarDetail().getDrivenKm()}</td>
+							<td><input type="number"
+								value="${co.getCarDetail().getPrice()}" name="price"
+								id="price_${co.getCarDetail().getCarId()}" disabled /></td>
+							<td>${co.getCarDetail().getRegYear()}</td>
+							<td>${co.getCarDetail().getRegistrationNo()}</td>
+							<td>${co.getCarDetail().getVehicleIdNo()}</td>
+							<td><button
+									onclick="enableTxt(${co.getCarDetail().getCarId()})"
+									class="btn btn-danger">edit</button></td>
+							<td><button
+									onclick="priceUpdate(${co.getCarDetail().getCarId()},${co.getOwnerId()})"
+									class="btn btn-danger">update</button></td>
 
-			<tr>
-				<td><%=co.getOwnerName()%></td>
-				<td><%=co.getCarDetail().getCarAvailableCity()%></td>
-				<td><%=co.getCarDetail().getCarBrand()%></td>
-				<td><%=co.getCarDetail().getCarName()%></td>
-				<td><%=co.getCarDetail().getCarId()%></td>
-				<td><%=co.getCarDetail().getDrivenKm()%></td>
-				<td><input type="number"
-					value="<%=co.getCarDetail().getPrice()%>" name="price"
-					id="price_<%=co.getCarDetail().getCarId()%>" disabled /></td>
-				<td><%=co.getCarDetail().getRegYear()%></td>
-				<td><%=co.getCarDetail().getRegistrationNo()%></td>
-				<td><%=co.getCarDetail().getVehicleIdNo()%></td>
-				<td><button id="bidd" value="yes"
-						onclick="enableTxt(<%=co.getCarDetail().getCarId()%>)"
-						class="btn btn-danger">edit</button></td>
-				<td><button id="bid" value="yes"
-						onclick="priceUpdate(<%=co.getCarDetail().getCarId()%>,<%=co.getOwnerId()%>)"
-						class="btn btn-danger">update</button></td>
-
-				<%
-					}
-				%>
-			
-		</table>
-	</div>
-	<%
-		} else {
-	%>
-	<h1>NO RECORDS</h1>
-
-	<%
-		}
-	%>
-
+						</tr>
+					</c:forEach>
+				</table>
+			</div>
+		</c:when>
+		<c:otherwise>
+			<h1>NO RECORDS</h1>
+		</c:otherwise>
+	</c:choose>
 </body>
 </html>

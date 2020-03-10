@@ -19,6 +19,7 @@ public class CarOwnerService {
 	CarOwnerValidator carValidator;
 	@Autowired
 	CarOwnerDAO carOwnerDAO;
+
 	public void addCarOwner(CarOwner carOwner) throws ServiceException {
 		try {
 			carValidator.validateRegistationForSave(carOwner);
@@ -27,8 +28,8 @@ public class CarOwnerService {
 			throw new ServiceException(e);
 		} catch (ValidatorException e) {
 			e.printStackTrace();
-			throw new ServiceException(e);
-		} 
+			throw new ServiceException(e.getMessage(), e);
+		}
 	}
 
 	void deleteCarDetail(int carOwnerId, int carId) throws ServiceException {
