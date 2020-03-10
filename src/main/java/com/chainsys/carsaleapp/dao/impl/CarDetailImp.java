@@ -19,13 +19,12 @@ import org.springframework.stereotype.Repository;
 
 import com.chainsys.carsaleapp.dao.CarDetailDAO;
 import com.chainsys.carsaleapp.exception.DbException;
-import com.chainsys.carsaleapp.exception.InfoMessages;
 import com.chainsys.carsaleapp.model.CarDetail;
 import com.chainsys.carsaleapp.model.CarOwner;
 
 @Repository
 public class CarDetailImp implements CarDetailDAO {
-	//private static final Logger log = Logger.getInstance();
+	// private static final Logger log = Logger.getInstance();
 	private static final Logger log = LoggerFactory.getLogger(CarDetailImp.class);
 	private static final String seller_id = "seller_id";
 	private static final String car_seller_id = "car_seller_id";
@@ -63,17 +62,11 @@ public class CarDetailImp implements CarDetailDAO {
 
 				if (rs.next()) {
 					sellerId = rs.getInt(seller_id);
-					log.info(InfoMessages.LOGIN_SUCCESS);
-				} else {
-					log.info(InfoMessages.LOGIN_FAIL);
 
 				}
 			}
 		} catch (SQLException e) {
-			throw new DbException(InfoMessages.SQL_QUERY_FAIL);
-
-		} catch (Exception e1) {
-			throw new DbException(InfoMessages.CONNECTION_FAIL);
+			throw new DbException("Unable to validate login cridentials", e);
 
 		}
 		return sellerId;
@@ -97,7 +90,7 @@ public class CarDetailImp implements CarDetailDAO {
 	 * }
 	 */
 
-	public int getSellerId2(CarDetail cardetail) throws SQLException {
+	public int getSellerId2(CarDetail cardetail) throws DbException {
 
 		int sellerId = 0;
 		String query = "select seller_id,seller_contact_no,user_password from car_seller where user_password= ? ";
@@ -126,6 +119,8 @@ public class CarDetailImp implements CarDetailDAO {
 				}
 			}
 
+		} catch (SQLException e) {
+			throw new DbException("Unable to validate login cridentials", e);
 		}
 		return sellerId;
 
@@ -198,10 +193,8 @@ public class CarDetailImp implements CarDetailDAO {
 				}
 			}
 		} catch (SQLException e) {
-			log.error("uanble to find car",e);
-			throw new DbException(InfoMessages.SQL_QUERY_FAIL);
-		} catch (Exception e) {
-			throw new DbException(InfoMessages.CONNECTION_FAIL);
+			log.error("uanble to find car", e);
+			throw new DbException("uanble to find car", e);
 		}
 
 		return ar;
@@ -235,10 +228,8 @@ public class CarDetailImp implements CarDetailDAO {
 				}
 			}
 		} catch (SQLException e) {
-			log.error("unable to find car",e);
-			throw new DbException(InfoMessages.SQL_QUERY_FAIL);
-		} catch (Exception e) {
-			throw new DbException(InfoMessages.CONNECTION_FAIL);
+			log.error("unable to find car", e);
+			throw new DbException("unable to find car", e);
 		}
 		return ar;
 
@@ -287,12 +278,9 @@ public class CarDetailImp implements CarDetailDAO {
 				}
 			}
 		} catch (SQLException e) {
-			log.error("unable to find car",e);
-			throw new DbException(InfoMessages.SQL_QUERY_FAIL);
-		} catch (Exception e1) {
-			throw new DbException(InfoMessages.CONNECTION_FAIL);
+			log.error("unable to find car", e);
+			throw new DbException("unable to find car", e);
 		}
-
 		return list;
 	}
 
@@ -329,12 +317,9 @@ public class CarDetailImp implements CarDetailDAO {
 				}
 			}
 		} catch (SQLException e) {
-			log.error("unable to update Status",e);
-			throw new DbException(InfoMessages.SQL_QUERY_FAIL);
-		} catch (Exception e1) {
-			throw new DbException(InfoMessages.CONNECTION_FAIL);
+			log.error("unable to update Status", e);
+			throw new DbException("unable to update Status", e);
 		}
-
 		return ar;
 	}
 
@@ -384,11 +369,8 @@ public class CarDetailImp implements CarDetailDAO {
 				}
 			}
 		} catch (SQLException e) {
-			log.error("unable to find car in this price",e);
-			throw new DbException(InfoMessages.SQL_QUERY_FAIL);
-
-		} catch (Exception e1) {
-			throw new DbException(InfoMessages.CONNECTION_FAIL);
+			log.error("unable to find car in this price", e);
+			throw new DbException("unable to find car in this price", e);
 
 		}
 		return ar;
@@ -425,10 +407,8 @@ public class CarDetailImp implements CarDetailDAO {
 				}
 			}
 		} catch (SQLException e) {
-			log.error("unable to find car in this price!!",e);
-			throw new DbException(InfoMessages.SQL_QUERY_FAIL);
-		} catch (Exception e) {
-			throw new DbException(InfoMessages.CONNECTION_FAIL);
+			log.error("unable to find car in this price!!", e);
+			throw new DbException("unable to find car in this price!!", e);
 		}
 		return ar;
 	}
@@ -459,12 +439,9 @@ public class CarDetailImp implements CarDetailDAO {
 				}
 			}
 		} catch (SQLException e) {
-			log.error("Unable to find car",e);
+			log.error("Unable to find car", e);
 
-			throw new DbException(InfoMessages.SQL_QUERY_FAIL);
-
-		} catch (Exception e1) {
-			throw new DbException(InfoMessages.CONNECTION_FAIL);
+			throw new DbException("Unable to find car", e);
 
 		}
 		return ar;
@@ -493,12 +470,10 @@ public class CarDetailImp implements CarDetailDAO {
 				}
 			}
 		} catch (SQLException e) {
-			log.error("unable to find car",e);
+			log.error("unable to find car", e);
 
-			throw new DbException(InfoMessages.SQL_QUERY_FAIL);
+			throw new DbException("unable to find car", e);
 
-		} catch (Exception e1) {
-			throw new DbException(InfoMessages.CONNECTION_FAIL);
 		}
 		return ar;
 	}
@@ -535,10 +510,8 @@ public class CarDetailImp implements CarDetailDAO {
 				}
 			}
 		} catch (SQLException e) {
-			log.error("unable to find car",e);
-			throw new DbException(InfoMessages.SQL_QUERY_FAIL);
-		} catch (Exception e) {
-			throw new DbException(InfoMessages.CONNECTION_FAIL);
+			log.error("unable to find car", e);
+			throw new DbException("unable to find car", e);
 		}
 
 		return ar;
@@ -575,10 +548,8 @@ public class CarDetailImp implements CarDetailDAO {
 			}
 
 		} catch (SQLException e) {
-			log.error("unable to find car",e);
-			throw new DbException(InfoMessages.SQL_QUERY_FAIL);
-		} catch (Exception e1) {
-			throw new DbException(InfoMessages.CONNECTION_FAIL);
+			log.error("unable to find car", e);
+			throw new DbException("unable to find car", e);
 		}
 		return ar;
 	}
@@ -595,10 +566,8 @@ public class CarDetailImp implements CarDetailDAO {
 				}
 			}
 		} catch (SQLException e) {
-			log.error("unable to find car",e);
-			throw new DbException(InfoMessages.SQL_QUERY_FAIL);
-		} catch (Exception e1) {
-			throw new DbException(InfoMessages.CONNECTION_FAIL);
+			log.error("unable to find car", e);
+			throw new DbException("unable to find car", e);
 		}
 		return exists;
 

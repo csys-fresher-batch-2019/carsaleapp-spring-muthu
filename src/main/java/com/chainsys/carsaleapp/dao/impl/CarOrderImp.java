@@ -18,7 +18,6 @@ import org.springframework.stereotype.Repository;
 
 import com.chainsys.carsaleapp.dao.CarOrderDAO;
 import com.chainsys.carsaleapp.exception.DbException;
-import com.chainsys.carsaleapp.exception.InfoMessages;
 import com.chainsys.carsaleapp.model.CarOrder;
 
 @Repository
@@ -93,10 +92,7 @@ public class CarOrderImp implements CarOrderDAO {
 
 		catch (SQLException e) {
 			log.error("unable to order the car!!", e);
-			throw new DbException(InfoMessages.SQL_QUERY_FAIL);
-
-		} catch (Exception e) {
-			throw new DbException(InfoMessages.CONNECTION_FAIL);
+			throw new DbException("unable to order the car!!", e);
 
 		}
 	}
@@ -120,14 +116,10 @@ public class CarOrderImp implements CarOrderDAO {
 				}
 			}
 		} catch (SQLException e) {
-			log.error("Sorry invalid orderId", e);
-			throw new DbException(InfoMessages.SQL_QUERY_FAIL);
-
-		} catch (Exception e1) {
-			throw new DbException(InfoMessages.CONNECTION_FAIL);
+			log.error("Sorry!!invalid orderId", e);
+			throw new DbException("Sorry!!invalid orderId", e);
 
 		}
-
 		return lt;
 	}
 
@@ -155,10 +147,7 @@ public class CarOrderImp implements CarOrderDAO {
 			}
 		} catch (SQLException e) {
 			log.error("no cars found in this date");
-			throw new DbException(InfoMessages.SQL_QUERY_FAIL);
-
-		} catch (Exception e1) {
-			throw new DbException(InfoMessages.CONNECTION_FAIL);
+			throw new DbException("no cars found in this date");
 
 		}
 
@@ -194,13 +183,9 @@ public class CarOrderImp implements CarOrderDAO {
 			}
 		} catch (SQLException e) {
 			log.error("unable to get car details,check your input", e);
-			throw new DbException(InfoMessages.SQL_QUERY_FAIL);
-
-		} catch (Exception e1) {
-			throw new DbException(InfoMessages.CONNECTION_FAIL);
+			throw new DbException("unable to get car details,check your input", e);
 
 		}
-
 		return ts;
 	}
 
@@ -235,10 +220,7 @@ public class CarOrderImp implements CarOrderDAO {
 			}
 		} catch (SQLException e) {
 			log.error("unable to retrive your car Information", e);
-			throw new DbException(InfoMessages.SQL_QUERY_FAIL);
-
-		} catch (Exception e) {
-			throw new DbException(InfoMessages.CONNECTION_FAIL);
+			throw new DbException("unable to retrive your car Information", e);
 
 		}
 		return ts;
@@ -276,10 +258,7 @@ public class CarOrderImp implements CarOrderDAO {
 			}
 		} catch (SQLException e) {
 			log.error("order failed", e);
-			throw new DbException(InfoMessages.SQL_QUERY_FAIL);
-		} catch (Exception e) {
-			throw new DbException(InfoMessages.CONNECTION_FAIL);
-
+			throw new DbException("order failed", e);
 		}
 
 		return ar;

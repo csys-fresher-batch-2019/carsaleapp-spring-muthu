@@ -16,7 +16,7 @@ public class CarDetailValidator {
 		if (carDetail.getCarBrand() == null || "".equals(carDetail.getCarBrand().trim())) {
 			throw new ValidatorException(InfoMessages.VALIDATE_CARBRAND);
 		}
-		if (carDetail.getDrivenKm() == 0) {
+		if (carDetail.getDrivenKm() == 0 ||carDetail.getDrivenKm()<=0) {
 			throw new ValidatorException(InfoMessages.VALIDATE_DRIVENKM);
 		}
 		if (carDetail.getCarAvailableCity() == null || "".equals(carDetail.getCarAvailableCity().trim())) {
