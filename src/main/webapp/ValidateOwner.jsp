@@ -9,6 +9,5 @@
 <body>
 	<input type="number" name="phoneNo" maxlength="10" />
 	<button type="submit">Validate</button>
-	</form>
-</body>
+	</body>
 </html>

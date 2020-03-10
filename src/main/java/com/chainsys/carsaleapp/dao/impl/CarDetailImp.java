@@ -120,6 +120,7 @@ public class CarDetailImp implements CarDetailDAO {
 			}
 
 		} catch (SQLException e) {
+			e.printStackTrace();
 			throw new DbException("Unable to validate login cridentials", e);
 		}
 		return sellerId;

@@ -55,7 +55,7 @@ public class AddCarServlet extends HttpServlet {
 		String vid = request.getParameter("vid");
 		String imageSrc = request.getParameter("image");
 		carDetail.setVehicleIdNo(vid);
-		CarOwner carOwner=new CarOwner();
+		CarOwner carOwner = new CarOwner();
 		carOwner.setOwnerId(sellerId);
 		carDetail.setCarOwner(carOwner);
 		carDetail.setImageSrc(imageSrc);
@@ -65,10 +65,9 @@ public class AddCarServlet extends HttpServlet {
 			RequestDispatcher dispatcher = request.getRequestDispatcher("LoginIndex.jsp");
 			dispatcher.forward(request, response);
 		} catch (ServiceException e) {
+			System.out.println("Message:" + e.getMessage());
 			e.printStackTrace();
-			out.println(e.getMessage());
-			out.flush();
-			RequestDispatcher dispatcher = request.getRequestDispatcher("addCar.jsp?errorMessage="+e.getMessage());
+			RequestDispatcher dispatcher = request.getRequestDispatcher("addCar.jsp?errorMessage=" + e.getMessage());
 			dispatcher.forward(request, response);
 
 		}

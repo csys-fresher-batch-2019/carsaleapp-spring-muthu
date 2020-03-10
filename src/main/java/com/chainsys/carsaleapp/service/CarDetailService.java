@@ -29,7 +29,7 @@ public class CarDetailService {
 		} catch (DbException e) {
 			throw new ServiceException(e);
 		} catch (ValidatorException e) {
-			throw new ServiceException(e);
+			throw new ServiceException(e.getMessage(), e);
 		}
 	}
 
