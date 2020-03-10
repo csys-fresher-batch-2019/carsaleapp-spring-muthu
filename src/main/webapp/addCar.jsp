@@ -89,53 +89,53 @@
 
 				</tr>
 				<tr>
-					<th>Car Name</th>
+					<th align="left">Car Name</th>
 					<td>: <input type="text" name="carName" id="carName"
 						placeholder="Ex:figo" value="${param.carName}" required /></td>
 				</tr>
 				<tr>
-					<th>Car Brand</th>
+					<th align="left">Car Brand</th>
 					<td>: <input type="text" name="carBrand" id="carBrand"
 						placeholder="ford" value="${param.carBrand}" required /></td>
 				</tr>
 				<tr>
-					<th>Transmission Type</th>
+					<th align="left">Transmission Type</th>
 					<td>: <input type="radio" name="tr" value="manual" required>manual<input
 						type="radio" name="tr" value="auto">auto
 					</td>
 				</tr>
 				<tr>
-					<th>Fuel Type</th>
+					<th align="left">Fuel Type</th>
 					<td>: <input type="radio" name="fuel" value="petrol" required>Petrol<input
 						type="radio" name="fuel" value="diesel">Diesel
 					</td>
 				</tr>
 				<tr>
-					<th>Registration State</th>
+					<th align="left">Registration State</th>
 					<td>: <input type="text" name="regState" id="regState"
 						value="${param.regState}" placeholder="Ex:Tamilnadu" required /></td>
 				</tr>
 				<tr>
-					<th>Car Available City</th>
+					<th align="left">Car Available City</th>
 					<td>: <input type="text" name="carAvailableCity"
 						id="carAvailableCity" value="${param.carAvailableCity}"
 						placeholder="Ex:chennai" required /></td>
 				</tr>
 				<tr>
-					<th>Registered Year</th>
+					<th align="left">Registered Year</th>
 					<td>: <input type="number" name="regYear" id="regYear"
 						value="${param.regYear}" placeholder="Ex:2000" required
 						onblur="validateYear(this.value)" /></td>
 				</tr>
 				<tr>
-					<th>Driven Kilometer</th>
+					<th align="left">Driven Kilometer</th>
 					<td>: <input type="number" name="drKm" id="drKm"
 						value="${param.drKm}" maxlength="10" pattern="^[0-9]"
 						title="Enter Km correctly" min="1" placeholder="Ex:DrivenKm"
 						required /></td>
 				</tr>
 				<tr>
-					<th>Registration Number</th>
+					<th align="left">Registration Number</th>
 					<td>: <input type="text" name="regNo" value="${param.regNo}"
 						id="regNo" required placeholder="Ex:TN00NH3433"
 						pattern="[A-Z]{2}[0-9]{2}[A-Z]{2}[0-9]{4}"
@@ -144,7 +144,7 @@
 							class="orange">Ex:TN00NH3433</span></Label></td>
 				</tr>
 				<tr>
-					<th>Vehicle Identification Number</th>
+					<th align="left">Vehicle Identification Number</th>
 					<td>: <input type="text" name="vid" value="${param.vid}"
 						maxLength="17" pattern="[0-9]{1}[A-Z]{4}[0-9]{2}[A-Z]{4}[0-9]{6}"
 						title="need 17 character" id="vid" required
@@ -152,18 +152,18 @@
 					<td><Label for="vid"><span class="orange">Ex:1NNNN11NNNN111111</span></Label></td>
 				</tr>
 				<tr>
-					<th>Price</th>
+					<th align="left">Price</th>
 					<td>: <input type="number" name="price" id="price"
 						value="${param.price}" placeholder="Ex:100000" min=300000
 						pattern="^[0-9]" title="Give valid price" required /></td>
 				</tr>
 				<tr>
-					<th>Are You owner</th>
+					<th align="left">Are You owner</th>
 					<td><input type="radio" name="isowner" value=1 required>Yes<input
 						type="radio" name="isowner" value=0>No<br></td>
 				</tr>
 				<tr>
-					<th>Car Image Source</th>
+					<th align="left">Car Image Source</th>
 					<td>: <input type="text" name="image" value="${param.image}"
 						placeholder="image.jpg" /></td>
 				</tr>
