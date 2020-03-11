@@ -83,7 +83,7 @@ public class CarDetailService {
 	public List<CarDetail> getCarDetailAbovePrice(float max) throws ServiceException {
 		List<CarDetail> ls = new ArrayList<CarDetail>();
 		try {
-			ls = carDetailDAO.findByMaxPrice(max);
+			ls = carDetailDAO.findByAbovePrice(max);
 		} catch (DbException e) {
 			e.printStackTrace();
 			throw new ServiceException(e);

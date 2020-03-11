@@ -22,11 +22,11 @@ public interface CarDetailDAO {
 
 	// public int getSellerId(Long mobileNo, String password) throws DbException;
 
-	public List<CarDetail> findByMaxPrice(float max) throws DbException;
+	public List<CarDetail> findByAbovePrice(float max) throws DbException;
 
 	public List<CarDetail> findByMaxPriceAndCarBrand(Float max, String carBrand) throws DbException;
 
-	public List<CarDetail> findByMinPrice(Float min) throws DbException;
+	public List<CarDetail> findByBelowPrice(Float min) throws DbException;
 
 	public List<CarDetail> findByDrivenKmFromAndTo(float StartFrom, float endTo) throws DbException;
 

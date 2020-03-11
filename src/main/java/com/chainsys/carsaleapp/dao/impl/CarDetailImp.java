@@ -208,9 +208,10 @@ public class CarDetailImp implements CarDetailDAO {
 		String sql = "select * from car_detail where car_brand=? and  car_available_city=?";
 		try (Connection con = dataSource.getConnection(); PreparedStatement ps = con.prepareStatement(sql);) {
 			System.out.println(sql);
-
 			ps.setString(1, carBrand);
 			ps.setString(2, regState);
+			System.out.println(carBrand);
+			System.out.println(regState);
 			try (ResultSet rss = ps.executeQuery();) {
 				while (rss.next()) {
 					CarDetail c = new CarDetail();
@@ -224,7 +225,7 @@ public class CarDetailImp implements CarDetailDAO {
 					c.setRegistrationNo(rss.getString(registration_no));
 					c.setPrice(rss.getInt(price));
 					c.setStatus(rss.getString(statuss));
-
+					//Add each row data to list
 					ar.add(c);
 				}
 			}
@@ -233,7 +234,6 @@ public class CarDetailImp implements CarDetailDAO {
 			throw new DbException("unable to find car", e);
 		}
 		return ar;
-
 	}
 
 	public List<CarDetail> findByCarBrand(String carBrand) throws DbException {
@@ -337,11 +337,11 @@ public class CarDetailImp implements CarDetailDAO {
 	}
 
 	@Override
-	public List<CarDetail> findByMaxPrice(float min) throws DbException {
+	public List<CarDetail> findByAbovePrice(float min) throws DbException {
 		List<CarDetail> ar = new ArrayList<CarDetail>();
 		float max = 900000000;
-		String car_status = "available";
-		String sql = "select * from  car_detail t left outer join car_seller d on t.car_seller_id=d.seller_id  where price between ? and ?  and status=?";
+		String carStatus = "available";
+		String sql = "select * from  car_detail t left outer join car_seller d on t.car_seller_id=d.seller_id  where price between ? and ? and status=?";
 
 		// String sql = "select
 		// car_brand,images,car_name,car_id,driven_km,price,fuel_type,car_available_city,registration_no,tr_type,reg_year
@@ -349,12 +349,13 @@ public class CarDetailImp implements CarDetailDAO {
 		try (Connection con = dataSource.getConnection(); PreparedStatement ps = con.prepareStatement(sql)) {
 			ps.setFloat(1, min);
 			ps.setFloat(2, max);
-			ps.setString(3, car_status);
+			ps.setString(3, carStatus);
 			try (ResultSet rs = ps.executeQuery();) {
 				while (rs.next()) {
-
+					CarOwner owner = new CarOwner();
+					owner.setOwnerId(rs.getInt(seller_id));
 					CarDetail carDetail = new CarDetail();
-					carDetail.getCarOwner().setOwnerId(rs.getInt(seller_id));
+					carDetail.setCarOwner(owner);
 					carDetail.setCarBrand(rs.getString(car_brand));
 					carDetail.setCarName(rs.getString(car_name));
 					carDetail.setCarId(rs.getInt(car_id));
@@ -378,21 +379,20 @@ public class CarDetailImp implements CarDetailDAO {
 	}
 
 	@Override
-	public List<CarDetail> findByMinPrice(Float min) throws DbException {
+	public List<CarDetail> findByBelowPrice(Float max) throws DbException {
 		List<CarDetail> ar = new ArrayList<CarDetail>();
 		String carStatus = "available";
 		String sql = "select * from  car_detail t left outer join car_seller d on t.car_seller_id=d.seller_id  where price <=? and status=?";
 
-		// String sql = "select
-		// car_brand,images,car_name,reg_year,car_id,driven_km,price,fuel_type,car_available_city,registration_no,tr_type
-		// from car_detail where price<=? and status=? order by price asc";
 		try (Connection con = dataSource.getConnection(); PreparedStatement ps = con.prepareStatement(sql)) {
-			ps.setFloat(1, min);
+			ps.setFloat(1, max);
 			ps.setString(2, carStatus);
 			try (ResultSet rs = ps.executeQuery();) {
 				while (rs.next()) {
 					CarDetail carDetail = new CarDetail();
-					carDetail.getCarOwner().setOwnerId(rs.getInt(seller_id));
+					CarOwner owner = new CarOwner();
+					owner.setOwnerId(rs.getInt(seller_id));
+					carDetail.setCarOwner(owner);
 					carDetail.setCarBrand(rs.getString(car_brand));
 					carDetail.setCarName(rs.getString(car_name));
 					carDetail.setCarId(rs.getInt(car_id));

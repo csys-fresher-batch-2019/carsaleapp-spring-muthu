@@ -293,7 +293,7 @@ public class TestCarDetails {
 				float minPrice = sc.nextFloat();
 				// log.getInput("Enter the car Brand");
 				// String carBrand=sc.next();
-				List<CarDetail> ar = co.findByMaxPrice(minPrice);
+				List<CarDetail> ar = co.findByAbovePrice(minPrice);
 				for (CarDetail cdr : ar) {
 					log.info(cdr.getCarOwner().getOwnerId() + "" + cdr.getImageSrc() + "" + cdr.getCarName() + "    "
 							+ cdr.getCarBrand() + "    " + cdr.getTrType() + "  " + cdr.getFuelType() + " "
@@ -313,7 +313,7 @@ public class TestCarDetails {
 				float maxPrice = sc.nextFloat();
 				// log.getInput("Enter the car Brand");
 				// String carBrand=sc.next();
-				List<CarDetail> ar = co.findByMinPrice(maxPrice);
+				List<CarDetail> ar = co.findByBelowPrice(maxPrice);
 				for (CarDetail cdr : ar) {
 					log.info(cdr.getCarOwner().getOwnerId() + "" + cdr.getImageSrc() + " " + cdr.getCarName() + "    "
 							+ cdr.getCarBrand() + "    " + cdr.getTrType() + "  " + cdr.getFuelType() + " "

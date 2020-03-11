@@ -113,11 +113,12 @@ modal-title {
 
 	<form action="SearchByCarPriceServlet" method="get">
 		<div class="rangeslider" class="right">
-			<input type="range" min="200000" max="600000" value="" name="price"
-				class="myslider" id="sliderRange">
+			Above Price<input type="range" min="0" max="600000" value=""
+				name="price" class="myslider" id="sliderRange">
 			<p>
 				Price:<span id="demo"></span>
 			</p>
+
 			<Button type="submit">submit</Button>
 		</div>
 	</form>
