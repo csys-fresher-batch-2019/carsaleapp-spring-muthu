@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.chainsys.carsaleapp.dao.CarOrderDAO;
-import com.chainsys.carsaleapp.dao.impl.CarOrderImp;
 import com.chainsys.carsaleapp.dto.Message;
 import com.chainsys.carsaleapp.exception.DbException;
 import com.chainsys.carsaleapp.model.CarOrder;
@@ -67,8 +66,8 @@ public class CarOrderController {
 	}
 
 	@GetMapping("/viewOrderedCar")
-	public ResponseEntity<?> getOrderedCar(@RequestParam(name = "userId",required=false) Integer userId,
-			@RequestParam(name = "sellerId",required=false) Integer sellerId) {
+	public ResponseEntity<?> getOrderedCar(@RequestParam(name = "userId", required = false) Integer userId,
+			@RequestParam(name = "sellerId", required = false) Integer sellerId) {
 		List<CarOrder> li = null;
 		try {
 			if (userId != null) {
