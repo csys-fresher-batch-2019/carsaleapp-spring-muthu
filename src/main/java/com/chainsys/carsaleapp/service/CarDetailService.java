@@ -148,10 +148,14 @@ public class CarDetailService {
 		return ls;
 	}
 
-	public int getSellerId(Long mobileNo, String password) throws ServiceException {
-		int id;
+	public Integer getSellerId(Long mobileNo, String password) throws ServiceException {
+		Integer id=null;
 		try {
 			id = carDetailDAO.findByMobileNoAndPassword(mobileNo, password);
+		if(id==null)
+		{
+			throw new ServiceException("invalid Credential !!!");
+		}
 		} catch (DbException e) {
 			e.printStackTrace();
 			throw new ServiceException(e);

@@ -50,11 +50,12 @@ public class CarDetailImp implements CarDetailDAO {
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
 
-	public int findByMobileNoAndPassword(Long mobileNo, String password) throws DbException {
+	public Integer findByMobileNoAndPassword(Long mobileNo, String password) throws DbException {
 
-		int sellerId = 0;
+		Integer sellerId=null;
 		String sql = "select seller_id from car_seller where (seller_contact_no=? or seller_id=?) and user_password=?";
 		try (Connection con = dataSource.getConnection(); PreparedStatement ps = con.prepareStatement(sql);) {
+			System.out.println(mobileNo);
 			ps.setLong(1, mobileNo);
 			ps.setLong(2, mobileNo);
 			ps.setString(3, password);
@@ -225,7 +226,7 @@ public class CarDetailImp implements CarDetailDAO {
 					c.setRegistrationNo(rss.getString(registration_no));
 					c.setPrice(rss.getInt(price));
 					c.setStatus(rss.getString(statuss));
-					//Add each row data to list
+					// Add each row data to list
 					ar.add(c);
 				}
 			}
@@ -324,10 +325,54 @@ public class CarDetailImp implements CarDetailDAO {
 		return ar;
 	}
 
-	public List<CarDetail> findByCarNameAndBrandAndFuelType(String carName, String carBrand, String fuleType)
+	public List<CarDetail> findByCarNameAndBrandAndFuelType(String carName, String carBrand, String fuelType)
 			throws DbException {
+		List<CarDetail> list = new ArrayList<CarDetail>();
+		String sql = "select * from  car_detail t left outer join car_seller d on t.car_seller_id=d.seller_id where t.car_brand=? and t.car_name=? and t.fuelType=?";
 
-		return null;
+		try (Connection con = dataSource.getConnection(); PreparedStatement ps = con.prepareStatement(sql);) {
+
+			System.out.println(sql);
+
+			ps.setString(1, carBrand);
+			ps.setString(2, carName);
+			ps.setString(3, fuelType);
+			try (ResultSet rss = ps.executeQuery();) {
+				while (rss.next()) {
+
+					// 1 row info -> storing in 1 object
+					CarDetail cd = new CarDetail();
+					cd.setCarId(rss.getInt(car_id));
+					cd.setCarName(rss.getString(car_name));
+					cd.setCarBrand(rss.getString(car_brand));
+					// cd.setCarOwner().setOwnerId()(rss.getInt("car_seller_id"));
+					cd.setDrivenKm(rss.getInt(driven_km));
+					cd.setFuelType(rss.getString(fuel_type));
+					cd.setRegState(rss.getString(reg_state));
+					cd.setStatus(rss.getString(statuss));
+					cd.setRegYear(rss.getInt(reg_year));
+					cd.setTrType(rss.getString(tr_type));
+					cd.setCarAvailableCity(rss.getString(car_available_city));
+					cd.setRegistrationNo(rss.getString(registration_no));
+					cd.setVehicleIdNo(rss.getString(vehicle_identification_no));
+					cd.setPrice(rss.getInt(price));
+					CarOwner carowner = new CarOwner();
+					carowner.setOwnerName(rss.getString(seller_name));
+					carowner.setOwnerId(rss.getInt(seller_id));// instread of carowner.ownerid =
+
+					carowner.setContactNo(rss.getLong(seller_contact_no));
+
+					cd.setCarOwner(carowner);
+
+					// 2. Add each row data to list
+					list.add(cd);
+				}
+			}
+		} catch (SQLException e) {
+
+		}
+
+		return list;
 	}
 
 	@Override

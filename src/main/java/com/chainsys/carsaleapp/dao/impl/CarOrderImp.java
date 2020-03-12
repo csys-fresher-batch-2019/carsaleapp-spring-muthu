@@ -24,7 +24,6 @@ import com.chainsys.carsaleapp.model.CarOrder;
 public class CarOrderImp implements CarOrderDAO {
 	// private static final Logger log = Logger.getInstance();
 	private static final Logger log = LoggerFactory.getLogger(CarDetailImp.class);
-
 	private static final String buyer_contact_number = "buyer_contact_number";
 	private static final String status = "status";
 	private static final String test_drive = "test_drive";
@@ -50,14 +49,10 @@ public class CarOrderImp implements CarOrderDAO {
 
 	public void save(CarOrder carOrder) throws DbException {
 		String check = " select car_id  from car_detail where car_id = ?";
-
 		try (Connection con = dataSource.getConnection(); PreparedStatement ps = con.prepareStatement(check);) {
-
 			ps.setInt(1, carOrder.getCarId());
 			try (ResultSet rs = ps.executeQuery();) {
-
 				if (rs.next()) {
-
 					int carId = rs.getInt(car_id);
 					String sql = "insert into car_order(order_id,buyer_name,buyer_contact_number,car_id,seller_id,test_drive,address1,address2,city,buyer_state,pincode,user_id)values(order_id_sq.nextval,?,?,?,?,?,?,?,?,?,?,?)";
 					System.out.println(sql);
@@ -76,11 +71,8 @@ public class CarOrderImp implements CarOrderDAO {
 						int rows = pst.executeUpdate();
 						System.out.println(rows);
 						System.out.println(sql);
-
 						String upsql = "update car_detail  set status='not available' where car_id=?";
-						try (PreparedStatement pt = con.prepareStatement(upsql);)
-
-						{
+						try (PreparedStatement pt = con.prepareStatement(upsql);) {
 							pt.setInt(1, carOrder.getCarId());
 							int uprs = pt.executeUpdate();
 							System.out.println(uprs);
@@ -88,12 +80,9 @@ public class CarOrderImp implements CarOrderDAO {
 					}
 				}
 			}
-		}
-
-		catch (SQLException e) {
+		} catch (SQLException e) {
 			log.error("unable to order the car!!", e);
 			throw new DbException("unable to order the car!!", e);
-
 		}
 	}
 
@@ -118,7 +107,6 @@ public class CarOrderImp implements CarOrderDAO {
 		} catch (SQLException e) {
 			log.error("Sorry!!invalid orderId", e);
 			throw new DbException("Sorry!!invalid orderId", e);
-
 		}
 		return lt;
 	}
@@ -134,7 +122,6 @@ public class CarOrderImp implements CarOrderDAO {
 			// Date da=Date.valueOf(ld);
 			// pst.setDate(1,da);
 			pst.setInt(1, orderId);
-
 			try (ResultSet rs = pst.executeQuery();) {
 				if (rs.next()) {
 					cc = new CarOrder();
@@ -148,16 +135,12 @@ public class CarOrderImp implements CarOrderDAO {
 		} catch (SQLException e) {
 			log.error("no cars found in this date");
 			throw new DbException("no cars found in this date");
-
 		}
-
 		return cc;
 	}
 
 	@Override
 	public void updateStatus(int carId) throws DbException {
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override
@@ -176,7 +159,6 @@ public class CarOrderImp implements CarOrderDAO {
 					cc.setOrderId(rs.getInt(order_id));
 					cc.setCarId(rs.getInt(car_id));
 					cc.setSellerId(rs.getInt(seller_id));
-
 					ts.add(cc);
 				}
 				System.out.println(sql);
@@ -184,7 +166,6 @@ public class CarOrderImp implements CarOrderDAO {
 		} catch (SQLException e) {
 			log.error("unable to get car details,check your input", e);
 			throw new DbException("unable to get car details,check your input", e);
-
 		}
 		return ts;
 	}
@@ -224,7 +205,6 @@ public class CarOrderImp implements CarOrderDAO {
 
 		}
 		return ts;
-
 	}
 
 	public List<CarOrder> findByMobileNo(Long mobileNo) throws DbException {
@@ -232,9 +212,7 @@ public class CarOrderImp implements CarOrderDAO {
 		// PreparedStatement ps = null;
 		List<CarOrder> ar = new ArrayList<CarOrder>();
 		String sql = "select * from car_order where seller_id=(select seller_id from car_seller where seller_contact_no=?)";
-
 		try (Connection con = dataSource.getConnection(); PreparedStatement ps = con.prepareStatement(sql);) {
-
 			ps.setLong(1, mobileNo);
 			try (ResultSet rs = ps.executeQuery();) {
 				if (rs.next()) {
@@ -260,7 +238,6 @@ public class CarOrderImp implements CarOrderDAO {
 			log.error("order failed", e);
 			throw new DbException("order failed", e);
 		}
-
 		return ar;
 	}
 

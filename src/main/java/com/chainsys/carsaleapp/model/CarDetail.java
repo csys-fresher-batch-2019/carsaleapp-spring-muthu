@@ -2,28 +2,31 @@ package com.chainsys.carsaleapp.model;
 
 import java.time.LocalDate;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+
 import lombok.Data;
 import lombok.ToString;
-
+@JsonInclude(Include.NON_NULL)
 @Data
 @ToString
 public class CarDetail {
-	private int carId;
+	private Integer carId;
 	private String carBrand;
 	private String carName;
 	private String trType;
 	private String fuelType;
 	private String regState;
-	private int regYear;
+	private Integer regYear;
 	private String registrationNo;
-	private int drivenKm;
+	private Integer drivenKm;
 	private LocalDate updateDate;
-	private int price;
+	private  Integer price;
 	private String status;
 	private String carAvailableCity;
 	private String imageSrc;
 	private String vehicleIdNo;
-	private int isOwner;
+	private Integer isOwner;
 	private Long contactNo;
 	private String password;
 

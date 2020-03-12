@@ -36,7 +36,7 @@ public interface CarDetailDAO {
 
 	public List<CarDetail> findAll() throws DbException;
 
-	public int findByMobileNoAndPassword(Long mobileNo, String password) throws DbException;
+	public Integer findByMobileNoAndPassword(Long mobileNo, String password) throws DbException;
 
 	public boolean findByRegNo(String regNo) throws DbException;
 }
