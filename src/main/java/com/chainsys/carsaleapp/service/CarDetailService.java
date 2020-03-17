@@ -170,7 +170,7 @@ public class CarDetailService {
 
 		try {
 			exists = carDetailDAO.findByRegNo(regNo);
-		} catch (Exception e) {
+			} catch (DbException e) {
 			e.printStackTrace();
 			throw new ServiceException(e);
 		}

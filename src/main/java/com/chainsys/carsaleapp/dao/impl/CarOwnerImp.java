@@ -68,24 +68,29 @@ public class CarOwnerImp implements CarOwnerDAO {
 		// Connection con=null;
 		// PreparedStatement pst=null;
 		String sql = "insert into car_seller(seller_id,seller_name,seller_contact_no,user_password,address1,address2,city,seller_state,pincode)values(seller_id_sq.nextval,?,?,?,?,?,?,?,?)";
-		Object[] params = { carOwner.getOwnerName(), carOwner.getContactNo(), carOwner.getPassword(),
-				carOwner.getAddress1(), carOwner.getAddress2(), carOwner.getCity(), carOwner.getState(),
-				carOwner.getPincode() };
-		int rows = jdbcTemplate.update(sql, params);
-		System.out.println(rows + "" + sql);
-		/*
-		 * try (Connection con = dataSource.getConnection(); PreparedStatement pst =
-		 * con.prepareStatement(sql);) {
-		 * 
-		 * pst.setString(1, carOwner.getOwnerName()); pst.setLong(2,
-		 * carOwner.getContactNo()); pst.setString(3, carOwner.getPassword());
-		 * pst.setString(4, carOwner.getAddress1()); pst.setString(5,
-		 * carOwner.getAddress2()); pst.setString(6, carOwner.getCity());
-		 * pst.setString(7, carOwner.getState()); pst.setInt(8, carOwner.getPincode());
-		 * 
-		 * int row = pst.executeUpdate(); System.out.println(row);
-		 * System.out.println(sql); } catch (SQLException e) { log.error(e); }
-		 */
+		try {
+			Object[] params = { carOwner.getOwnerName(), carOwner.getContactNo(), carOwner.getPassword(),
+					carOwner.getAddress1(), carOwner.getAddress2(), carOwner.getCity(), carOwner.getState(),
+					carOwner.getPincode() };
+			int rows = jdbcTemplate.update(sql, params);
+			System.out.println(rows + "" + sql);
+			/*
+			 * try (Connection con = dataSource.getConnection(); PreparedStatement pst =
+			 * con.prepareStatement(sql);) {
+			 * 
+			 * pst.setString(1, carOwner.getOwnerName()); pst.setLong(2,
+			 * carOwner.getContactNo()); pst.setString(3, carOwner.getPassword());
+			 * pst.setString(4, carOwner.getAddress1()); pst.setString(5,
+			 * carOwner.getAddress2()); pst.setString(6, carOwner.getCity());
+			 * pst.setString(7, carOwner.getState()); pst.setInt(8, carOwner.getPincode());
+			 * 
+			 * int row = pst.executeUpdate(); System.out.println(row);
+			 * System.out.println(sql); } catch (SQLException e) { log.error(e); }
+			 */
+			
+		} catch (Exception e) {
+			throw new DbException("Registration Failed");
+		}
 
 	}
 

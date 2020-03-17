@@ -32,7 +32,7 @@ public class CarOwnerService {
 		}
 	}
 
-	void deleteCarDetail(int carOwnerId, int carId) throws ServiceException {
+	public void deleteCarDetail(int carOwnerId, int carId) throws ServiceException {
 		try {
 			carOwnerDAO.delete(carOwnerId, carId);
 		} catch (DbException e) {
@@ -66,10 +66,12 @@ public class CarOwnerService {
 		boolean exists = false;
 		try {
 			exists = carOwnerDAO.exists(mobileNo);
-		} catch (DbException e) {
+			System.out.println(exists);
+			return exists;
+	    	} catch (DbException e) {
 			e.printStackTrace();
 			throw new ServiceException(e);
 		}
-		return exists;
+		
 	}
 }
