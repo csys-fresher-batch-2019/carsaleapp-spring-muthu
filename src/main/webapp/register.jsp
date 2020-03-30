@@ -109,6 +109,11 @@
 								value="${param.sname}" required /></td>
 						</tr>
 						<tr>
+						<td><label for="email">Your Name:</label></td>
+						<td><input type="text" name="email" id="email"
+								value="${param.email}" required /></td>
+						</tr>
+						<tr>
 							<td><label for="sname">Address1:</label></td>
 							<td><input type="text" name="address1" id="address"
 								value="${param.address1}" required /></td>

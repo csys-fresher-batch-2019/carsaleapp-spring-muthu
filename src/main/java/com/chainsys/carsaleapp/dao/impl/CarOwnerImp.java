@@ -65,11 +65,11 @@ public class CarOwnerImp implements CarOwnerDAO {
 	public void save(CarOwner carOwner) throws DbException {
 		// Connection con=null;
 		// PreparedStatement pst=null;
-		String sql = "insert into car_seller(seller_id,seller_name,seller_contact_no,user_password,address1,address2,city,seller_state,pincode)values(seller_id_sq.nextval,?,?,?,?,?,?,?,?)";
+		String sql = "insert into car_seller(seller_id,seller_name,seller_contact_no,user_password,address1,address2,city,seller_state,pincode,email)values(seller_id_sq.nextval,?,?,?,?,?,?,?,?,?)";
 		try {
 			Object[] params = { carOwner.getOwnerName(), carOwner.getContactNo(), carOwner.getPassword(),
 					carOwner.getAddress1(), carOwner.getAddress2(), carOwner.getCity(), carOwner.getState(),
-					carOwner.getPincode() };
+					carOwner.getPincode(),carOwner.getEmail()};
 			int rows = jdbcTemplate.update(sql, params);
 			System.out.println(rows + "" + sql);
 			/*

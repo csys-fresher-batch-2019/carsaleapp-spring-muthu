@@ -41,7 +41,8 @@ public class RegisterServlet extends HttpServlet {
 		cor.setPincode(pincode);
 		String pass = request.getParameter("npass");
 		cor.setPassword(pass);
-
+		String email=request.getParameter("email");
+		cor.setEmail(email);
 		try {
 			coii.addCarOwner(cor);
 			RequestDispatcher dispatcher = request.getRequestDispatcher("login.jsp");

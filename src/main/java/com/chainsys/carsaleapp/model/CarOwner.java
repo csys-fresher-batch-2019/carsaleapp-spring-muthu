@@ -19,6 +19,7 @@ public class CarOwner {
 	private String city;
 	private String state;
 	private String password;
+	private String email;
 	private CarDetail carDetail;
 
 }
