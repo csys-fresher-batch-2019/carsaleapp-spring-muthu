@@ -21,7 +21,7 @@ public class CarOrderService {
 
 	public void orderCar(CarOrder carOrder) throws ServiceException {
 		try {
-			carValidator.validateOrderCarForSave(carOrder);
+		carValidator.validateOrderCarForSave(carOrder);
 			carOrderDAO.save(carOrder);
 		} catch (DbException e) {
 			throw new ServiceException(e);

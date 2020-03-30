@@ -10,7 +10,6 @@ import com.chainsys.carsaleapp.exception.DbException;
 import com.chainsys.carsaleapp.exception.ServiceException;
 import com.chainsys.carsaleapp.exception.ValidatorException;
 import com.chainsys.carsaleapp.model.CarOwner;
-import com.chainsys.carsaleapp.validator.CarDetailValidator;
 import com.chainsys.carsaleapp.validator.CarOwnerValidator;
 
 @Service
@@ -44,7 +43,7 @@ public class CarOwnerService {
 	public List<CarOwner> viewYourCar(long mobileNo) throws ServiceException {
 		List<CarOwner> li = null;
 		try {
-			li = carOwnerDAO.findBymobileNo(mobileNo);
+			li = carOwnerDAO.findCar(mobileNo);
 		} catch (DbException e) {
 			e.printStackTrace();
 			throw new ServiceException(e);
@@ -54,7 +53,7 @@ public class CarOwnerService {
 
 	public void updateCarPrice(CarOwner carOwner) throws ServiceException {
 		try {
-			carOwnerDAO.update(carOwner);
+			carOwnerDAO.updatePrice(carOwner);
 		} catch (DbException e) {
 			e.printStackTrace();
 			throw new ServiceException(e);

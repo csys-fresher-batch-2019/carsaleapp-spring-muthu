@@ -32,6 +32,7 @@
 							<th>CarId</th>
 							<th>sellerId</th>
 							<th>DeliveryDate</th>
+							<th>Status</th>
 						</tr>
 					</thead>
 					<tr>
@@ -40,6 +41,7 @@
 						<td>${co.getCarId()}</td>
 						<td>${co.getSellerId()}</td>
 						<td>${co.getDeliveredDate()}</td>
+						<td>${co.getStatus()}</td>
 					</tr>
 				</table>
 			</c:forEach>

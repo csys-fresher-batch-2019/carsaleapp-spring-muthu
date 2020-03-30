@@ -13,9 +13,9 @@ public interface CarOwnerDAO {
 
 	void delete(int carOwnerId, int carId) throws DbException;
 
-	public List<CarOwner> findBymobileNo(long mobileNo) throws DbException;
+	public List<CarOwner> findCar(long mobileNo) throws DbException;
 
-	void update(CarOwner carOwner) throws DbException;
+	void updatePrice(CarOwner carOwner) throws DbException;
 
 	public boolean exists(Long mobileNo) throws DbException;
 

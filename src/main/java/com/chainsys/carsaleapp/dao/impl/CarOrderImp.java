@@ -56,7 +56,7 @@ public class CarOrderImp implements CarOrderDAO {
 					int carId = rs.getInt(car_id);
 					String sql = "insert into car_order(order_id,buyer_name,buyer_contact_number,car_id,seller_id,test_drive,address1,address2,city,buyer_state,pincode,user_id)values(order_id_sq.nextval,?,?,?,?,?,?,?,?,?,?,?)";
 					System.out.println(sql);
-					try (Statement stt = con.createStatement(); PreparedStatement pst = con.prepareStatement(sql);) {
+					try (PreparedStatement pst = con.prepareStatement(sql);) {
 						pst.setString(1, carOrder.getBuyerName());
 						pst.setLong(2, carOrder.getBuyerContactNo());
 						pst.setInt(3, carId);
@@ -71,21 +71,39 @@ public class CarOrderImp implements CarOrderDAO {
 						int rows = pst.executeUpdate();
 						System.out.println(rows);
 						System.out.println(sql);
-						String upsql = "update car_detail  set status='not available' where car_id=?";
-						try (PreparedStatement pt = con.prepareStatement(upsql);) {
-							pt.setInt(1, carOrder.getCarId());
-							int uprs = pt.executeUpdate();
-							System.out.println(uprs);
-						}
-					}
+						updateStatus(carId);
 				}
 			}
-		} catch (SQLException e) {
+		} 
+		}catch (SQLException e) {
 			log.error("unable to order the car!!", e);
 			throw new DbException("unable to order the car!!", e);
 		}
 	}
-
+ public Integer updateStatus(Integer carId) throws DbException{
+	 String sql = "select status from car_order where car_id=?";
+	 try (Connection con = dataSource.getConnection(); PreparedStatement ps = con.prepareStatement(sql);) {
+			ps.setInt(1, carId);
+			try (ResultSet rss = ps.executeQuery()) {
+				if(rss.next())
+				{
+				String stat = rss.getString("status");
+				String upsql = "update car_detail  set status=? where car_id=?";
+				try (PreparedStatement pt = con.prepareStatement(upsql);) {
+					pt.setString(1, stat);
+					pt.setInt(2, carId);
+					int uprs = pt.executeUpdate();
+					System.out.println(uprs);
+				}
+			}
+			}
+		}catch(SQLException e)
+	 {
+			throw new DbException("unable to order the car!!", e);
+	 }
+	return carId;
+	 
+ }
 	public List<CarOrder> findByOrderId(int orderId) throws DbException {
 		List<CarOrder> lt = new ArrayList<CarOrder>();
 		String sql = "select buyer_name ,order_id,car_id,delivered_date from car_order where order_id=?";
@@ -159,6 +177,7 @@ public class CarOrderImp implements CarOrderDAO {
 					cc.setOrderId(rs.getInt(order_id));
 					cc.setCarId(rs.getInt(car_id));
 					cc.setSellerId(rs.getInt(seller_id));
+					cc.setStatus(rs.getString(statuss));
 					ts.add(cc);
 				}
 				System.out.println(sql);
@@ -195,6 +214,7 @@ public class CarOrderImp implements CarOrderDAO {
 					cc.setOrderedDate(od.toLocalDate());
 					cc.setTestDrive(rs.getString(testDrive));
 					cc.setPincode(rs.getInt(pincode));
+					cc.setStatus(rs.getString(statuss));
 					ts.add(cc);
 				}
 				log.info(sql);

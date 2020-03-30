@@ -23,4 +23,5 @@ public interface CarOrderDAO {
 
 	public List<CarOrder> findByMobileNo(Long mobileNo) throws DbException;
 
+	public Integer updateStatus(Integer carId) throws DbException;
 }

@@ -74,7 +74,7 @@ function priceUpdate(carId,sellerId){
 				<table class="table table-bordered">
 					<thead>
 						<tr>
-							<th>UserName</th>
+							<th>status</th>
 							<th>AvailableCity</th>
 							<th>CarBrand</th>
 							<th>CarName</th>
@@ -94,7 +94,7 @@ function priceUpdate(carId,sellerId){
  --%>
 					<c:forEach items="${totalCar}" var="co">
 						<tr>
-							<td>${co.getOwnerName()}</td>
+							<td>${co.getCarDetail().getStatus()}</td>
 							<td>${co.getCarDetail().getCarAvailableCity()}</td>
 							<td>${co.getCarDetail().getCarBrand()}</td>
 							<td>${co.getCarDetail().getCarName()}</td>

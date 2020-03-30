@@ -13,7 +13,7 @@
 	<pre>
 
 <center>
-<h1> SuccessFully Ordered!!!</h1>
+<h1> Order request was sent successfully!!!</h1>
 </center>
 
 </pre>

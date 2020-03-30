@@ -9,7 +9,7 @@ import com.chainsys.carsaleapp.model.CarOrder;
 @Component
 public class CarOrderValidator {
 	public void validateOrderCarForSave(CarOrder carOrder) throws ValidatorException {
-		if (carOrder.getBuyerContactNo() == 0 || carOrder.getBuyerContactNo() <= 0 ||carOrder.getBuyerContactNo()>10) {
+		if (carOrder.getBuyerContactNo() ==0) {
 			throw new ValidatorException(InfoMessages.VALIDATE_CONTACT_NO);
 		}
 		if (carOrder.getBuyerName() == null || "".equals(carOrder.getBuyerName().trim())) {
@@ -30,7 +30,7 @@ public class CarOrderValidator {
 		if (carOrder.getBuyerState() == null || "".equals(carOrder.getBuyerState().trim())) {
 			throw new ValidatorException(InfoMessages.VALIDATE_STATE);
 		}
-		if (carOrder.getPincode() == 0 || carOrder.getPincode() <= 0 || carOrder.getPincode() > 6) {
+		if (carOrder.getPincode() == 0 || carOrder.getPincode() <= 0) {
 			throw new ValidatorException(InfoMessages.VALIDATE_PINCODE);
 
 		}

@@ -240,13 +240,14 @@ public class CarDetailImp implements CarDetailDAO {
 	public List<CarDetail> findByCarBrand(String carBrand) throws DbException {
 
 		List<CarDetail> list = new ArrayList<CarDetail>();
-		String sql = "select * from  car_detail t left outer join car_seller d on t.car_seller_id=d.seller_id where t.car_brand=?";
-
+		String sql = "select * from  car_detail t left outer join car_seller d on t.car_seller_id=d.seller_id where t.car_brand=? and t.status=?";
+        String val="available";
 		try (Connection con = dataSource.getConnection(); PreparedStatement ps = con.prepareStatement(sql);) {
 
 			System.out.println(sql);
 
 			ps.setString(1, carBrand);
+			ps.setString(2,val);
 			try (ResultSet rss = ps.executeQuery();) {
 				while (rss.next()) {
 

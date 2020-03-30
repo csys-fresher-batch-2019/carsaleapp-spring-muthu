@@ -25,12 +25,9 @@ public class CarOwnerImp implements CarOwnerDAO {
 	private static final Logger log = LoggerFactory.getLogger(CarDetailImp.class);
 //	private static final Logger log = Logger.getInstance();
 	private static final String seller_id = "seller_id";
-	private static final String address1 = "address1";
 	private static final String car_name = "car_name";
 	private static final String car_id = "car_id";
 	private static final String car_brand = "car_brand";
-	private static final String address2 = "address2";
-	private static final String pincode = "pincode";
 	private static final String registration_no = "registration_no";
 	private static final String seller_name = "seller_name";
 	private static final String reg_year = "reg_year";
@@ -38,6 +35,7 @@ public class CarOwnerImp implements CarOwnerDAO {
 	private static final String driven_km = "driven_km";
 	private static final String car_available_city = "car_available_city";
 	private static final String vehicle_identification_no = "vehicle_identification_no";
+	private static final String statuss = "status";
 	@Autowired
 	DataSource dataSource;
 	@Autowired
@@ -87,7 +85,7 @@ public class CarOwnerImp implements CarOwnerDAO {
 			 * int row = pst.executeUpdate(); System.out.println(row);
 			 * System.out.println(sql); } catch (SQLException e) { log.error(e); }
 			 */
-			
+
 		} catch (Exception e) {
 			throw new DbException("Registration Failed");
 		}
@@ -120,7 +118,7 @@ public class CarOwnerImp implements CarOwnerDAO {
 		}
 	}
 
-	public List<CarOwner> findBymobileNo(long mobileNo) throws DbException {
+	public List<CarOwner> findCar(long mobileNo) throws DbException {
 		List<CarOwner> al = new ArrayList<CarOwner>();
 		// Connection con=null;
 		// PreparedStatement ps=null;
@@ -150,6 +148,7 @@ public class CarOwnerImp implements CarOwnerDAO {
 					cd.setRegistrationNo(rs.getString(registration_no));
 					cd.setRegYear(rs.getInt(reg_year));
 					cd.setVehicleIdNo(rs.getString(vehicle_identification_no));
+					cd.setStatus(rs.getString(statuss));
 					c.setCarDetail(cd);
 					al.add(c);
 				}
@@ -162,7 +161,7 @@ public class CarOwnerImp implements CarOwnerDAO {
 		return al;
 	}
 
-	public void update(CarOwner carOwner) throws DbException {
+	public void updatePrice(CarOwner carOwner) throws DbException {
 
 		String sql = null;
 		CarDetail cardetail = carOwner.getCarDetail();

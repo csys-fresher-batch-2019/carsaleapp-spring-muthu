@@ -28,7 +28,7 @@ public class TestCarOwner {
 			case 1: {
 				log.getInput("Enter Your Phone Number or sellerID");
 				long mobileno = sc.nextLong();
-				List<CarOwner> al = obj.findBymobileNo(mobileno);
+				List<CarOwner> al = obj.findCar(mobileno);
 				for (CarOwner co : al) {
 					log.info(co.getOwnerName() + "   " + co.getCarDetail().getCarBrand() + "    "
 							+ co.getCarDetail().getCarName() + "   " + co.getOwnerId() + "   "
@@ -60,7 +60,7 @@ public class TestCarOwner {
 						int f = sc.nextInt();
 						cd.setPrice(f);
 						c.setCarDetail(cd);
-						obj.update(c);
+						obj.updatePrice(c);
 						break;
 					}
 					case 2: {
@@ -72,7 +72,7 @@ public class TestCarOwner {
 						log.getInput("Enter your car price");
 						cd.setPrice(sc.nextInt());
 						c.setCarDetail(cd);
-						obj.update(c);
+						obj.updatePrice(c);
 						break;
 
 					}
