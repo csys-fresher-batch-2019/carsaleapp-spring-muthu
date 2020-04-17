@@ -30,25 +30,29 @@ public class UpdateCarPrice extends HttpServlet {
 		CarDetail c = new CarDetail();
 		String carId = request.getParameter("carId");
 		String sellerId = request.getParameter("sellerId");
-		int price1 = Integer.parseInt(price);
-		int carId1 = Integer.parseInt(carId);
-		int sellerId1 = Integer.parseInt(sellerId);
+		String carStatus=request.getParameter("status");
+		int carPrice = Integer.parseInt(price);
+		int carIdt = Integer.parseInt(carId);
+		int sellerIdt = Integer.parseInt(sellerId);
 		System.out.println(carId);
 		System.out.println(sellerId);
 		System.out.println(price);
+		System.out.println(carStatus);
 		// c.setCarId(carId1);
 		// c.setPrice(price1);
 		// c.setCarOwnerId(sellerId1);
 		CarOwner cor = new CarOwner();
 
-		c.setCarId(carId1);
-		c.setPrice(price1);
+		c.setCarId(carIdt);
+		c.setPrice(carPrice);
+		c.setStatus(carStatus);
 		cor.setCarDetail(c);
-		cor.setOwnerId(sellerId1);
+		cor.setOwnerId(sellerIdt);
 		Integer success = 0;
 
 		try {
 			co.updateCarPrice(cor);
+			co.updateStatus(cor);
 			success = 1;
 
 		} catch (Exception e) {

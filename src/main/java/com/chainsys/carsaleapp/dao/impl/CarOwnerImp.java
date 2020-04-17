@@ -65,7 +65,7 @@ public class CarOwnerImp implements CarOwnerDAO {
 	public void save(CarOwner carOwner) throws DbException {
 		// Connection con=null;
 		// PreparedStatement pst=null;
-		String sql = "insert into car_seller(seller_id,seller_name,seller_contact_no,user_password,address1,address2,city,seller_state,pincode,email)values(seller_id_sq.nextval,?,?,?,?,?,?,?,?,?)";
+		String sql = "insert into car_seller(seller_id,seller_name,seller_contact_no,user_password,address1,address2,city,seller_state,pincode,email_id)values(seller_id_sq.nextval,?,?,?,?,?,?,?,?,?)";
 		try {
 			Object[] params = { carOwner.getOwnerName(), carOwner.getContactNo(), carOwner.getPassword(),
 					carOwner.getAddress1(), carOwner.getAddress2(), carOwner.getCity(), carOwner.getState(),
@@ -164,7 +164,7 @@ public class CarOwnerImp implements CarOwnerDAO {
 	public void updatePrice(CarOwner carOwner) throws DbException {
 
 		String sql = null;
-		CarDetail cardetail = carOwner.getCarDetail();
+		CarDetail carDetail = carOwner.getCarDetail();
 		try (Connection con = dataSource.getConnection();) {
 
 			if (carOwner.getOwnerId() != 0) {
@@ -174,20 +174,22 @@ public class CarOwnerImp implements CarOwnerDAO {
 				 * car_seller_id in ( select seller_id from car_seller where seller_contact_no
 				 * ="+carOwner.getcontactNo()+"";
 				 */
-				sql = "update car_detail cd set cd.price=? where car_id =? and car_seller_id=?";
+				sql = "update car_detail  set price=?,status=? where car_id =? and car_seller_id=?";
 				try (PreparedStatement ps = con.prepareStatement(sql);) {
-					ps.setFloat(1, cardetail.getPrice());
-					ps.setInt(2, cardetail.getCarId());
-					ps.setInt(3, carOwner.getOwnerId());
+					ps.setFloat(1, carDetail.getPrice());
+					ps.setString(2,carDetail.getStatus());
+					ps.setInt(3, carDetail.getCarId());
+					ps.setInt(4, carOwner.getOwnerId());
 					int rs = ps.executeUpdate();
 					log.info(rs + "Updated successFully");
 				}
 			} else if (carOwner.getContactNo() != 0) {
-				sql = "update car_detail cd set cd.price=? where car_id =? and car_seller_id in ( select seller_id from car_seller where seller_contact_no =?)";
+				sql = "update car_detail set price=?,status=? where car_id =? and car_seller_id in ( select seller_id from car_seller where seller_contact_no =?)";
 				try (PreparedStatement ps = con.prepareStatement(sql);) {
-					ps.setFloat(1, cardetail.getPrice());
-					ps.setInt(2, cardetail.getCarId());
-					ps.setLong(3, carOwner.getContactNo());
+					ps.setFloat(1, carDetail.getPrice());
+					ps.setString(2,carDetail.getStatus());
+					ps.setInt(3, carDetail.getCarId());
+					ps.setLong(4, carOwner.getContactNo());
 					int rs = ps.executeUpdate();
 					log.info(rs + "Updated successFully");
 				}
@@ -198,6 +200,42 @@ public class CarOwnerImp implements CarOwnerDAO {
 			throw new DbException("unable to retrive");
 		}
 
+	}
+
+	@Override
+	public void updateStatus(CarOwner carOwner) throws DbException {
+		String sql = null;
+		CarDetail carDetail = carOwner.getCarDetail();
+		try (Connection con = dataSource.getConnection();) {
+
+			if (carOwner.getOwnerId() != 0) {
+				/*
+				 * sql = "update car_detail cd set cd.price="+cardetail.getPrice()+"where car_id
+				 * = "+cardetail.getCarId()+" and ( car_seller_id = "+carOwner.getownerId()+" or
+				 * car_seller_id in ( select seller_id from car_seller where seller_contact_no
+				 * ="+carOwner.getcontactNo()+"";
+				 */
+				sql = "update car_order set status=? where car_id =?";
+				try (PreparedStatement ps = con.prepareStatement(sql);) {
+					ps.setString(1,carDetail.getStatus());
+					ps.setInt(2, carDetail.getCarId());
+     				int rs = ps.executeUpdate();
+					log.info(rs + "Updated successFully");
+				}
+			} else if (carOwner.getContactNo() != 0) {
+			       sql = "update car_order set status=? where car_id =?";
+				   try (PreparedStatement ps = con.prepareStatement(sql);) {
+					ps.setString(1,carDetail.getStatus());
+					ps.setInt(2, carDetail.getCarId());
+     				int rs = ps.executeUpdate();
+					log.info(rs + "Updated successFully");
+				}
+			} else {
+				log.info("Failed to Upadate");
+			}
+		} catch (SQLException e) {
+			throw new DbException("unable to retrive");
+		}		
 	}
 
 }

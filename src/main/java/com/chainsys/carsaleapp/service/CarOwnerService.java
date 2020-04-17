@@ -73,4 +73,15 @@ public class CarOwnerService {
 		}
 		
 	}
+	public void updateStatus(CarOwner carOwner)throws ServiceException{
+		try
+		{
+			carOwnerDAO.updateStatus(carOwner);
+		}catch(DbException e)
+		{
+			e.printStackTrace();
+			throw new ServiceException(e);
+		}
+		}
+	
 }

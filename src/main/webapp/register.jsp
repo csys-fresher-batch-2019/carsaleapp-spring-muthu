@@ -13,6 +13,7 @@
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
 	integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
 	crossorigin="anonymous">
+	<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 
 <title>REGISTRATION</title>
 <style>
@@ -29,6 +30,21 @@
 	padding-right: 20px;
 	padding-top: 20px;
 	padding-bottom: 60px;
+}
+body {
+  background-image: url('assets/images/bck.gif');
+   background-repeat: no-repeat;
+    background-attachment: fixed; 
+background-size: 100% 100%;
+}
+.shade
+{
+ box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);
+}
+.container {
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
 }
 </style>
 <script src="js/jquery-3.4.1.min.js"></script>
@@ -85,10 +101,10 @@
 
 	<form action="RegisterServlet" method="post">
 
+<div class="w3-container cent">
 
-
-		<div class="card-desk">
-			<div class="card" style="width: 25rem; height: 32rem">
+		<div class="card-desk container">
+			<div class="card shade" style="width: 25rem; height: 30rem">
 				<h6 class="modal-title">
 					<Span class="orange"> REGISTRATION</Span>
 				</h6>

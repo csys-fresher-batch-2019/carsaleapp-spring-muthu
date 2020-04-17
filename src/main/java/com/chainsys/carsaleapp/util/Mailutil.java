@@ -51,7 +51,7 @@ public class Mailutil {
 
 	private static Multipart messageBody(String Msg) throws MessagingException{ {
 	BodyPart messageBodyPart1 = new MimeBodyPart();  
-	messageBodyPart1.setText("Welcome To RailBook\n");  
+	messageBodyPart1.setText("WELLCOME TO BUYSELL\n");  
 	BodyPart messageBodyPart2 = new MimeBodyPart(); 
 	messageBodyPart2.setText(Msg);
 

@@ -30,6 +30,7 @@
 <script>
 function enableTxt(carId){
 	$("#price_" + carId).removeAttr("disabled");
+	$("#status_"+carId).removeAttr("disabled");
 	}
 function enableText() { 
     $('input').prop('readonly', true); 
@@ -39,7 +40,10 @@ function enableText() {
 function priceUpdate(carId,sellerId){
 	
 	var price = $("#price_" + carId).val();
-	var url = "UpdateCarPrice?price="+price +"&carId="+carId+"&sellerId="+sellerId;
+	console.log(price);
+	var status=$("#status_"+carId).val();
+	console.log(status);
+	var url = "UpdateCarPrice?price="+price +"&status="+status+"&carId="+carId+"&sellerId="+sellerId;
  alert(url);
 	$
 		.get(
@@ -54,6 +58,7 @@ function priceUpdate(carId,sellerId){
 				});
 
 }
+
 </script>
 <body>
 
@@ -94,7 +99,13 @@ function priceUpdate(carId,sellerId){
  --%>
 					<c:forEach items="${totalCar}" var="co">
 						<tr>
-							<td>${co.getCarDetail().getStatus()}</td>
+							<td><select id="status_${co.getCarDetail().getCarId()}"value="${co.getCarDetail().getStatus()}" disabled>
+							<option value="ordered">ordered</option>
+							<option value="order pending">order pending</option>
+							<option value="cancelled">cancelled</option>
+							<option value="shipped">shipped</option>
+							</select>
+							</td>
 							<td>${co.getCarDetail().getCarAvailableCity()}</td>
 							<td>${co.getCarDetail().getCarBrand()}</td>
 							<td>${co.getCarDetail().getCarName()}</td>

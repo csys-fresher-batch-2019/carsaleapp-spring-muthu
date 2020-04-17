@@ -4,11 +4,22 @@
 <jsp:include page="header.jsp"></jsp:include>
 <!DOCTYPE html>
 <html lang="en">
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+	integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+	crossorigin="anonymous">
+	<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title></title>
 </head>
 <style>
+body {
+  background-image: url('assets/images/bck.gif');
+   background-repeat: no-repeat;
+    background-attachment: fixed; 
+background-size: 100% 100%;
+}
 .lable {
 	color: black;
 	padding: 8px;
@@ -20,8 +31,31 @@
 }
 
 .right {
-	float: right
+	float: right;
 }
+.center
+{
+float: center;
+	padding-left: 275px;
+	padding-right: 60px;
+	padding-top: 20px;
+	padding-bottom: 50px;     
+}
+.shade
+{
+ box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);
+}
+.container {
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+}
+input[type=text] {
+  transition: width 0.4s ease-in-out;
+}
+
+
+
 </style>
 <body>
 
@@ -82,61 +116,61 @@
 	</script>
 
 	<Form action="AddCarServlet" method="post" autocomplete="off">
+			<div class="w3-container center">
+				<div class="card-desk" class="container">
+					<div class="card shade" style="width: 50rem; height: 32rem">
 		<table>
 			<tbody>
+				
 				<tr>
-					<th>
-					<td><font color="red"><small>${param.errorMessage}</small></font></td>
-
-				</tr>
-				<tr>
-					<th align="left">Car Name</th>
+					<td align="left">Car Name</td>
 					<td>: <input type="text" name="carName" id="carName"
 						placeholder="Ex:figo" value="${param.carName}" required /></td>
+				<td><font color="red"><small>${param.errorMessage}</small></font></td>
 				</tr>
 				<tr>
-					<th align="left">Car Brand</th>
+					<td align="left">Car Brand</td>
 					<td>: <input type="text" name="carBrand" id="carBrand"
 						placeholder="ford" value="${param.carBrand}" required /></td>
 				</tr>
 				<tr>
-					<th align="left">Transmission Type</th>
+					<td align="left">Transmission Type</td>
 					<td>: <input type="radio" name="tr" value="manual" required>manual<input
 						type="radio" name="tr" value="auto">auto
 					</td>
 				</tr>
 				<tr>
-					<th align="left">Fuel Type</th>
+					<td align="left">Fuel Type</td>
 					<td>: <input type="radio" name="fuel" value="petrol" required>Petrol<input
 						type="radio" name="fuel" value="diesel">Diesel
 					</td>
 				</tr>
 				<tr>
-					<th align="left">Registration State</th>
+					<td align="left">Registration State</td>
 					<td>: <input type="text" name="regState" id="regState"
 						value="${param.regState}" placeholder="Ex:Tamilnadu" required /></td>
 				</tr>
 				<tr>
-					<th align="left">Car Available City</th>
+					<td align="left">Car Available City</td>
 					<td>: <input type="text" name="carAvailableCity"
 						id="carAvailableCity" value="${param.carAvailableCity}"
 						placeholder="Ex:chennai" required /></td>
 				</tr>
 				<tr>
-					<th align="left">Registered Year</th>
+					<td align="left">Registered Year</td>
 					<td>: <input type="number" name="regYear" id="regYear"
 						value="${param.regYear}" placeholder="Ex:2000" required
 						onblur="validateYear(this.value)" /></td>
 				</tr>
 				<tr>
-					<th align="left">Driven Kilometer</th>
+					<td align="left">Driven Kilometer</td>
 					<td>: <input type="number" name="drKm" id="drKm"
 						value="${param.drKm}" maxlength="10" pattern="^[0-9]"
 						title="Enter Km correctly" min="1" placeholder="Ex:DrivenKm"
 						required /></td>
 				</tr>
 				<tr>
-					<th align="left">Registration Number</th>
+					<td align="left">Registration Number</td>
 					<td>: <input type="text" name="regNo" value="${param.regNo}"
 						id="regNo" required placeholder="Ex:TN00NH3433"
 						pattern="[A-Z]{2}[0-9]{2}[A-Z]{2}[0-9]{4}"
@@ -145,7 +179,7 @@
 							class="orange">Ex:TN00NH3433</span></Label></td>
 				</tr>
 				<tr>
-					<th align="left">Vehicle Identification Number</th>
+					<td align="left">Vehicle Identification Number</td>
 					<td>: <input type="text" name="vid" value="${param.vid}"
 						maxLength="17" pattern="[0-9]{1}[A-Z]{4}[0-9]{2}[A-Z]{4}[0-9]{6}"
 						title="need 17 character" id="vid" required
@@ -153,28 +187,32 @@
 					<td><Label for="vid"><span class="orange">Ex:1NNNN11NNNN111111</span></Label></td>
 				</tr>
 				<tr>
-					<th align="left">Price</th>
+					<td align="left">Price</td>
 					<td>: <input type="number" name="price" id="price"
 						value="${param.price}" placeholder="Ex:100000" min=300000
 						pattern="^[0-9]" title="Give valid price" required /></td>
 				</tr>
 				<tr>
-					<th align="">Are You owner</th>
+					<td align="left">Are You owner</td>
 					<td><input type="radio" name="isowner" value=1 required>Yes<input
 						type="radio" name="isowner" value=0>No<br></td>
 				</tr>
 				<tr>
-					<th>Car Image Source</th>
+					<td align="left">Car Image Source</td>
 					<td>: <input type="text" name="image" value="${param.image}"
 						placeholder="image.jpg" /></td>
 				</tr>
 				<tr>
 					<th></th>
-					<td class="right"><button type="submit" onclick="myfunction()"
-							class="btn btn-default login-buton btn-disabled">add</button></td>
+					<td class="right"></td>
 				</tr>
 			</tbody>
 		</table>
+		<button type="submit" onclick="myfunction()"
+							class="w3-button w3-green">add</button>
+		</div>
+		</div>
+		</div>
 	</Form>
 	<script>
 		setYear();
