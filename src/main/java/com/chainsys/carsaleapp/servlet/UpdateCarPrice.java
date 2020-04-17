@@ -53,6 +53,7 @@ public class UpdateCarPrice extends HttpServlet {
 		try {
 			co.updateCarPrice(cor);
 			co.updateStatus(cor);
+			co.mail();
 			success = 1;
 
 		} catch (Exception e) {

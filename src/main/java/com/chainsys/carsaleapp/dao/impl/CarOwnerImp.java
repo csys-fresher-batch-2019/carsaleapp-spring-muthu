@@ -1,5 +1,6 @@
 package com.chainsys.carsaleapp.dao.impl;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -19,6 +20,7 @@ import com.chainsys.carsaleapp.dao.CarOwnerDAO;
 import com.chainsys.carsaleapp.exception.DbException;
 import com.chainsys.carsaleapp.model.CarDetail;
 import com.chainsys.carsaleapp.model.CarOwner;
+import com.chainsys.carsaleapp.util.MailUtil;
 
 @Repository
 public class CarOwnerImp implements CarOwnerDAO {
@@ -69,7 +71,7 @@ public class CarOwnerImp implements CarOwnerDAO {
 		try {
 			Object[] params = { carOwner.getOwnerName(), carOwner.getContactNo(), carOwner.getPassword(),
 					carOwner.getAddress1(), carOwner.getAddress2(), carOwner.getCity(), carOwner.getState(),
-					carOwner.getPincode(),carOwner.getEmail()};
+					carOwner.getPincode(), carOwner.getEmail() };
 			int rows = jdbcTemplate.update(sql, params);
 			System.out.println(rows + "" + sql);
 			/*
@@ -177,7 +179,7 @@ public class CarOwnerImp implements CarOwnerDAO {
 				sql = "update car_detail  set price=?,status=? where car_id =? and car_seller_id=?";
 				try (PreparedStatement ps = con.prepareStatement(sql);) {
 					ps.setFloat(1, carDetail.getPrice());
-					ps.setString(2,carDetail.getStatus());
+					ps.setString(2, carDetail.getStatus());
 					ps.setInt(3, carDetail.getCarId());
 					ps.setInt(4, carOwner.getOwnerId());
 					int rs = ps.executeUpdate();
@@ -187,7 +189,7 @@ public class CarOwnerImp implements CarOwnerDAO {
 				sql = "update car_detail set price=?,status=? where car_id =? and car_seller_id in ( select seller_id from car_seller where seller_contact_no =?)";
 				try (PreparedStatement ps = con.prepareStatement(sql);) {
 					ps.setFloat(1, carDetail.getPrice());
-					ps.setString(2,carDetail.getStatus());
+					ps.setString(2, carDetail.getStatus());
 					ps.setInt(3, carDetail.getCarId());
 					ps.setLong(4, carOwner.getContactNo());
 					int rs = ps.executeUpdate();
@@ -217,17 +219,17 @@ public class CarOwnerImp implements CarOwnerDAO {
 				 */
 				sql = "update car_order set status=? where car_id =?";
 				try (PreparedStatement ps = con.prepareStatement(sql);) {
-					ps.setString(1,carDetail.getStatus());
+					ps.setString(1, carDetail.getStatus());
 					ps.setInt(2, carDetail.getCarId());
-     				int rs = ps.executeUpdate();
+					int rs = ps.executeUpdate();
 					log.info(rs + "Updated successFully");
 				}
 			} else if (carOwner.getContactNo() != 0) {
-			       sql = "update car_order set status=? where car_id =?";
-				   try (PreparedStatement ps = con.prepareStatement(sql);) {
-					ps.setString(1,carDetail.getStatus());
+				sql = "update car_order set status=? where car_id =?";
+				try (PreparedStatement ps = con.prepareStatement(sql);) {
+					ps.setString(1, carDetail.getStatus());
 					ps.setInt(2, carDetail.getCarId());
-     				int rs = ps.executeUpdate();
+					int rs = ps.executeUpdate();
 					log.info(rs + "Updated successFully");
 				}
 			} else {
@@ -235,7 +237,34 @@ public class CarOwnerImp implements CarOwnerDAO {
 			}
 		} catch (SQLException e) {
 			throw new DbException("unable to retrive");
-		}		
+		}
+	}
+
+	/**
+	 * @throws DbException
+	 * @throws IOException
+	 * 
+	 */
+	public void sentMail() throws DbException {
+		String sql = null;
+		sql = "select cs.email_id from  car_seller cs where cs.seller_id=(select u.user_id from car_order u where u.car_id=1001 and status='ordered')";
+		try (Connection con = dataSource.getConnection();
+				PreparedStatement ps = con.prepareStatement(sql);
+				ResultSet rs = ps.executeQuery();) {
+			if (rs.next()) {
+				String mail = rs.getString("email_id");
+				System.out.println(mail);
+				try {
+					MailUtil.send("dontreply1233@gmail.com", "carsaleapp", mail, "THANKU", "hi");
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+					System.out.println("invalid mailid");
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 
 }

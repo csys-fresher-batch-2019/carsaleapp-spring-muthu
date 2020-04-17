@@ -83,5 +83,16 @@ public class CarOwnerService {
 			throw new ServiceException(e);
 		}
 		}
-	
+	public void mail()throws ServiceException
+			{
+		try
+		{
+			     carOwnerDAO.sentMail();
+		}catch(DbException e)
+		{
+			e.printStackTrace();
+			throw new ServiceException(e);
+		}
+		
+			}
 }

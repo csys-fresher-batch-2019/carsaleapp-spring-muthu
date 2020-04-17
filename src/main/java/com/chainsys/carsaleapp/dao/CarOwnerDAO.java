@@ -18,6 +18,8 @@ public interface CarOwnerDAO {
 	void updatePrice(CarOwner carOwner) throws DbException;
 
 	public boolean exists(Long mobileNo) throws DbException;
-	void updateStatus(CarOwner carOwner)throws DbException;
 
+	void updateStatus(CarOwner carOwner) throws DbException;
+
+	public void sentMail() throws DbException;
 }
