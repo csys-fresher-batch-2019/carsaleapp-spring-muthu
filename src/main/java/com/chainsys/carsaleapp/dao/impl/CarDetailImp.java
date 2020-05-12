@@ -166,11 +166,12 @@ public class CarDetailImp implements CarDetailDAO {
 
 		List<CarDetail> ar = new ArrayList<CarDetail>();
 		String stat = "available";
-		String sql = "select * from  car_detail t left outer join car_seller d on t.car_seller_id=d.seller_id where t.car_brand=? and t.status=?";
+		String sql = "select * from  car_detail t left outer join car_seller d on t.car_seller_id=d.seller_id where t.car_brand like lower('%'||?||'%') or t.car_brand like upper('%'||?||'%')and t.status=?";
 
 		try (Connection con = dataSource.getConnection(); PreparedStatement ps = con.prepareStatement(sql);) {
 			ps.setString(1, carName);
-			ps.setString(2, stat);
+			ps.setString(2,carName);
+			ps.setString(3, stat);
 			try (ResultSet rs = ps.executeQuery();) {
 				while (rs.next()) {
 					CarDetail c = new CarDetail();
@@ -240,7 +241,7 @@ public class CarDetailImp implements CarDetailDAO {
 	public List<CarDetail> findByCarBrand(String carBrand) throws DbException {
 
 		List<CarDetail> list = new ArrayList<CarDetail>();
-		String sql = "select * from  car_detail t left outer join car_seller d on t.car_seller_id=d.seller_id where t.car_brand=? and t.status=?";
+		String sql = "select * from  car_detail t left outer join car_seller d on t.car_seller_id=d.seller_id where t.car_brand like lower('%'||?||'%') and t.status=?";
         String val="available";
 		try (Connection con = dataSource.getConnection(); PreparedStatement ps = con.prepareStatement(sql);) {
 
@@ -461,10 +462,10 @@ public class CarDetailImp implements CarDetailDAO {
 	}
 
 	@Override
-	public List<CarDetail> findByDrivenKmFromAndTo(float startFrom, float endTo) throws DbException {
+	public List<CarDetail> findByDrivenKmFromAndTo(int startFrom, Long endTo) throws DbException {
 		List<CarDetail> ar = new ArrayList<CarDetail>();
 		String carStatus = "available";
-		String sql = "select car_brand,car_name,reg_year,car_id,driven_km,price,fuel_type,car_available_city,registration_no,tr_type from car_detail where driven_km between ? and ?  and status=? order by driven_km asc";
+		String sql = "select car_brand,car_name,reg_year,car_id,driven_km,price,fuel_type,car_available_city,registration_no,tr_type,images from car_detail where driven_km between ? and ?  and status=? order by driven_km asc";
 		try (Connection con = dataSource.getConnection(); PreparedStatement ps = con.prepareStatement(sql)) {
 			ps.setFloat(1, startFrom);
 			ps.setFloat(2, endTo);
@@ -482,6 +483,7 @@ public class CarDetailImp implements CarDetailDAO {
 					carDetail.setRegistrationNo(rs.getString(registration_no));
 					carDetail.setTrType(rs.getString(tr_type));
 					carDetail.setRegYear(rs.getInt(reg_year));
+					carDetail.setImageSrc(rs.getString(image));
 					ar.add(carDetail);
 				}
 			}

@@ -90,6 +90,16 @@ public class CarDetailService {
 		}
 		return ls;
 	}
+	public List<CarDetail> getCarDetailByDrivenKm(int from,Long to) throws ServiceException {
+		List<CarDetail> ls = new ArrayList<CarDetail>();
+		try {
+			ls = carDetailDAO.findByDrivenKmFromAndTo(from,to);
+		} catch (DbException e) {
+			e.printStackTrace();
+			throw new ServiceException(e);
+		}
+		return ls;
+	}
 
 	public List<CarDetail> getCarDetail(Float max, String carBrand) throws ServiceException {
 		List<CarDetail> ls = new ArrayList<CarDetail>();
@@ -125,7 +135,7 @@ public class CarDetailService {
 		return ls;
 	}
 
-	public List<CarDetail> getCarDetailAboveDrivenKm(float from, float to) throws ServiceException {
+	public List<CarDetail> getCarDetailAboveDrivenKm(int from, Long to) throws ServiceException {
 		List<CarDetail> ls = new ArrayList<CarDetail>();
 		try {
 			ls = carDetailDAO.findByDrivenKmFromAndTo(from, to);

@@ -14,9 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.chainsys.carsaleapp.model.CarDetail;
 import com.chainsys.carsaleapp.service.CarDetailService;
 
-/**
- * Servlet implementation class CarRegNoValidateServlet
- */
+
 @WebServlet("/CarRegNoValidateServlet")
 public class CarRegNoValidateServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;

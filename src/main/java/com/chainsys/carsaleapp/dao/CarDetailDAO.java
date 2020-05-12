@@ -28,7 +28,7 @@ public interface CarDetailDAO {
 
 	public List<CarDetail> findByBelowPrice(Float min) throws DbException;
 
-	public List<CarDetail> findByDrivenKmFromAndTo(float StartFrom, float endTo) throws DbException;
+	public List<CarDetail> findByDrivenKmFromAndTo(int startFrom, Long endTo) throws DbException;
 
 	public List<CarDetail> findByFuelType(String fuelType) throws DbException;
 

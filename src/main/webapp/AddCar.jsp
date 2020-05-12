@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<jsp:include page="header.jsp"></jsp:include>
+<jsp:include page="Header.jsp"></jsp:include>
 <!DOCTYPE html>
 <html lang="en">
 <link rel="stylesheet"
@@ -86,12 +86,51 @@ input[type=text] {
 
 				//  alert("Data:" + data.length);
 				if (result == 1) {
-					// alert("Your Already Registered");
+					
 					var c = confirm("car is already registered");
-
+					alert(c);
 				}
+				else
+					{
+					validateCarAvailable(regNo);
+					}
 			});
+			
+		}
+		function validateCarAvailable(regNo)
+		{
+			if(regNo!=null && regNo.length==10)
+				{
+			var url="CarAvailableValidateServlet?regNo="+regNo;
+			$.get(url,function(data){
+				console.log("new",+data)
+			var rs=parseInt(data);
+				if(rs==1)
+					{
+					$("#b1").removeAttr("disabled");
+					$("#vId").removeAttr("disabled");
+					$("#trType").removeAttr("disabled");
+					$("#trTyp").removeAttr("disabled");
+					$("#fType").removeAttr("disabled");
+					$("#fTyp").removeAttr("disabled");
+					$("#regState").removeAttr("disabled");
+					$("#carAvailableCity").removeAttr("disabled");
+					$("#regYear").removeAttr("disabled");
+					$("#img").removeAttr("disabled");
+					$("#vOwner").removeAttr("disabled");
+					$("#vOwn").removeAttr("disabled");
+					$("#carAvailableCity").removeAttr("disabled");
+					$("#price").removeAttr("disabled");
+					$("#drKm").removeAttr("disabled");
+					}					
+				else
+					{
+					var con=(" Invalid Registeration number(not availablein rto dataBase)");
+					alert(con)
 
+					}
+			});
+				}
 		}
 
 		function setYear() {
@@ -134,42 +173,6 @@ input[type=text] {
 						placeholder="ford" value="${param.carBrand}" required /></td>
 				</tr>
 				<tr>
-					<td align="left">Transmission Type</td>
-					<td>: <input type="radio" name="tr" value="manual" required>manual<input
-						type="radio" name="tr" value="auto">auto
-					</td>
-				</tr>
-				<tr>
-					<td align="left">Fuel Type</td>
-					<td>: <input type="radio" name="fuel" value="petrol" required>Petrol<input
-						type="radio" name="fuel" value="diesel">Diesel
-					</td>
-				</tr>
-				<tr>
-					<td align="left">Registration State</td>
-					<td>: <input type="text" name="regState" id="regState"
-						value="${param.regState}" placeholder="Ex:Tamilnadu" required /></td>
-				</tr>
-				<tr>
-					<td align="left">Car Available City</td>
-					<td>: <input type="text" name="carAvailableCity"
-						id="carAvailableCity" value="${param.carAvailableCity}"
-						placeholder="Ex:chennai" required /></td>
-				</tr>
-				<tr>
-					<td align="left">Registered Year</td>
-					<td>: <input type="number" name="regYear" id="regYear"
-						value="${param.regYear}" placeholder="Ex:2000" required
-						onblur="validateYear(this.value)" /></td>
-				</tr>
-				<tr>
-					<td align="left">Driven Kilometer</td>
-					<td>: <input type="number" name="drKm" id="drKm"
-						value="${param.drKm}" maxlength="10" pattern="^[0-9]"
-						title="Enter Km correctly" min="1" placeholder="Ex:DrivenKm"
-						required /></td>
-				</tr>
-				<tr>
 					<td align="left">Registration Number</td>
 					<td>: <input type="text" name="regNo" value="${param.regNo}"
 						id="regNo" required placeholder="Ex:TN00NH3433"
@@ -179,27 +182,64 @@ input[type=text] {
 							class="orange">Ex:TN00NH3433</span></Label></td>
 				</tr>
 				<tr>
+					<td align="left">Transmission Type</td>
+					<td>: <input type="radio" name="tr" value="manual" required id="trType" disabled>manual<input
+						type="radio" name="tr" value="auto" id="trTyp" disabled>auto
+					</td>
+				</tr>
+				<tr>
+					<td align="left">Fuel Type</td>
+					<td>: <input type="radio" name="fuel" value="petrol" required id="fType" disabled >Petrol<input
+						type="radio" name="fuel" value="diesel" id="fTyp" disabled>Diesel
+					</td>
+				</tr>
+				<tr>
+					<td align="left">Registration State</td>
+					<td>: <input type="text" name="regState" id="regState" 
+						value="${param.regState}" placeholder="Ex:Tamilnadu" required disabled/></td>
+				</tr>
+				<tr>
+					<td align="left">Car Available City</td>
+					<td>: <input type="text" name="carAvailableCity"
+						id="carAvailableCity" value="${param.carAvailableCity}" disabled
+						placeholder="Ex:chennai" required /></td>
+				</tr>
+				<tr>
+					<td align="left">Registered Year</td>
+					<td>: <input type="number" name="regYear" id="regYear"
+						value="${param.regYear}" placeholder="Ex:2000" required disabled
+						onblur="validateYear(this.value)" /></td>
+				</tr>
+				<tr>
+					<td align="left">Driven Kilometer</td>
+					<td>: <input type="number" name="drKm" id="drKm"
+						value="${param.drKm}" maxlength="10" pattern="^[0-9]"
+						title="Enter Km correctly" min="1" placeholder="Ex:DrivenKm"
+						required  disabled/></td>
+				</tr>
+				
+				<tr>
 					<td align="left">Vehicle Identification Number</td>
-					<td>: <input type="text" name="vid" value="${param.vid}"
+					<td>: <input type="text" name="vid" value="${param.vid}" id="vId"
 						maxLength="17" pattern="[0-9]{1}[A-Z]{4}[0-9]{2}[A-Z]{4}[0-9]{6}"
 						title="need 17 character" id="vid" required
-						placeholder="Ex:1NNNN11NNNN111111" /></td>
+						placeholder="Ex:1NNNN11NNNN111111" disabled/></td>
 					<td><Label for="vid"><span class="orange">Ex:1NNNN11NNNN111111</span></Label></td>
 				</tr>
 				<tr>
 					<td align="left">Price</td>
 					<td>: <input type="number" name="price" id="price"
-						value="${param.price}" placeholder="Ex:100000" min=300000
+						value="${param.price}" placeholder="Ex:100000" min=300000 id="price" disabled
 						pattern="^[0-9]" title="Give valid price" required /></td>
 				</tr>
 				<tr>
 					<td align="left">Are You owner</td>
-					<td><input type="radio" name="isowner" value=1 required>Yes<input
-						type="radio" name="isowner" value=0>No<br></td>
+					<td><input type="radio" name="isowner" value=1 required id="vOwner" disabled/>Yes<input
+						type="radio" name="isowner" id="vOwn" value=0 disabled/>No<br></td>
 				</tr>
 				<tr>
 					<td align="left">Car Image Source</td>
-					<td>: <input type="text" name="image" value="${param.image}"
+					<td>: <input type="text" name="image" value="${param.image}" id="img" disabled
 						placeholder="image.jpg" /></td>
 				</tr>
 				<tr>
@@ -208,8 +248,8 @@ input[type=text] {
 				</tr>
 			</tbody>
 		</table>
-		<button type="submit" onclick="myfunction()"
-							class="w3-button w3-green">add</button>
+		<button type="submit" onclick="myfunction()" id="b1"
+							class="w3-button w3-green" disabled >add</button>
 		</div>
 		</div>
 		</div>

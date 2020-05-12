@@ -38,7 +38,7 @@ public class SearchCarServlet extends HttpServlet {
 			List<CarDetail> lcd = cao.getCarDetailUseCarId(car);
 			System.out.println(lcd.size());
 			request.setAttribute("carDetail", lcd);
-			RequestDispatcher dispatcher = request.getRequestDispatcher("viewFullDetail.jsp");
+			RequestDispatcher dispatcher = request.getRequestDispatcher("ViewFullDetail.jsp");
 			dispatcher.forward(request, response);
 
 		} catch (Exception e) {

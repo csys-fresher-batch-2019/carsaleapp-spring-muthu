@@ -87,6 +87,7 @@ body {
 			<a href="ViewOrderedCarServlet" class="right">MyorderedCars</a>
 			<a href="SearchByPrice.jsp" class="left">SearchBy price</a>
 			<a href="SearchByBrand.jsp" class="left">Search By Brand</a>
+			<a href="searchByDrivenKm.jsp" class="left">search By DrivenKm</a>
 			<%-- <%} %>
  --%>
 		</c:if>

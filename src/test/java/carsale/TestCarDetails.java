@@ -326,9 +326,9 @@ public class TestCarDetails {
 			}
 			case 8: {
 				log.getInput(" Kilometer start FROM:");
-				float start = sc.nextFloat();
+				int start = sc.nextInt();
 				log.getInput("Kilometer End TO:");
-				float end = sc.nextFloat();
+				long end = sc.nextLong();
 				List<CarDetail> ar = co.findByDrivenKmFromAndTo(start, end);
 				for (CarDetail cdr : ar) {
 					log.info(cdr.getCarName() + "    " + cdr.getCarBrand() + "    " + cdr.getTrType() + "  "

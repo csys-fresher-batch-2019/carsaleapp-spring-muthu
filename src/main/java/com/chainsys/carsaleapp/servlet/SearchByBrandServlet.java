@@ -34,7 +34,7 @@ public class SearchByBrandServlet extends HttpServlet {
 			RequestDispatcher dispatcher = request.getRequestDispatcher("SearchByBrand.jsp");
 			dispatcher.forward(request, response);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 		}
 	}

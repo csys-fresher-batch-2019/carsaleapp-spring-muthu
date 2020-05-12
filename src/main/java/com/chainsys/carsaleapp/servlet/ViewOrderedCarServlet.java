@@ -34,11 +34,11 @@ public class ViewOrderedCarServlet extends HttpServlet {
 			List<CarOrder> li = co.getOrderedCar(sellerId);
 			System.out.println("size:" + li.size());
 			request.setAttribute("orderedlist", li);
-			RequestDispatcher dispatcher = request.getRequestDispatcher("viewOrderedCar.jsp");
+			RequestDispatcher dispatcher = request.getRequestDispatcher("ViewOrderedCar.jsp");
 			dispatcher.forward(request, response);
 		} catch (Exception e) {
 			e.printStackTrace();
-			response.sendRedirect("viewOrderedCar.jsp");
+			response.sendRedirect("ViewOrderedCar.jsp");
 		}
 
 	}

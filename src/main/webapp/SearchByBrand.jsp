@@ -4,7 +4,7 @@
 
 <%@page import="java.util.List"%>
 <%@page import="com.chainsys.carsaleapp.model.CarDetail"%>
-<jsp:include page="header.jsp"></jsp:include>
+<jsp:include page="Header.jsp"></jsp:include>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -63,10 +63,12 @@ modal-title {
 <%for(CarDetail cdl:cd)
 	{%>
  --%>
+ <c:choose>
+ <c:when test="${(availableCar!=null) && !empty availableCar}">
 		<c:forEach items="${availableCar}" var="ac">
 			<div class="left">
 				<div class="card-desk" class="left">
-					<div class="card" style="width: 18rem; height: 20rem">
+					<div class="card" style="width: 18rem; height: 25rem">
 						<img src="assets/images/${ac.getImageSrc()}" class="card-img-top"
 							alt="image">
 						<div class="card-body">
@@ -84,6 +86,11 @@ modal-title {
 			<%-- <%}%>
 <%}%> --%>
 		</c:forEach>
+		</c:when>
+		<c:otherwise>
+		<h1>car not available1!!!</h1>
+		</c:otherwise>
+		</c:choose>
 	</form>
 </body>
 </html>

@@ -33,7 +33,7 @@ public class OrderCarServlet extends HttpServlet {
 		try {
 			List<CarDetail> lcd = cao.getCarDetailUseCarId(car);
 			request.setAttribute("cars", lcd);
-			RequestDispatcher dispatcher = request.getRequestDispatcher("order.jsp");
+			RequestDispatcher dispatcher = request.getRequestDispatcher("Order.jsp");
 			dispatcher.forward(request, response);
 		} catch (Exception e) {
 			e.printStackTrace();

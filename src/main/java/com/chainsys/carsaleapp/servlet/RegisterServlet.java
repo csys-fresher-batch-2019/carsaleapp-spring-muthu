@@ -45,12 +45,12 @@ public class RegisterServlet extends HttpServlet {
 		cor.setEmail(email);
 		try {
 			coii.addCarOwner(cor);
-			RequestDispatcher dispatcher = request.getRequestDispatcher("login.jsp");
+			RequestDispatcher dispatcher = request.getRequestDispatcher("Login.jsp");
 			dispatcher.forward(request, response);
 
 		} catch (ServiceException e) {
 			e.printStackTrace();
-			RequestDispatcher dispatcher = request.getRequestDispatcher("register.jsp?errorMessage=" + e.getMessage());
+			RequestDispatcher dispatcher = request.getRequestDispatcher("Register.jsp?errorMessage=" + e.getMessage());
 			dispatcher.forward(request, response);
 
 		}

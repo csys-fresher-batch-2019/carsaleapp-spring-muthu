@@ -67,7 +67,7 @@ public class AddCarServlet extends HttpServlet {
 		} catch (ServiceException e) {
 			System.out.println("Message:" + e.getMessage());
 			e.printStackTrace();
-			RequestDispatcher dispatcher = request.getRequestDispatcher("addCar.jsp?errorMessage=" + e.getMessage());
+			RequestDispatcher dispatcher = request.getRequestDispatcher("AddCar.jsp?errorMessage=" + e.getMessage());
 			dispatcher.forward(request, response);
 
 		}

@@ -4,7 +4,7 @@
 
 <%@page import="java.util.List"%>
 <%@page import="com.chainsys.carsaleapp.model.CarDetail"%>
-<jsp:include page="header.jsp"></jsp:include>
+<jsp:include page="Header.jsp"></jsp:include>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -135,6 +135,8 @@ modal-title {
 <%if(ar!=null){%>
 <%for(CarDetail cdl:ar)
 	{%> --%>
+	<c:choose>
+	<c:when test="${(carList!=null)&& !empty carList}">
 	<c:forEach items="${carList}" var="cl">
 		<div class="left">
 			<div class="card-desk" class="left">
@@ -157,5 +159,10 @@ modal-title {
 <%} %> --%>
 
 	</c:forEach>
+	</c:when>
+	<c:otherwise>
+	<h1>car not available!!!</h1>
+	</c:otherwise>
+	</c:choose>
 </body>
 </html>

@@ -4,7 +4,7 @@
 
 <%@page import="java.util.List"%>
 <%@page import="com.chainsys.carsaleapp.model.CarDetail"%>
-<jsp:include page="header.jsp"></jsp:include>
+<jsp:include page="Header.jsp"></jsp:include>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html lang="en">
 <head>

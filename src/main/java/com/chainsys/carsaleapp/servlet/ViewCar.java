@@ -30,7 +30,7 @@ public class ViewCar extends HttpServlet {
 		try {
 			List<CarOwner> cars = coi.viewYourCar(sellerId);
 			request.setAttribute("totalCar", cars);
-			RequestDispatcher dispatcher = request.getRequestDispatcher("updateCar.jsp");
+			RequestDispatcher dispatcher = request.getRequestDispatcher("UpdateCar.jsp");
 			dispatcher.forward(request, response);
 		} catch (Exception e) {
 			e.printStackTrace();

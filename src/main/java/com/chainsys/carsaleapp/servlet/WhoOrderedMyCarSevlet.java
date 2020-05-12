@@ -31,11 +31,11 @@ public class WhoOrderedMyCarSevlet extends HttpServlet {
 			List<CarOrder> li = co.getOrderedUserCar(sellerId);
 			System.out.println("size:" + li.size());
 			request.setAttribute("orderedlist", li);
-			RequestDispatcher dispatcher = request.getRequestDispatcher("whoOrderedMyCar.jsp");
+			RequestDispatcher dispatcher = request.getRequestDispatcher("WhoOrderedMyCar.jsp");
 			dispatcher.forward(request, response);
 		} catch (Exception e) {
 			e.printStackTrace();
-			RequestDispatcher dispatcher = request.getRequestDispatcher("whoOrderedMyCar.jsp");
+			RequestDispatcher dispatcher = request.getRequestDispatcher("WhoOrderedMyCar.jsp");
 			dispatcher.forward(request, response);
 		}
 
