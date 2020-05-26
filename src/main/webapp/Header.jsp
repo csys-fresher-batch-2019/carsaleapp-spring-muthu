@@ -70,8 +70,8 @@ body {
 	<div class="topnav">
 		<a class="active" href="ViewAllCar">BuYSeLL</a>
 		<c:if test="${sessionScope.login_seller_id==null}">
-			<a href="login.jsp" class="right">Login</a>
-			<a href="register.jsp" class="right">Register</a>
+			<a href="Login.jsp" class="right">Login</a>
+			<a href="Register.jsp" class="right">Register</a>
 		</c:if>
 		<%-- <%} %>
   --%>
@@ -81,13 +81,13 @@ body {
 			<a href="LogoutServlet" class="right">Logout</a>
 			<a class="right"><span class="white">User Id:</span><Span
 				class="orange">${sessionScope.login_seller_id}</Span></a>
-			<a href="addCar.jsp" class="right">AddCars</a>
+			<a href="AddCar.jsp" class="right">AddCars</a>
 			<a href="ViewCar" class="right">ViewMyCars</a>
 			<a href="WhoOrderedMyCarSevlet" class="right">PlacedCars</a>
 			<a href="ViewOrderedCarServlet" class="right">MyorderedCars</a>
 			<a href="SearchByPrice.jsp" class="left">SearchBy price</a>
 			<a href="SearchByBrand.jsp" class="left">Search By Brand</a>
-			<a href="searchByDrivenKm.jsp" class="left">search By DrivenKm</a>
+			<a href="SearchByDrivenKm.jsp" class="left">search By DrivenKm</a>
 			<%-- <%} %>
  --%>
 		</c:if>

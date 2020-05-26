@@ -2,9 +2,11 @@ package com.chainsys.carsaleapp.dao;
 
 import java.util.List;
 
+import org.springframework.stereotype.Repository;
+
 import com.chainsys.carsaleapp.exception.DbException;
 import com.chainsys.carsaleapp.model.CarDetail;
-
+@Repository
 public interface CarDetailDAO {
 	void save(CarDetail carDetail) throws DbException;
 

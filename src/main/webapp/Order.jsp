@@ -70,6 +70,7 @@
 
 		<%-- <c:out value="${ sessionScope.login_seller_id}"></c:out>
  --%>
+ <center>
 		<c:forEach items="${cars}" var="co">
 			<div class="card-desk">
 				<div class="card" style="width: 25rem; height: 33rem">
@@ -156,6 +157,7 @@
 			<%-- <% }%>
 <% }% --%>>
 </c:forEach>
+</center>
 	</form>
 
 </body>

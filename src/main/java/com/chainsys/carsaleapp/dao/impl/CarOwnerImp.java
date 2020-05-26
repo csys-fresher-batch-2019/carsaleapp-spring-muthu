@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.mail.MessagingException;
 import javax.sql.DataSource;
 
 import org.slf4j.Logger;
@@ -20,6 +21,7 @@ import com.chainsys.carsaleapp.dao.CarOwnerDAO;
 import com.chainsys.carsaleapp.exception.DbException;
 import com.chainsys.carsaleapp.model.CarDetail;
 import com.chainsys.carsaleapp.model.CarOwner;
+import com.chainsys.carsaleapp.util.Mail;
 import com.chainsys.carsaleapp.util.MailUtil;
 
 @Repository
@@ -42,6 +44,8 @@ public class CarOwnerImp implements CarOwnerDAO {
 	DataSource dataSource;
 	@Autowired
 	JdbcTemplate jdbcTemplate;
+	@Autowired
+	Mail mn;
 
 	public boolean exists(Long mobileNo) throws DbException {
 		boolean exists = false;
@@ -254,15 +258,14 @@ public class CarOwnerImp implements CarOwnerDAO {
 			if (rs.next()) {
 				String mail = rs.getString("email_id");
 				System.out.println(mail);
-				try {
-					MailUtil.send("dontreply1233@gmail.com", "carsaleapp", mail, "THANKU", "hi");
-				} catch (Exception e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-					System.out.println("invalid mailid");
-				}
+				
+		mn.send(mail, "comfirmation","update");
+				 
 			}
 		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
